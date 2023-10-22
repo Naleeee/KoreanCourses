@@ -1,3 +1,6 @@
 [submodule "3DGameBasics/MidTermExam/FroggerAdventure"]
 	path = 3DGameBasics/MidTermExam/FroggerAdventure
 	url = https://github.com/Naleeee/FroggerAdventure
+[submodule "GameProject/Flare"]
+	path = GameProject/Flare
+	url = https://github.com/MayaHill/Flare
