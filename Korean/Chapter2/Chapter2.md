@@ -4,93 +4,92 @@
 
 | Object (english) | Object (Korean) |
 | ---------------- | --------------- |
-| Picture          |                 |
-| Book             |                 |
-| Mug              |                 |
-| Bread            |                 |
-| Computer         |                 |
-| Steam rice       |                 |
-| Gym              |                 |
-| Dormitory        |                 |
-| Library          |                 |
-| Meat             |                 |
-| Fire             |                 |
-| Ramen            |                 |
+| Picture          | 사진            |
+| Book             | 보              |
+| Mug              | 뮤              |
+| Bread            | 방              |
+| Computer         | 컴퓨타          |
+| Steam rice       | 밥              |
+| Gym              | 체육관          |
+| Dormitory        | 기숙사          |
+| Library          | 도사곽          |
+| Meat             | 고기            |
+| Fire             | 불              |
+| Ramen            | 라멘            |
 
 ### Verbs
 
 | Verb (english)    | Verb (Korean) |
 | ----------------- | ------------- |
-| To go             |               |
-| To eat            |               |
-| To drink          |               |
-| To look           |               |
-| To teach          |               |
-| To learn          |               |
-| To read           |               |
-| To talk           |               |
-| To take a rest    |               |
-| To sit            |               |
-| To sleep          |               |
-| To study          |               |
-| To cook           |               |
-| To sing           |               |
-| To take a shower  |               |
-| To exercise       |               |
-| To meet           |               |
-| To use a computer |               |
-| To take a picture |               |
+| To go             | 가다          |
+| To eat            | 먹다          |
+| To drink          | 마시다        |
+| To look           | 부다          |
+| To teach          | 사르치다      |
+| To learn          | 배우다        |
+| To read           | 읽다          |
+| To talk           | 이야기하다    |
+| To take a rest    | 쉬다          |
+| To sit            | 앉다          |
+| To sleep          | 자다          |
+| To study          | 공부하다      |
+| To cook           | 요리하다      |
+| To sing           | 노래하다      |
+| To take a shower  | 샤와하다      |
+| To exercise       | 운동하다      |
+| To meet           | 마나다        |
+| To use a computer | 컴퓨타하다    |
 
 ### Sentences
 
 - Where are you going ?
--
+- 어디에 가요?
 
 <br />
 
 - What are you doing ?
--
+- 뭐헤요 ?
 
 <br />
 
 - What did you do ?
--
+- 뭐 헸어요 ?
 
 <br/>
 
 # Grammar
 
-### REUL / EUL
+### 를 (REUL) / 을 (EUL)
 
-A noun marked with the particle REUL or EUL is the object of the sentence.
+A noun marked with the particle 를 or 을 is the object of the sentence.
 
-REUL is used when the final letter is a vowel.
+를 is used when the final letter is a vowel.
 
-EUL is used when the final letter is a consonant.
+을 is used when the final letter is a consonant.
 
 #### Examples:
 
-> **_Korea is a country_** will be ""
+> **Bread is a food** will be **토마토를 과일이다**
 
-> **_Bread is a food_** will be ""
+> **Korea is a country** will be **한국은 나라다**
 
 <br/>
 
 ### Present tense
 
-The present tense is split in 3 different groups with specific endings.
+Verbs are splits in 3 different groups with specific endings depending on the tense.
 
-First group contain every verb ending in A or O.
-The ending become AYO.
+First group contain every verb ending in ㅏ or ㅗ.
+The ending become 아요.
 
-Second group contain every other endings except verbs ending in HADA.
-The ending become EOYO.
+Second group contain every other endings except verbs ending in 하다.
+The ending become 어요.
 
-Third group are only for verbs which ends in HADA.
-The ending become HEYO.
+Third group are only for verbs which ends in 하다.
+The ending become 허요.
 
-| Group              | Ending | Verb | Usage |
-| ------------------ | ------ | ---- | ----- |
-| Group 1 - A, O     |        |      |       |
-| Group 2 - EO, U... |        |      |       |
-| Group 3 - HADA     |        |      |       |
+| Group               | Ending | Verb     | Usage   |
+| ------------------- | ------ | -------- | -----   |
+| Group 1 - ㅏ, ㅗ    | 아요    | 마나다   |  만나요  |
+| Group 2 - ㅓ, ㅜ... | 어요    | 먹다     | 먹어요   |
+| Group 3 - 하다      | 해요    | 공부하다 | 공부해요 |
