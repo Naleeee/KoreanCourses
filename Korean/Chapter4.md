@@ -38,8 +38,15 @@
 | In                    | 안                   |
 | Outside               | 밖                   |
 | Between               | 사이                 |
+| Left                  | 왼쪽                 |
+| Right                 | 오른쪽               |
 
-### Numbers
+### Counting system 1
+
+Used for:
+
+- Phone numbers
+- Dates
 
 | Number (english) | Number (Korean) |
 | ---------------- | --------------- |
@@ -121,10 +128,10 @@ This may be used in conjunction with [position nouns](#-Prepositions).
 
 책이 책상 위에 있어요.
 
-> Book is on the desk.
+> The book is on the desk.
 
 책이 의자 위에 없어요.
 
-> Book is not on the chair.
+> The book is not on the chair.
 
 <br/>
