@@ -75,3 +75,17 @@ But in Korean, they must be used accordingly:
 그 refers to an object or person that is closer to the listener.
 
 저 refers to an object or person that is far from both the speaker and listener.
+
+### The ㅡ drop
+
+When verbs ending is ㅡ the conjuge version will update, the ㅡ will drop and replace either by 아 or 어.
+
+If the previous ending is either a ㅏ or ㅗ, the ㅡ is drop and replaced by 아요 ending.
+
+Otherwise the ㅡ is drop and replaced by 어요 ending.
+
+#### Example:
+
+For the verb 바쁘다 the conjuge version will be 바빠요.
+
+For the verb 쓰다 the conjuge version will be 써요.
