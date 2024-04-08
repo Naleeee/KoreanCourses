@@ -14,11 +14,10 @@
 #include "../detail/setup.hpp"
 
 #if GLM_MESSAGES == GLM_ENABLE && !defined(GLM_EXT_INCLUDED)
-#	pragma message("GLM: GLM_EXT_scalar_constants extension included")
+	#pragma message("GLM: GLM_EXT_scalar_constants extension included")
 #endif
 
-namespace glm
-{
+namespace glm {
 	/// @addtogroup ext_scalar_constants
 	/// @{
 

@@ -1,0 +1,9 @@
+*.o
+*.a
+coverage/*
+vgcore*
+unit_tests
+*.gc*
+*.rb
+*.html
+window

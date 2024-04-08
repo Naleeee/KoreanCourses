@@ -17,11 +17,10 @@
 #include "../common.hpp"
 
 #if GLM_MESSAGES == GLM_ENABLE && !defined(GLM_EXT_INCLUDED)
-#	pragma message("GLM: GLM_EXT_scalar_common extension included")
+	#pragma message("GLM: GLM_EXT_scalar_common extension included")
 #endif
 
-namespace glm
-{
+namespace glm {
 	/// @addtogroup ext_scalar_common
 	/// @{
 
@@ -98,6 +97,6 @@ namespace glm
 	GLM_FUNC_DECL T fmax(T a, T b, T C, T D);
 
 	/// @}
-}//namespace glm
+} //namespace glm
 
 #include "scalar_common.inl"

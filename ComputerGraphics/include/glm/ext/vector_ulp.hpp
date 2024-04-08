@@ -20,11 +20,10 @@
 #include "../ext/scalar_ulp.hpp"
 
 #if GLM_MESSAGES == GLM_ENABLE && !defined(GLM_EXT_INCLUDED)
-#	pragma message("GLM: GLM_EXT_vector_ulp extension included")
+	#pragma message("GLM: GLM_EXT_vector_ulp extension included")
 #endif
 
-namespace glm
-{
+namespace glm {
 	/// Return the next ULP value(s) after the input value(s).
 	///
 	/// @tparam L Integer between 1 and 4 included that qualify the dimension of the vector
@@ -33,7 +32,7 @@ namespace glm
 	///
 	/// @see ext_scalar_ulp
 	template<length_t L, typename T, qualifier Q>
-	GLM_FUNC_DECL vec<L, T, Q> next_float(vec<L, T, Q> const& x);
+	GLM_FUNC_DECL vec<L, T, Q> next_float(vec<L, T, Q> const &x);
 
 	/// Return the value(s) ULP distance after the input value(s).
 	///
@@ -43,7 +42,7 @@ namespace glm
 	///
 	/// @see ext_scalar_ulp
 	template<length_t L, typename T, qualifier Q>
-	GLM_FUNC_DECL vec<L, T, Q> next_float(vec<L, T, Q> const& x, int ULPs);
+	GLM_FUNC_DECL vec<L, T, Q> next_float(vec<L, T, Q> const &x, int ULPs);
 
 	/// Return the value(s) ULP distance after the input value(s).
 	///
@@ -53,7 +52,7 @@ namespace glm
 	///
 	/// @see ext_scalar_ulp
 	template<length_t L, typename T, qualifier Q>
-	GLM_FUNC_DECL vec<L, T, Q> next_float(vec<L, T, Q> const& x, vec<L, int, Q> const& ULPs);
+	GLM_FUNC_DECL vec<L, T, Q> next_float(vec<L, T, Q> const &x, vec<L, int, Q> const &ULPs);
 
 	/// Return the previous ULP value(s) before the input value(s).
 	///
@@ -63,7 +62,7 @@ namespace glm
 	///
 	/// @see ext_scalar_ulp
 	template<length_t L, typename T, qualifier Q>
-	GLM_FUNC_DECL vec<L, T, Q> prev_float(vec<L, T, Q> const& x);
+	GLM_FUNC_DECL vec<L, T, Q> prev_float(vec<L, T, Q> const &x);
 
 	/// Return the value(s) ULP distance before the input value(s).
 	///
@@ -73,7 +72,7 @@ namespace glm
 	///
 	/// @see ext_scalar_ulp
 	template<length_t L, typename T, qualifier Q>
-	GLM_FUNC_DECL vec<L, T, Q> prev_float(vec<L, T, Q> const& x, int ULPs);
+	GLM_FUNC_DECL vec<L, T, Q> prev_float(vec<L, T, Q> const &x, int ULPs);
 
 	/// Return the value(s) ULP distance before the input value(s).
 	///
@@ -83,7 +82,7 @@ namespace glm
 	///
 	/// @see ext_scalar_ulp
 	template<length_t L, typename T, qualifier Q>
-	GLM_FUNC_DECL vec<L, T, Q> prev_float(vec<L, T, Q> const& x, vec<L, int, Q> const& ULPs);
+	GLM_FUNC_DECL vec<L, T, Q> prev_float(vec<L, T, Q> const &x, vec<L, int, Q> const &ULPs);
 
 	/// Return the distance in the number of ULP between 2 single-precision floating-point scalars.
 	///
@@ -92,7 +91,8 @@ namespace glm
 	///
 	/// @see ext_scalar_ulp
 	template<length_t L, typename T, qualifier Q>
-	GLM_FUNC_DECL vec<L, int, Q> float_distance(vec<L, float, Q> const& x, vec<L, float, Q> const& y);
+	GLM_FUNC_DECL vec<L, int, Q> float_distance(vec<L, float, Q> const &x,
+												vec<L, float, Q> const &y);
 
 	/// Return the distance in the number of ULP between 2 double-precision floating-point scalars.
 	///
@@ -101,9 +101,10 @@ namespace glm
 	///
 	/// @see ext_scalar_ulp
 	template<length_t L, typename T, qualifier Q>
-	GLM_FUNC_DECL vec<L, int64, Q> float_distance(vec<L, double, Q> const& x, vec<L, double, Q> const& y);
+	GLM_FUNC_DECL vec<L, int64, Q> float_distance(vec<L, double, Q> const &x,
+												  vec<L, double, Q> const &y);
 
 	/// @}
-}//namespace glm
+} //namespace glm
 
 #include "vector_ulp.inl"

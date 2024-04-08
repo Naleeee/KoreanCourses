@@ -20,17 +20,16 @@
 #pragma once
 
 // Dependencies
-#include "../gtc/constants.hpp"
 #include "../geometric.hpp"
-#include "../trigonometric.hpp"
+#include "../gtc/constants.hpp"
 #include "../matrix.hpp"
+#include "../trigonometric.hpp"
 
 #if GLM_MESSAGES == GLM_ENABLE && !defined(GLM_EXT_INCLUDED)
-#	pragma message("GLM: GLM_EXT_matrix_projection extension included")
+	#pragma message("GLM: GLM_EXT_matrix_projection extension included")
 #endif
 
-namespace glm
-{
+namespace glm {
 	/// @addtogroup ext_matrix_projection
 	/// @{
 
@@ -47,8 +46,8 @@ namespace glm
 	///
 	/// @see <a href="https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/gluProject.xml">gluProject man page</a>
 	template<typename T, typename U, qualifier Q>
-	GLM_FUNC_DECL vec<3, T, Q> projectZO(
-		vec<3, T, Q> const& obj, mat<4, 4, T, Q> const& model, mat<4, 4, T, Q> const& proj, vec<4, U, Q> const& viewport);
+	GLM_FUNC_DECL vec<3, T, Q> projectZO(vec<3, T, Q> const &obj, mat<4, 4, T, Q> const &model,
+										 mat<4, 4, T, Q> const &proj, vec<4, U, Q> const &viewport);
 
 	/// Map the specified object coordinates (obj.x, obj.y, obj.z) into window coordinates.
 	/// The near and far clip planes correspond to z normalized device coordinates of -1 and +1 respectively. (OpenGL clip volume definition)
@@ -63,8 +62,8 @@ namespace glm
 	///
 	/// @see <a href="https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/gluProject.xml">gluProject man page</a>
 	template<typename T, typename U, qualifier Q>
-	GLM_FUNC_DECL vec<3, T, Q> projectNO(
-		vec<3, T, Q> const& obj, mat<4, 4, T, Q> const& model, mat<4, 4, T, Q> const& proj, vec<4, U, Q> const& viewport);
+	GLM_FUNC_DECL vec<3, T, Q> projectNO(vec<3, T, Q> const &obj, mat<4, 4, T, Q> const &model,
+										 mat<4, 4, T, Q> const &proj, vec<4, U, Q> const &viewport);
 
 	/// Map the specified object coordinates (obj.x, obj.y, obj.z) into window coordinates using default near and far clip planes definition.
 	/// To change default near and far clip planes definition use GLM_FORCE_DEPTH_ZERO_TO_ONE.
@@ -79,8 +78,8 @@ namespace glm
 	///
 	/// @see <a href="https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/gluProject.xml">gluProject man page</a>
 	template<typename T, typename U, qualifier Q>
-	GLM_FUNC_DECL vec<3, T, Q> project(
-		vec<3, T, Q> const& obj, mat<4, 4, T, Q> const& model, mat<4, 4, T, Q> const& proj, vec<4, U, Q> const& viewport);
+	GLM_FUNC_DECL vec<3, T, Q> project(vec<3, T, Q> const &obj, mat<4, 4, T, Q> const &model,
+									   mat<4, 4, T, Q> const &proj, vec<4, U, Q> const &viewport);
 
 	/// Map the specified window coordinates (win.x, win.y, win.z) into object coordinates.
 	/// The near and far clip planes correspond to z normalized device coordinates of 0 and +1 respectively. (Direct3D clip volume definition)
@@ -95,8 +94,9 @@ namespace glm
 	///
 	/// @see <a href="https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/gluUnProject.xml">gluUnProject man page</a>
 	template<typename T, typename U, qualifier Q>
-	GLM_FUNC_DECL vec<3, T, Q> unProjectZO(
-		vec<3, T, Q> const& win, mat<4, 4, T, Q> const& model, mat<4, 4, T, Q> const& proj, vec<4, U, Q> const& viewport);
+	GLM_FUNC_DECL vec<3, T, Q> unProjectZO(vec<3, T, Q> const &win, mat<4, 4, T, Q> const &model,
+										   mat<4, 4, T, Q> const &proj,
+										   vec<4, U, Q> const &viewport);
 
 	/// Map the specified window coordinates (win.x, win.y, win.z) into object coordinates.
 	/// The near and far clip planes correspond to z normalized device coordinates of -1 and +1 respectively. (OpenGL clip volume definition)
@@ -111,8 +111,9 @@ namespace glm
 	///
 	/// @see <a href="https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/gluUnProject.xml">gluUnProject man page</a>
 	template<typename T, typename U, qualifier Q>
-	GLM_FUNC_DECL vec<3, T, Q> unProjectNO(
-		vec<3, T, Q> const& win, mat<4, 4, T, Q> const& model, mat<4, 4, T, Q> const& proj, vec<4, U, Q> const& viewport);
+	GLM_FUNC_DECL vec<3, T, Q> unProjectNO(vec<3, T, Q> const &win, mat<4, 4, T, Q> const &model,
+										   mat<4, 4, T, Q> const &proj,
+										   vec<4, U, Q> const &viewport);
 
 	/// Map the specified window coordinates (win.x, win.y, win.z) into object coordinates using default near and far clip planes definition.
 	/// To change default near and far clip planes definition use GLM_FORCE_DEPTH_ZERO_TO_ONE.
@@ -127,8 +128,8 @@ namespace glm
 	///
 	/// @see <a href="https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/gluUnProject.xml">gluUnProject man page</a>
 	template<typename T, typename U, qualifier Q>
-	GLM_FUNC_DECL vec<3, T, Q> unProject(
-		vec<3, T, Q> const& win, mat<4, 4, T, Q> const& model, mat<4, 4, T, Q> const& proj, vec<4, U, Q> const& viewport);
+	GLM_FUNC_DECL vec<3, T, Q> unProject(vec<3, T, Q> const &win, mat<4, 4, T, Q> const &model,
+										 mat<4, 4, T, Q> const &proj, vec<4, U, Q> const &viewport);
 
 	/// Define a picking region
 	///
@@ -140,10 +141,10 @@ namespace glm
 	///
 	/// @see <a href="https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/gluPickMatrix.xml">gluPickMatrix man page</a>
 	template<typename T, qualifier Q, typename U>
-	GLM_FUNC_DECL mat<4, 4, T, Q> pickMatrix(
-		vec<2, T, Q> const& center, vec<2, T, Q> const& delta, vec<4, U, Q> const& viewport);
+	GLM_FUNC_DECL mat<4, 4, T, Q> pickMatrix(vec<2, T, Q> const &center, vec<2, T, Q> const &delta,
+											 vec<4, U, Q> const &viewport);
 
 	/// @}
-}//namespace glm
+} //namespace glm
 
 #include "matrix_projection.inl"

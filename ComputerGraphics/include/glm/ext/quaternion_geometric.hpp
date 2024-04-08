@@ -15,16 +15,15 @@
 #pragma once
 
 // Dependency:
-#include "../geometric.hpp"
 #include "../exponential.hpp"
 #include "../ext/vector_relational.hpp"
+#include "../geometric.hpp"
 
 #if GLM_MESSAGES == GLM_ENABLE && !defined(GLM_EXT_INCLUDED)
-#	pragma message("GLM: GLM_EXT_quaternion_geometric extension included")
+	#pragma message("GLM: GLM_EXT_quaternion_geometric extension included")
 #endif
 
-namespace glm
-{
+namespace glm {
 	/// @addtogroup ext_quaternion_geometric
 	/// @{
 
@@ -35,7 +34,7 @@ namespace glm
 	///
 	/// @see ext_quaternion_geometric
 	template<typename T, qualifier Q>
-	GLM_FUNC_DECL T length(qua<T, Q> const& q);
+	GLM_FUNC_DECL T length(qua<T, Q> const &q);
 
 	/// Returns the normalized quaternion.
 	///
@@ -44,7 +43,7 @@ namespace glm
 	///
 	/// @see ext_quaternion_geometric
 	template<typename T, qualifier Q>
-	GLM_FUNC_DECL qua<T, Q> normalize(qua<T, Q> const& q);
+	GLM_FUNC_DECL qua<T, Q> normalize(qua<T, Q> const &q);
 
 	/// Returns dot product of q1 and q2, i.e., q1[0] * q2[0] + q1[1] * q2[1] + ...
 	///
@@ -53,7 +52,7 @@ namespace glm
 	///
 	/// @see ext_quaternion_geometric
 	template<typename T, qualifier Q>
-	GLM_FUNC_DECL T dot(qua<T, Q> const& x, qua<T, Q> const& y);
+	GLM_FUNC_DECL T dot(qua<T, Q> const &x, qua<T, Q> const &y);
 
 	/// Compute a cross product.
 	///
@@ -62,7 +61,7 @@ namespace glm
 	///
 	/// @see ext_quaternion_geometric
 	template<typename T, qualifier Q>
-	GLM_FUNC_QUALIFIER qua<T, Q> cross(qua<T, Q> const& q1, qua<T, Q> const& q2);
+	GLM_FUNC_QUALIFIER qua<T, Q> cross(qua<T, Q> const &q1, qua<T, Q> const &q2);
 
 	/// @}
 } //namespace glm

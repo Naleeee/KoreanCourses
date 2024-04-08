@@ -1,0 +1,35 @@
+Checks: "
+  clang-diagnostic-*,
+  clang-analyzer-*,
+  cppcoreguidelines-*,
+  modernize-*,
+  -clang-diagnostic-error,
+  -clang-diagnostic-return-type-c-linkage,
+  -cppcoreguidelines-avoid-magic-numbers,
+  -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+  -cppcoreguidelines-pro-type-union-access,
+  -cppcoreguidelines-narrowing-conversions,
+  -cppcoreguidelines-prefer-member-initializer,
+  -modernize-use-trailing-return-type,
+  -cppcoreguidelines-macro-usage,
+  -cppcoreguidelines-pro-bounds-pointer-arithmetic,
+  -modernize-return-braced-init-list,
+  -cppcoreguidelines-pro-type-vararg,
+  "
+WarningsAsErrors: true
+HeaderFilterRegex: ""
+AnalyzeTemporaryDtors: false
+FormatStyle: WebKit
+CheckOptions:
+  - { key: cppcoreguidelines-pro-type-cstyle-cast, value: true }
+  - { key: cert-oop54-cpp.WarnOnlyIfThisHasSuspiciousField, value: false }
+  - {
+      key: cppcoreguidelines-explicit-virtual-functions.IgnoreDestructors,
+      value: true,
+    }
+  - { key: modernize-loop-convert.MaxCopySize, value: "16" }
+  - { key: modernize-loop-convert.MinConfidence, value: reasonable }
+  - { key: modernize-loop-convert.NamingStyle, value: CamelCase }
+  - { key: modernize-pass-by-value.IncludeStyle, value: llvm }
+  - { key: modernize-replace-auto-ptr.IncludeStyle, value: llvm }
+  - { key: modernize-use-nullptr.NullMacros, value: "NULL" }

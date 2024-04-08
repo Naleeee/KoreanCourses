@@ -18,24 +18,25 @@
 #include "../detail/qualifier.hpp"
 
 #if GLM_MESSAGES == GLM_ENABLE && !defined(GLM_EXT_INCLUDED)
-#	pragma message("GLM: GLM_EXT_scalar_relational extension included")
+	#pragma message("GLM: GLM_EXT_scalar_relational extension included")
 #endif
 
-namespace glm
-{
+namespace glm {
 	/// Returns the component-wise comparison of |x - y| < epsilon.
 	/// True if this expression is satisfied.
 	///
 	/// @tparam genType Floating-point or integer scalar types
 	template<typename genType>
-	GLM_FUNC_DECL GLM_CONSTEXPR bool equal(genType const& x, genType const& y, genType const& epsilon);
+	GLM_FUNC_DECL GLM_CONSTEXPR bool equal(genType const &x, genType const &y,
+										   genType const &epsilon);
 
 	/// Returns the component-wise comparison of |x - y| >= epsilon.
 	/// True if this expression is not satisfied.
 	///
 	/// @tparam genType Floating-point or integer scalar types
 	template<typename genType>
-	GLM_FUNC_DECL GLM_CONSTEXPR bool notEqual(genType const& x, genType const& y, genType const& epsilon);
+	GLM_FUNC_DECL GLM_CONSTEXPR bool notEqual(genType const &x, genType const &y,
+											  genType const &epsilon);
 
 	/// Returns the component-wise comparison between two scalars in term of ULPs.
 	/// True if this expression is satisfied.
@@ -46,7 +47,7 @@ namespace glm
 	///
 	/// @tparam genType Floating-point or integer scalar types
 	template<typename genType>
-	GLM_FUNC_DECL GLM_CONSTEXPR bool equal(genType const& x, genType const& y, int ULPs);
+	GLM_FUNC_DECL GLM_CONSTEXPR bool equal(genType const &x, genType const &y, int ULPs);
 
 	/// Returns the component-wise comparison between two scalars in term of ULPs.
 	/// True if this expression is not satisfied.
@@ -57,9 +58,9 @@ namespace glm
 	///
 	/// @tparam genType Floating-point or integer scalar types
 	template<typename genType>
-	GLM_FUNC_DECL GLM_CONSTEXPR bool notEqual(genType const& x, genType const& y, int ULPs);
+	GLM_FUNC_DECL GLM_CONSTEXPR bool notEqual(genType const &x, genType const &y, int ULPs);
 
 	/// @}
-}//namespace glm
+} //namespace glm
 
 #include "scalar_relational.inl"

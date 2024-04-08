@@ -19,15 +19,14 @@
 
 // Dependency:
 #include "../common.hpp"
-#include "../trigonometric.hpp"
 #include "../geometric.hpp"
+#include "../trigonometric.hpp"
 
 #if GLM_MESSAGES == GLM_ENABLE && !defined(GLM_EXT_INCLUDED)
-#	pragma message("GLM: GLM_EXT_quaternion_transform extension included")
+	#pragma message("GLM: GLM_EXT_quaternion_transform extension included")
 #endif
 
-namespace glm
-{
+namespace glm {
 	/// @addtogroup ext_quaternion_transform
 	/// @{
 
@@ -40,7 +39,7 @@ namespace glm
 	/// @tparam T Floating-point scalar types
 	/// @tparam Q Value from qualifier enum
 	template<typename T, qualifier Q>
-	GLM_FUNC_DECL qua<T, Q> rotate(qua<T, Q> const& q, T const& angle, vec<3, T, Q> const& axis);
+	GLM_FUNC_DECL qua<T, Q> rotate(qua<T, Q> const &q, T const &angle, vec<3, T, Q> const &axis);
 	/// @}
 } //namespace glm
 

@@ -20,15 +20,15 @@
 #include "../gtc/quaternion.hpp"
 
 #if GLM_MESSAGES == GLM_ENABLE && !defined(GLM_EXT_INCLUDED)
-#	ifndef GLM_ENABLE_EXPERIMENTAL
-#		pragma message("GLM: GLM_GTX_rotate_normalized_axis is an experimental extension and may change in the future. Use #define GLM_ENABLE_EXPERIMENTAL before including it, if you really want to use it.")
-#	else
-#		pragma message("GLM: GLM_GTX_rotate_normalized_axis extension included")
-#	endif
+	#ifndef GLM_ENABLE_EXPERIMENTAL
+		#pragma message(                                                                           \
+				"GLM: GLM_GTX_rotate_normalized_axis is an experimental extension and may change in the future. Use #define GLM_ENABLE_EXPERIMENTAL before including it, if you really want to use it.")
+	#else
+		#pragma message("GLM: GLM_GTX_rotate_normalized_axis extension included")
+	#endif
 #endif
 
-namespace glm
-{
+namespace glm {
 	/// @addtogroup gtx_rotate_normalized_axis
 	/// @{
 
@@ -44,10 +44,8 @@ namespace glm
 	/// @see - rotate(mat<4, 4, T, Q> const& m, T angle, T x, T y, T z)
 	/// @see - rotate(T angle, vec<3, T, Q> const& v)
 	template<typename T, qualifier Q>
-	GLM_FUNC_DECL mat<4, 4, T, Q> rotateNormalizedAxis(
-		mat<4, 4, T, Q> const& m,
-		T const& angle,
-		vec<3, T, Q> const& axis);
+	GLM_FUNC_DECL mat<4, 4, T, Q> rotateNormalizedAxis(mat<4, 4, T, Q> const &m, T const &angle,
+													   vec<3, T, Q> const &axis);
 
 	/// Rotates a quaternion from a vector of 3 components normalized axis and an angle.
 	///
@@ -57,12 +55,10 @@ namespace glm
 	///
 	/// @see gtx_rotate_normalized_axis
 	template<typename T, qualifier Q>
-	GLM_FUNC_DECL qua<T, Q> rotateNormalizedAxis(
-		qua<T, Q> const& q,
-		T const& angle,
-		vec<3, T, Q> const& axis);
+	GLM_FUNC_DECL qua<T, Q> rotateNormalizedAxis(qua<T, Q> const &q, T const &angle,
+												 vec<3, T, Q> const &axis);
 
 	/// @}
-}//namespace glm
+} //namespace glm
 
 #include "rotate_normalized_axis.inl"

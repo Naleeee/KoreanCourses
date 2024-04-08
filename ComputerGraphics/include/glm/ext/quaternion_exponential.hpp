@@ -16,16 +16,15 @@
 
 // Dependency:
 #include "../common.hpp"
-#include "../trigonometric.hpp"
-#include "../geometric.hpp"
 #include "../ext/scalar_constants.hpp"
+#include "../geometric.hpp"
+#include "../trigonometric.hpp"
 
 #if GLM_MESSAGES == GLM_ENABLE && !defined(GLM_EXT_INCLUDED)
-#	pragma message("GLM: GLM_EXT_quaternion_exponential extension included")
+	#pragma message("GLM: GLM_EXT_quaternion_exponential extension included")
 #endif
 
-namespace glm
-{
+namespace glm {
 	/// @addtogroup ext_quaternion_transform
 	/// @{
 
@@ -34,28 +33,28 @@ namespace glm
 	/// @tparam T A floating-point scalar type
 	/// @tparam Q A value from qualifier enum
 	template<typename T, qualifier Q>
-	GLM_FUNC_DECL qua<T, Q> exp(qua<T, Q> const& q);
+	GLM_FUNC_DECL qua<T, Q> exp(qua<T, Q> const &q);
 
 	/// Returns a logarithm of a quaternion
 	///
 	/// @tparam T A floating-point scalar type
 	/// @tparam Q A value from qualifier enum
 	template<typename T, qualifier Q>
-	GLM_FUNC_DECL qua<T, Q> log(qua<T, Q> const& q);
+	GLM_FUNC_DECL qua<T, Q> log(qua<T, Q> const &q);
 
 	/// Returns a quaternion raised to a power.
 	///
 	/// @tparam T A floating-point scalar type
 	/// @tparam Q A value from qualifier enum
 	template<typename T, qualifier Q>
-	GLM_FUNC_DECL qua<T, Q> pow(qua<T, Q> const& q, T y);
+	GLM_FUNC_DECL qua<T, Q> pow(qua<T, Q> const &q, T y);
 
 	/// Returns the square root of a quaternion
 	///
 	/// @tparam T A floating-point scalar type
 	/// @tparam Q A value from qualifier enum
 	template<typename T, qualifier Q>
-	GLM_FUNC_DECL qua<T, Q> sqrt(qua<T, Q> const& q);
+	GLM_FUNC_DECL qua<T, Q> sqrt(qua<T, Q> const &q);
 
 	/// @}
 } //namespace glm

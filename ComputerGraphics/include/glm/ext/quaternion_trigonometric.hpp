@@ -18,18 +18,18 @@
 #pragma once
 
 // Dependency:
-#include "../trigonometric.hpp"
 #include "../exponential.hpp"
+#include "../trigonometric.hpp"
 #include "scalar_constants.hpp"
 #include "vector_relational.hpp"
+
 #include <limits>
 
 #if GLM_MESSAGES == GLM_ENABLE && !defined(GLM_EXT_INCLUDED)
-#	pragma message("GLM: GLM_EXT_quaternion_trigonometric extension included")
+	#pragma message("GLM: GLM_EXT_quaternion_trigonometric extension included")
 #endif
 
-namespace glm
-{
+namespace glm {
 	/// @addtogroup ext_quaternion_trigonometric
 	/// @{
 
@@ -38,14 +38,14 @@ namespace glm
 	/// @tparam T A floating-point scalar type
 	/// @tparam Q A value from qualifier enum
 	template<typename T, qualifier Q>
-	GLM_FUNC_DECL T angle(qua<T, Q> const& x);
+	GLM_FUNC_DECL T angle(qua<T, Q> const &x);
 
 	/// Returns the q rotation axis.
 	///
 	/// @tparam T A floating-point scalar type
 	/// @tparam Q A value from qualifier enum
 	template<typename T, qualifier Q>
-	GLM_FUNC_DECL vec<3, T, Q> axis(qua<T, Q> const& x);
+	GLM_FUNC_DECL vec<3, T, Q> axis(qua<T, Q> const &x);
 
 	/// Build a quaternion from an angle and a normalized axis.
 	///
@@ -55,7 +55,7 @@ namespace glm
 	/// @tparam T A floating-point scalar type
 	/// @tparam Q A value from qualifier enum
 	template<typename T, qualifier Q>
-	GLM_FUNC_DECL qua<T, Q> angleAxis(T const& angle, vec<3, T, Q> const& axis);
+	GLM_FUNC_DECL qua<T, Q> angleAxis(T const &angle, vec<3, T, Q> const &axis);
 
 	/// @}
 } //namespace glm

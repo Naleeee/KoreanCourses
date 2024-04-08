@@ -14,16 +14,15 @@
 #pragma once
 
 // Dependency:
+#include "../detail/qualifier.hpp"
 #include "../ext/scalar_int_sized.hpp"
 #include "../ext/scalar_uint_sized.hpp"
-#include "../detail/qualifier.hpp"
 
 #if GLM_MESSAGES == GLM_ENABLE && !defined(GLM_EXT_INCLUDED)
-#	pragma message("GLM: GLM_GTC_random extension included")
+	#pragma message("GLM: GLM_GTC_random extension included")
 #endif
 
-namespace glm
-{
+namespace glm {
 	/// @addtogroup gtc_random
 	/// @{
 
@@ -44,7 +43,7 @@ namespace glm
 	///
 	/// @see gtc_random
 	template<length_t L, typename T, qualifier Q>
-	GLM_FUNC_DECL vec<L, T, Q> linearRand(vec<L, T, Q> const& Min, vec<L, T, Q> const& Max);
+	GLM_FUNC_DECL vec<L, T, Q> linearRand(vec<L, T, Q> const &Min, vec<L, T, Q> const &Max);
 
 	/// Generate random numbers in the interval [Min, Max], according a gaussian distribution
 	///
@@ -77,6 +76,6 @@ namespace glm
 	GLM_FUNC_DECL vec<3, T, defaultp> ballRand(T Radius);
 
 	/// @}
-}//namespace glm
+} //namespace glm
 
 #include "random.inl"

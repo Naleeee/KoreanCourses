@@ -16,15 +16,15 @@
 #include "../gtc/constants.hpp"
 
 #if GLM_MESSAGES == GLM_ENABLE && !defined(GLM_EXT_INCLUDED)
-#	ifndef GLM_ENABLE_EXPERIMENTAL
-#		pragma message("GLM: GLM_GTX_fast_trigonometry is an experimental extension and may change in the future. Use #define GLM_ENABLE_EXPERIMENTAL before including it, if you really want to use it.")
-#	else
-#		pragma message("GLM: GLM_GTX_fast_trigonometry extension included")
-#	endif
+	#ifndef GLM_ENABLE_EXPERIMENTAL
+		#pragma message(                                                                           \
+				"GLM: GLM_GTX_fast_trigonometry is an experimental extension and may change in the future. Use #define GLM_ENABLE_EXPERIMENTAL before including it, if you really want to use it.")
+	#else
+		#pragma message("GLM: GLM_GTX_fast_trigonometry extension included")
+	#endif
 #endif
 
-namespace glm
-{
+namespace glm {
 	/// @addtogroup gtx_fast_trigonometry
 	/// @{
 
@@ -74,6 +74,6 @@ namespace glm
 	GLM_FUNC_DECL T fastAtan(T angle);
 
 	/// @}
-}//namespace glm
+} //namespace glm
 
 #include "fast_trigonometry.inl"

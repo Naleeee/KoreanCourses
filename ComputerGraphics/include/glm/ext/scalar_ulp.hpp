@@ -16,16 +16,15 @@
 #pragma once
 
 // Dependencies
-#include "../ext/scalar_int_sized.hpp"
 #include "../common.hpp"
 #include "../detail/qualifier.hpp"
+#include "../ext/scalar_int_sized.hpp"
 
 #if GLM_MESSAGES == GLM_ENABLE && !defined(GLM_EXT_INCLUDED)
-#	pragma message("GLM: GLM_EXT_scalar_ulp extension included")
+	#pragma message("GLM: GLM_EXT_scalar_ulp extension included")
 #endif
 
-namespace glm
-{
+namespace glm {
 	/// Return the next ULP value(s) after the input value(s).
 	///
 	/// @tparam genType A floating-point scalar type.
@@ -69,6 +68,6 @@ namespace glm
 	GLM_FUNC_DECL int64 float_distance(double x, double y);
 
 	/// @}
-}//namespace glm
+} //namespace glm
 
 #include "scalar_ulp.inl"

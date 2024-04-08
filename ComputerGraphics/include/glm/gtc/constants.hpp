@@ -16,11 +16,10 @@
 #include "../ext/scalar_constants.hpp"
 
 #if GLM_MESSAGES == GLM_ENABLE && !defined(GLM_EXT_INCLUDED)
-#	pragma message("GLM: GLM_GTC_constants extension included")
+	#pragma message("GLM: GLM_GTC_constants extension included")
 #endif
 
-namespace glm
-{
+namespace glm {
 	/// @addtogroup gtc_constants
 	/// @{
 

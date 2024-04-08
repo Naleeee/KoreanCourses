@@ -14,19 +14,19 @@
 #pragma once
 
 // Dependencies
-#include "../detail/setup.hpp"
-#include "../detail/qualifier.hpp"
-#include "../detail/_vectorize.hpp"
-#include "../vector_relational.hpp"
 #include "../common.hpp"
+#include "../detail/_vectorize.hpp"
+#include "../detail/qualifier.hpp"
+#include "../detail/setup.hpp"
+#include "../vector_relational.hpp"
+
 #include <limits>
 
 #if GLM_MESSAGES == GLM_ENABLE && !defined(GLM_EXT_INCLUDED)
-#	pragma message("GLM: GLM_GTC_integer extension included")
+	#pragma message("GLM: GLM_GTC_integer extension included")
 #endif
 
-namespace glm
-{
+namespace glm {
 	/// @addtogroup gtc_round
 	/// @{
 
@@ -44,7 +44,7 @@ namespace glm
 	///
 	/// @see gtc_round
 	template<length_t L, typename T, qualifier Q>
-	GLM_FUNC_DECL vec<L, bool, Q> isPowerOfTwo(vec<L, T, Q> const& v);
+	GLM_FUNC_DECL vec<L, bool, Q> isPowerOfTwo(vec<L, T, Q> const &v);
 
 	/// Return the power of two number which value is just higher the input value,
 	/// round up to a power of two.
@@ -62,7 +62,7 @@ namespace glm
 	///
 	/// @see gtc_round
 	template<length_t L, typename T, qualifier Q>
-	GLM_FUNC_DECL vec<L, T, Q> ceilPowerOfTwo(vec<L, T, Q> const& v);
+	GLM_FUNC_DECL vec<L, T, Q> ceilPowerOfTwo(vec<L, T, Q> const &v);
 
 	/// Return the power of two number which value is just lower the input value,
 	/// round down to a power of two.
@@ -80,7 +80,7 @@ namespace glm
 	///
 	/// @see gtc_round
 	template<length_t L, typename T, qualifier Q>
-	GLM_FUNC_DECL vec<L, T, Q> floorPowerOfTwo(vec<L, T, Q> const& v);
+	GLM_FUNC_DECL vec<L, T, Q> floorPowerOfTwo(vec<L, T, Q> const &v);
 
 	/// Return the power of two number which value is the closet to the input value.
 	///
@@ -96,7 +96,7 @@ namespace glm
 	///
 	/// @see gtc_round
 	template<length_t L, typename T, qualifier Q>
-	GLM_FUNC_DECL vec<L, T, Q> roundPowerOfTwo(vec<L, T, Q> const& v);
+	GLM_FUNC_DECL vec<L, T, Q> roundPowerOfTwo(vec<L, T, Q> const &v);
 
 	/// Return true if the 'Value' is a multiple of 'Multiple'.
 	///
@@ -112,7 +112,7 @@ namespace glm
 	///
 	/// @see gtc_round
 	template<length_t L, typename T, qualifier Q>
-	GLM_FUNC_DECL vec<L, bool, Q> isMultiple(vec<L, T, Q> const& v, T Multiple);
+	GLM_FUNC_DECL vec<L, bool, Q> isMultiple(vec<L, T, Q> const &v, T Multiple);
 
 	/// Return true if the 'Value' is a multiple of 'Multiple'.
 	///
@@ -122,7 +122,7 @@ namespace glm
 	///
 	/// @see gtc_round
 	template<length_t L, typename T, qualifier Q>
-	GLM_FUNC_DECL vec<L, bool, Q> isMultiple(vec<L, T, Q> const& v, vec<L, T, Q> const& Multiple);
+	GLM_FUNC_DECL vec<L, bool, Q> isMultiple(vec<L, T, Q> const &v, vec<L, T, Q> const &Multiple);
 
 	/// Higher multiple number of Source.
 	///
@@ -146,7 +146,7 @@ namespace glm
 	///
 	/// @see gtc_round
 	template<length_t L, typename T, qualifier Q>
-	GLM_FUNC_DECL vec<L, T, Q> ceilMultiple(vec<L, T, Q> const& v, vec<L, T, Q> const& Multiple);
+	GLM_FUNC_DECL vec<L, T, Q> ceilMultiple(vec<L, T, Q> const &v, vec<L, T, Q> const &Multiple);
 
 	/// Lower multiple number of Source.
 	///
@@ -170,7 +170,7 @@ namespace glm
 	///
 	/// @see gtc_round
 	template<length_t L, typename T, qualifier Q>
-	GLM_FUNC_DECL vec<L, T, Q> floorMultiple(vec<L, T, Q> const& v, vec<L, T, Q> const& Multiple);
+	GLM_FUNC_DECL vec<L, T, Q> floorMultiple(vec<L, T, Q> const &v, vec<L, T, Q> const &Multiple);
 
 	/// Lower multiple number of Source.
 	///
@@ -194,7 +194,7 @@ namespace glm
 	///
 	/// @see gtc_round
 	template<length_t L, typename T, qualifier Q>
-	GLM_FUNC_DECL vec<L, T, Q> roundMultiple(vec<L, T, Q> const& v, vec<L, T, Q> const& Multiple);
+	GLM_FUNC_DECL vec<L, T, Q> roundMultiple(vec<L, T, Q> const &v, vec<L, T, Q> const &Multiple);
 
 	/// @}
 } //namespace glm
