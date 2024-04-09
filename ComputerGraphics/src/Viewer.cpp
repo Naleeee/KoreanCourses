@@ -7,7 +7,7 @@
 #include <iostream>
 
 static float DEFAULT_TRANSLATE_SPEED = 0.5;
-static float DEFAULT_ZOOM_FRACTION = 2.5;
+static float DEFAULT_ZOOM_FRACTION = 6;
 static float DEFAULT_ROTATE_SPEED = 2.0;
 
 using namespace std;

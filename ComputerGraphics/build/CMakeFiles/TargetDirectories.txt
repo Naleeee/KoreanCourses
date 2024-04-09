@@ -1,0 +1,3 @@
+/home/nale/Documents/KoreanCourses/ComputerGraphics/build/CMakeFiles/lab.dir
+/home/nale/Documents/KoreanCourses/ComputerGraphics/build/CMakeFiles/edit_cache.dir
+/home/nale/Documents/KoreanCourses/ComputerGraphics/build/CMakeFiles/rebuild_cache.dir

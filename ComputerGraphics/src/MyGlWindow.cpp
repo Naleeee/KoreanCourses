@@ -3,14 +3,15 @@
 #include "../include/3DUtils.h"
 #include "../include/DrawUtils.h"
 #include "../include/timing.h"
+#include "object.h"
 
 #include <cmath>
 #include <iostream>
+#include <ostream>
 
 static double DEFAULT_VIEW_POINT[3] = {30, 30, 30};
 static double DEFAULT_VIEW_CENTER[3] = {0, 0, 0};
 static double DEFAULT_UP_VECTOR[3] = {0, 1, 0};
-int selected = -1;
 
 void drawStrokeText(char *string, int x, int y, int z)
 {
@@ -51,7 +52,7 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 {
 	mode(FL_RGB | FL_ALPHA | FL_DOUBLE | FL_STENCIL);
 
-	fieldOfView = 45;
+	fieldOfView = 90;
 
 	glm::vec3 viewPoint(DEFAULT_VIEW_POINT[0], DEFAULT_VIEW_POINT[1], DEFAULT_VIEW_POINT[2]);
 	glm::vec3 viewCenter(DEFAULT_VIEW_CENTER[0], DEFAULT_VIEW_CENTER[1], DEFAULT_VIEW_CENTER[2]);
@@ -61,8 +62,13 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 	m_viewer = new Viewer(viewPoint, viewCenter, upVector, 45.0f, aspect);
 
 	//	glutInit(0,0);
+	auto *moverA = new Mover(cyclone::Vector3(0.0f, 20.0f, 0.0f));
+	auto *moverB = new Mover(cyclone::Vector3(0.0f, 20.0f, 5.0f));
 
-	mover = new Mover();
+	movables.push_back(moverA);
+	movables.push_back(moverB);
+
+	movableLinks = new MoverConnection(moverA, moverB);
 
 	TimingData::init();
 	run = 0;
@@ -161,7 +167,11 @@ void MyGlWindow::draw()
 	// draw shadow
 	setupShadows();
 	glColor3f(0.1f, 0.1f, 0.1f);
-	mover->draw(1);
+
+	for (Mover *mover : movables) {
+		mover->draw(1);
+	}
+
 	unsetupShadows();
 
 	glEnable(GL_LIGHTING);
@@ -169,7 +179,13 @@ void MyGlWindow::draw()
 	// draw objects
 	glPushMatrix();
 	glColor3f(1, 0, 0);
-	mover->draw(0);
+
+	for (Mover *mover : movables) {
+		mover->draw(0);
+	}
+
+	movableLinks->draw(0);
+
 	glPopMatrix();
 
 	////////////////////
@@ -183,7 +199,9 @@ void MyGlWindow::draw()
 
 void MyGlWindow::test()
 {
-	mover->resetParameters();
+	for (Mover *mover : movables) {
+		mover->resetParameters(cyclone::Vector3(0.0f, 20.0f, 0.0f));
+	}
 }
 
 void MyGlWindow::update()
@@ -195,7 +213,9 @@ void MyGlWindow::update()
 
 	float duration = (float)TimingData::get().lastFrameDuration * 0.003f;
 
-	mover->update(duration);
+	for (Mover *mover : movables) {
+		mover->update(duration);
+	}
 }
 
 void MyGlWindow::doPick()
@@ -224,11 +244,18 @@ void MyGlWindow::doPick()
 	glInitNames();
 	glPushName(0);
 
-	for (int i = 0; i < mover->size; i++) {
+	for (int i = 0; i < movables.size(); i++) {
 		glLoadName(i + 1);
 
-		mover[i].draw(0);
+		movables[i]->draw(0);
 	}
+
+	// for (int i = 0; i < mover->size; i++) {
+	// 	glLoadName(i + 1);
+	//
+	// 	moverB[i].draw(0);
+	// }
+
 	// draw the cubes, loading the names as we go
 	// for (size_t i = 0; i < world->points.size(); ++i) {
 	//	glLoadName((GLuint)(i + 1));
@@ -243,12 +270,11 @@ void MyGlWindow::doPick()
 		// one - see the OpenGL manual
 		// remember: we load names that are one more than the index
 		// selectedCube = buf[3] - 1;
+
 		selected = buf[3] - 1;
 	} else { // nothing hit, nothing selected
 		selected = -1;
-		// selectedCube = -1;
 	}
-	// printf("Selected Cube %d\n", selectedCube);
 }
 
 void MyGlWindow::setProjection(int clearProjection)
@@ -278,7 +304,7 @@ static int last_push;
 int m_pressedMouseButton;
 int m_lastMouseX;
 int m_lastMouseY;
-cyclone::Vector3 initialPos;
+// cyclone::Vector3 initialPos;
 
 int MyGlWindow::handle(int e)
 //==========================================================================
@@ -295,7 +321,7 @@ int MyGlWindow::handle(int e)
 				std::cout << "Clicking" << std::endl;
 				doPick();
 				if (selected >= 0) {
-					initialPos = mover[selected].m_particle->getPosition();
+					initialPos = movables[selected]->m_particle->getPosition();
 					std::cout << "picked" << std::endl;
 				}
 				damage(1);
@@ -308,16 +334,15 @@ int MyGlWindow::handle(int e)
 		case FL_RELEASE:
 			m_pressedMouseButton = -1;
 			if (selected >= 0) {
-				cyclone::Vector3 finalPos = mover[selected].m_particle->getPosition();
+				cyclone::Vector3 finalPos = movables[selected]->m_particle->getPosition();
 				cyclone::Vector3 newVelocity = finalPos - initialPos;
-				std::cout << "Initial Position: X[" << initialPos.x << "] Y[" << initialPos.y
-						  << "] Z[" << initialPos.z << "]" << std::endl;
-				std::cout << "Final Position: X[" << finalPos.x << "] Y[" << finalPos.y << "] Z["
-						  << finalPos.z << "]" << std::endl;
-				std::cout << "New Velocity: X[" << newVelocity.x << "] Y[" << newVelocity.y
-						  << "] Z[" << newVelocity.z << "]" << std::endl;
-				mover[selected].m_particle->addForce(newVelocity * 10);
-				// mover[selected].m_particle->setVelocity(newVelocity);
+				// std::cout << "Initial Position: X[" << mover.initialPos.x << "] Y["
+				// 		  << mover.initialPos.y << "] Z[" << mover.initialPos.z << "]" << std::endl;
+				// std::cout << "Final Position: X[" << finalPos.x << "] Y[" << finalPos.y << "] Z["
+				// 		  << finalPos.z << "]" << std::endl;
+				// std::cout << "New Velocity: X[" << newVelocity.x << "] Y[" << newVelocity.y
+				// << "] Z[" << newVelocity.z << "]" << std::endl;
+				movables[selected]->m_particle->setVelocity(newVelocity);
 				run = 1;
 				selected = -1;
 			}
@@ -331,17 +356,18 @@ int MyGlWindow::handle(int e)
 				static_cast<float>(m_lastMouseY - Fl::event_y()) / static_cast<float>(this->h());
 
 			if (selected >= 0 && m_pressedMouseButton == 1) {
+				std::cout << "Selected" << std::endl;
 				double r1x = NAN, r1y = NAN, r1z = NAN, r2x = NAN, r2y = NAN, r2z = NAN;
 				getMouseLine(r1x, r1y, r1z, r2x, r2y, r2z);
 				double rx = NAN, ry = NAN, rz = NAN;
 				mousePoleGo(r1x, r1y, r1z, r2x, r2y, r2z,
-							static_cast<double>(mover[selected].m_particle->getPosition().x),
-							static_cast<double>(mover[selected].m_particle->getPosition().y),
-							static_cast<double>(mover[selected].m_particle->getPosition().z), rx,
-							ry, rz, (Fl::event_state() & FL_CTRL) != 0);
-				mover[selected].m_particle->setPosition(rx, ry, rz);
-				std::cout << "Current Position: X[" << rx << "] Y[" << ry << "] Z[" << rz << "]"
-						  << std::endl;
+							static_cast<double>(movables[selected]->m_particle->getPosition().x),
+							static_cast<double>(movables[selected]->m_particle->getPosition().y),
+							static_cast<double>(movables[selected]->m_particle->getPosition().z),
+							rx, ry, rz, (Fl::event_state() & FL_CTRL) != 0);
+				movables[selected]->m_particle->setPosition(rx, ry, rz);
+				// std::cout << "Current Position: X[" << rx << "] Y[" << ry << "] Z[" << rz << "]"
+				// << std::endl;
 				damage(1);
 			} else if (m_pressedMouseButton == 1) {
 				m_viewer->rotate(fractionChangeX, fractionChangeY);

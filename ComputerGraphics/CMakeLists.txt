@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.8)
 
-project("window" VERSION 0.0.1 LANGUAGES CXX)
+project("lab" VERSION 0.0.1 LANGUAGES CXX)
 
 option(SHARED_LIBGCC "Shared Libgcc" ON)
 
@@ -10,8 +10,8 @@ option(SHARED_LIBGCC "Shared Libgcc" ON)
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/../)
 
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_CXX_STANDARD 17)
+# set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -ggdb3")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -m32")
@@ -47,6 +47,7 @@ set(PROJECT_SOURCES
     src/DrawUtils.cpp
     src/MMatrix.cpp
     src/MyGlWindow.cpp
+		src/MySpring.cpp
     src/object.cpp
     src/stdafx.cpp
     src/timing.cpp

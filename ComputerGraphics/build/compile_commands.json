@@ -1,0 +1,146 @@
+[
+{
+  "directory": "/home/nale/Documents/KoreanCourses/ComputerGraphics/build",
+  "command": "/usr/bin/clang++ -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/Cyclone -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/FL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/GL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/glm -O3 -DNDEBUG -m32 -lGL -lfltk -lfltk_gl -lGLU -std=gnu++17 -o CMakeFiles/lab.dir/src/main.cpp.o -c /home/nale/Documents/KoreanCourses/ComputerGraphics/src/main.cpp",
+  "file": "/home/nale/Documents/KoreanCourses/ComputerGraphics/src/main.cpp",
+  "output": "CMakeFiles/lab.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/nale/Documents/KoreanCourses/ComputerGraphics/build",
+  "command": "/usr/bin/clang++ -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/Cyclone -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/FL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/GL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/glm -O3 -DNDEBUG -m32 -lGL -lfltk -lfltk_gl -lGLU -std=gnu++17 -o CMakeFiles/lab.dir/src/Cyclone/body.cpp.o -c /home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/body.cpp",
+  "file": "/home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/body.cpp",
+  "output": "CMakeFiles/lab.dir/src/Cyclone/body.cpp.o"
+},
+{
+  "directory": "/home/nale/Documents/KoreanCourses/ComputerGraphics/build",
+  "command": "/usr/bin/clang++ -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/Cyclone -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/FL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/GL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/glm -O3 -DNDEBUG -m32 -lGL -lfltk -lfltk_gl -lGLU -std=gnu++17 -o CMakeFiles/lab.dir/src/Cyclone/collide_coarse.cpp.o -c /home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/collide_coarse.cpp",
+  "file": "/home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/collide_coarse.cpp",
+  "output": "CMakeFiles/lab.dir/src/Cyclone/collide_coarse.cpp.o"
+},
+{
+  "directory": "/home/nale/Documents/KoreanCourses/ComputerGraphics/build",
+  "command": "/usr/bin/clang++ -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/Cyclone -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/FL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/GL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/glm -O3 -DNDEBUG -m32 -lGL -lfltk -lfltk_gl -lGLU -std=gnu++17 -o CMakeFiles/lab.dir/src/Cyclone/collide_fine.cpp.o -c /home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/collide_fine.cpp",
+  "file": "/home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/collide_fine.cpp",
+  "output": "CMakeFiles/lab.dir/src/Cyclone/collide_fine.cpp.o"
+},
+{
+  "directory": "/home/nale/Documents/KoreanCourses/ComputerGraphics/build",
+  "command": "/usr/bin/clang++ -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/Cyclone -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/FL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/GL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/glm -O3 -DNDEBUG -m32 -lGL -lfltk -lfltk_gl -lGLU -std=gnu++17 -o CMakeFiles/lab.dir/src/Cyclone/contacts.cpp.o -c /home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/contacts.cpp",
+  "file": "/home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/contacts.cpp",
+  "output": "CMakeFiles/lab.dir/src/Cyclone/contacts.cpp.o"
+},
+{
+  "directory": "/home/nale/Documents/KoreanCourses/ComputerGraphics/build",
+  "command": "/usr/bin/clang++ -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/Cyclone -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/FL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/GL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/glm -O3 -DNDEBUG -m32 -lGL -lfltk -lfltk_gl -lGLU -std=gnu++17 -o CMakeFiles/lab.dir/src/Cyclone/core.cpp.o -c /home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/core.cpp",
+  "file": "/home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/core.cpp",
+  "output": "CMakeFiles/lab.dir/src/Cyclone/core.cpp.o"
+},
+{
+  "directory": "/home/nale/Documents/KoreanCourses/ComputerGraphics/build",
+  "command": "/usr/bin/clang++ -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/Cyclone -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/FL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/GL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/glm -O3 -DNDEBUG -m32 -lGL -lfltk -lfltk_gl -lGLU -std=gnu++17 -o CMakeFiles/lab.dir/src/Cyclone/fgen.cpp.o -c /home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/fgen.cpp",
+  "file": "/home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/fgen.cpp",
+  "output": "CMakeFiles/lab.dir/src/Cyclone/fgen.cpp.o"
+},
+{
+  "directory": "/home/nale/Documents/KoreanCourses/ComputerGraphics/build",
+  "command": "/usr/bin/clang++ -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/Cyclone -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/FL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/GL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/glm -O3 -DNDEBUG -m32 -lGL -lfltk -lfltk_gl -lGLU -std=gnu++17 -o CMakeFiles/lab.dir/src/Cyclone/joints.cpp.o -c /home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/joints.cpp",
+  "file": "/home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/joints.cpp",
+  "output": "CMakeFiles/lab.dir/src/Cyclone/joints.cpp.o"
+},
+{
+  "directory": "/home/nale/Documents/KoreanCourses/ComputerGraphics/build",
+  "command": "/usr/bin/clang++ -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/Cyclone -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/FL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/GL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/glm -O3 -DNDEBUG -m32 -lGL -lfltk -lfltk_gl -lGLU -std=gnu++17 -o CMakeFiles/lab.dir/src/Cyclone/particle.cpp.o -c /home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/particle.cpp",
+  "file": "/home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/particle.cpp",
+  "output": "CMakeFiles/lab.dir/src/Cyclone/particle.cpp.o"
+},
+{
+  "directory": "/home/nale/Documents/KoreanCourses/ComputerGraphics/build",
+  "command": "/usr/bin/clang++ -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/Cyclone -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/FL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/GL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/glm -O3 -DNDEBUG -m32 -lGL -lfltk -lfltk_gl -lGLU -std=gnu++17 -o CMakeFiles/lab.dir/src/Cyclone/pcontacts.cpp.o -c /home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/pcontacts.cpp",
+  "file": "/home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/pcontacts.cpp",
+  "output": "CMakeFiles/lab.dir/src/Cyclone/pcontacts.cpp.o"
+},
+{
+  "directory": "/home/nale/Documents/KoreanCourses/ComputerGraphics/build",
+  "command": "/usr/bin/clang++ -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/Cyclone -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/FL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/GL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/glm -O3 -DNDEBUG -m32 -lGL -lfltk -lfltk_gl -lGLU -std=gnu++17 -o CMakeFiles/lab.dir/src/Cyclone/pfgen.cpp.o -c /home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/pfgen.cpp",
+  "file": "/home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/pfgen.cpp",
+  "output": "CMakeFiles/lab.dir/src/Cyclone/pfgen.cpp.o"
+},
+{
+  "directory": "/home/nale/Documents/KoreanCourses/ComputerGraphics/build",
+  "command": "/usr/bin/clang++ -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/Cyclone -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/FL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/GL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/glm -O3 -DNDEBUG -m32 -lGL -lfltk -lfltk_gl -lGLU -std=gnu++17 -o CMakeFiles/lab.dir/src/Cyclone/plinks.cpp.o -c /home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/plinks.cpp",
+  "file": "/home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/plinks.cpp",
+  "output": "CMakeFiles/lab.dir/src/Cyclone/plinks.cpp.o"
+},
+{
+  "directory": "/home/nale/Documents/KoreanCourses/ComputerGraphics/build",
+  "command": "/usr/bin/clang++ -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/Cyclone -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/FL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/GL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/glm -O3 -DNDEBUG -m32 -lGL -lfltk -lfltk_gl -lGLU -std=gnu++17 -o CMakeFiles/lab.dir/src/Cyclone/pworld.cpp.o -c /home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/pworld.cpp",
+  "file": "/home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/pworld.cpp",
+  "output": "CMakeFiles/lab.dir/src/Cyclone/pworld.cpp.o"
+},
+{
+  "directory": "/home/nale/Documents/KoreanCourses/ComputerGraphics/build",
+  "command": "/usr/bin/clang++ -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/Cyclone -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/FL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/GL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/glm -O3 -DNDEBUG -m32 -lGL -lfltk -lfltk_gl -lGLU -std=gnu++17 -o CMakeFiles/lab.dir/src/Cyclone/random.cpp.o -c /home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/random.cpp",
+  "file": "/home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/random.cpp",
+  "output": "CMakeFiles/lab.dir/src/Cyclone/random.cpp.o"
+},
+{
+  "directory": "/home/nale/Documents/KoreanCourses/ComputerGraphics/build",
+  "command": "/usr/bin/clang++ -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/Cyclone -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/FL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/GL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/glm -O3 -DNDEBUG -m32 -lGL -lfltk -lfltk_gl -lGLU -std=gnu++17 -o CMakeFiles/lab.dir/src/Cyclone/world.cpp.o -c /home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/world.cpp",
+  "file": "/home/nale/Documents/KoreanCourses/ComputerGraphics/src/Cyclone/world.cpp",
+  "output": "CMakeFiles/lab.dir/src/Cyclone/world.cpp.o"
+},
+{
+  "directory": "/home/nale/Documents/KoreanCourses/ComputerGraphics/build",
+  "command": "/usr/bin/clang++ -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/Cyclone -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/FL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/GL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/glm -O3 -DNDEBUG -m32 -lGL -lfltk -lfltk_gl -lGLU -std=gnu++17 -o CMakeFiles/lab.dir/src/3DUtils.cpp.o -c /home/nale/Documents/KoreanCourses/ComputerGraphics/src/3DUtils.cpp",
+  "file": "/home/nale/Documents/KoreanCourses/ComputerGraphics/src/3DUtils.cpp",
+  "output": "CMakeFiles/lab.dir/src/3DUtils.cpp.o"
+},
+{
+  "directory": "/home/nale/Documents/KoreanCourses/ComputerGraphics/build",
+  "command": "/usr/bin/clang++ -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/Cyclone -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/FL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/GL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/glm -O3 -DNDEBUG -m32 -lGL -lfltk -lfltk_gl -lGLU -std=gnu++17 -o CMakeFiles/lab.dir/src/DrawUtils.cpp.o -c /home/nale/Documents/KoreanCourses/ComputerGraphics/src/DrawUtils.cpp",
+  "file": "/home/nale/Documents/KoreanCourses/ComputerGraphics/src/DrawUtils.cpp",
+  "output": "CMakeFiles/lab.dir/src/DrawUtils.cpp.o"
+},
+{
+  "directory": "/home/nale/Documents/KoreanCourses/ComputerGraphics/build",
+  "command": "/usr/bin/clang++ -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/Cyclone -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/FL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/GL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/glm -O3 -DNDEBUG -m32 -lGL -lfltk -lfltk_gl -lGLU -std=gnu++17 -o CMakeFiles/lab.dir/src/MMatrix.cpp.o -c /home/nale/Documents/KoreanCourses/ComputerGraphics/src/MMatrix.cpp",
+  "file": "/home/nale/Documents/KoreanCourses/ComputerGraphics/src/MMatrix.cpp",
+  "output": "CMakeFiles/lab.dir/src/MMatrix.cpp.o"
+},
+{
+  "directory": "/home/nale/Documents/KoreanCourses/ComputerGraphics/build",
+  "command": "/usr/bin/clang++ -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/Cyclone -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/FL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/GL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/glm -O3 -DNDEBUG -m32 -lGL -lfltk -lfltk_gl -lGLU -std=gnu++17 -o CMakeFiles/lab.dir/src/MyGlWindow.cpp.o -c /home/nale/Documents/KoreanCourses/ComputerGraphics/src/MyGlWindow.cpp",
+  "file": "/home/nale/Documents/KoreanCourses/ComputerGraphics/src/MyGlWindow.cpp",
+  "output": "CMakeFiles/lab.dir/src/MyGlWindow.cpp.o"
+},
+{
+  "directory": "/home/nale/Documents/KoreanCourses/ComputerGraphics/build",
+  "command": "/usr/bin/clang++ -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/Cyclone -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/FL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/GL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/glm -O3 -DNDEBUG -m32 -lGL -lfltk -lfltk_gl -lGLU -std=gnu++17 -o CMakeFiles/lab.dir/src/MySpring.cpp.o -c /home/nale/Documents/KoreanCourses/ComputerGraphics/src/MySpring.cpp",
+  "file": "/home/nale/Documents/KoreanCourses/ComputerGraphics/src/MySpring.cpp",
+  "output": "CMakeFiles/lab.dir/src/MySpring.cpp.o"
+},
+{
+  "directory": "/home/nale/Documents/KoreanCourses/ComputerGraphics/build",
+  "command": "/usr/bin/clang++ -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/Cyclone -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/FL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/GL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/glm -O3 -DNDEBUG -m32 -lGL -lfltk -lfltk_gl -lGLU -std=gnu++17 -o CMakeFiles/lab.dir/src/object.cpp.o -c /home/nale/Documents/KoreanCourses/ComputerGraphics/src/object.cpp",
+  "file": "/home/nale/Documents/KoreanCourses/ComputerGraphics/src/object.cpp",
+  "output": "CMakeFiles/lab.dir/src/object.cpp.o"
+},
+{
+  "directory": "/home/nale/Documents/KoreanCourses/ComputerGraphics/build",
+  "command": "/usr/bin/clang++ -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/Cyclone -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/FL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/GL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/glm -O3 -DNDEBUG -m32 -lGL -lfltk -lfltk_gl -lGLU -std=gnu++17 -o CMakeFiles/lab.dir/src/stdafx.cpp.o -c /home/nale/Documents/KoreanCourses/ComputerGraphics/src/stdafx.cpp",
+  "file": "/home/nale/Documents/KoreanCourses/ComputerGraphics/src/stdafx.cpp",
+  "output": "CMakeFiles/lab.dir/src/stdafx.cpp.o"
+},
+{
+  "directory": "/home/nale/Documents/KoreanCourses/ComputerGraphics/build",
+  "command": "/usr/bin/clang++ -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/Cyclone -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/FL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/GL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/glm -O3 -DNDEBUG -m32 -lGL -lfltk -lfltk_gl -lGLU -std=gnu++17 -o CMakeFiles/lab.dir/src/timing.cpp.o -c /home/nale/Documents/KoreanCourses/ComputerGraphics/src/timing.cpp",
+  "file": "/home/nale/Documents/KoreanCourses/ComputerGraphics/src/timing.cpp",
+  "output": "CMakeFiles/lab.dir/src/timing.cpp.o"
+},
+{
+  "directory": "/home/nale/Documents/KoreanCourses/ComputerGraphics/build",
+  "command": "/usr/bin/clang++ -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/Cyclone -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/FL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/GL -I/home/nale/Documents/KoreanCourses/ComputerGraphics/include/glm -O3 -DNDEBUG -m32 -lGL -lfltk -lfltk_gl -lGLU -std=gnu++17 -o CMakeFiles/lab.dir/src/Viewer.cpp.o -c /home/nale/Documents/KoreanCourses/ComputerGraphics/src/Viewer.cpp",
+  "file": "/home/nale/Documents/KoreanCourses/ComputerGraphics/src/Viewer.cpp",
+  "output": "CMakeFiles/lab.dir/src/Viewer.cpp.o"
+}
+]
