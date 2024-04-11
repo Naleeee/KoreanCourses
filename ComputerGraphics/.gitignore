@@ -6,4 +6,5 @@ unit_tests
 *.gc*
 *.rb
 *.html
-window
+lab
+.cache
