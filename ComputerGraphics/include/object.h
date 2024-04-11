@@ -3,6 +3,7 @@
 #include "./Cyclone/core.h"
 #include "./Cyclone/particle.h"
 #include "./Cyclone/pfgen.h"
+#include "./MyAnchorSpring.h"
 #include "./MySpring.h"
 
 #include <GL/gl.h>
@@ -18,6 +19,7 @@ public:
 	cyclone::ParticleDrag *m_drag {};
 	cyclone::ParticleForceRegistry *m_forces {};
 	cyclone::MySpring *m_spring {};
+	cyclone::MyAnchoredSpring *m_anchorSpring {};
 
 	Mover(cyclone::Vector3 pos)
 	{
@@ -31,6 +33,8 @@ public:
 
 		m_forces->add(m_particle, m_gravity);
 		m_forces->add(m_particle, m_drag);
+
+		m_anchorSpring = new cyclone::MyAnchoredSpring(new cyclone::Vector3(5, 15, 5), 5, 3);
 
 		m_particle->setPosition(pos);
 		m_particle->setVelocity(0.0f, 0.0f, 0.0f);
@@ -50,7 +54,8 @@ public:
 	{
 		m_forces->updateForces(duration);
 		m_particle->integrate(duration);
-		m_spring->updateForce(m_particle, duration);
+		// m_spring->updateForce(m_particle, duration);
+		m_anchorSpring->updateForce(m_particle, duration);
 		checkEdges();
 	}
 
@@ -142,6 +147,18 @@ public:
 		m_MoverA = MoverA;
 		m_MoverB = MoverB;
 	}
+
+	MoverConnection(Mover *mover)
+	{
+		m_forces = new cyclone::ParticleForceRegistry();
+
+		m_gravity = new cyclone::ParticleGravity(cyclone::Vector3(0, -9.81, 0));
+		m_forces->add(mover->m_particle, m_gravity);
+
+		mover->m_anchorSpring = new cyclone::MyAnchoredSpring(new cyclone::Vector3(5, 15, 5), 5, 3);
+		m_forces->add(mover->m_particle, mover->m_anchorSpring);
+	}
+
 	~MoverConnection();
 	cyclone::ParticleGravity *m_gravity {};
 	cyclone::ParticleForceRegistry *m_forces;
@@ -155,5 +172,30 @@ public:
 		cyclone::Vector3 posB = m_MoverB->m_particle->getPosition();
 		glVertex3f(posB.x, posB.y, posB.z);
 		glEnd();
+	};
+
+	void drawAnchor(int shadow, Mover *mover)
+	{
+		glColor3f(1, 1, 0); //Line color
+		glLineWidth(3.0f);	//Line Width
+		glPushMatrix();
+		glBegin(GL_LINES);
+		glVertex3f(mover->m_anchorSpring->getAnchor()->x, mover->m_anchorSpring->getAnchor()->y,
+				   mover->m_anchorSpring->getAnchor()->z); //Starting point
+		glVertex3f(mover->m_anchorSpring->getAnchor()->x, 0,
+				   mover->m_anchorSpring->getAnchor()->z); //Ending point
+		glEnd();
+		glPopMatrix();
+
+		glColor3f(0, 0, 0); //Line color
+		glLineWidth(3.0f);	//Line Width
+		glPushMatrix();
+		glBegin(GL_LINES);
+		glVertex3f(mover->m_anchorSpring->getAnchor()->x, mover->m_anchorSpring->getAnchor()->y,
+				   mover->m_anchorSpring->getAnchor()->z); //Starting point
+		glVertex3f(mover->m_particle->getPosition().x, mover->m_particle->getPosition().y,
+				   mover->m_particle->getPosition().z); //Ending point
+		glEnd();
+		glPopMatrix();
 	};
 };

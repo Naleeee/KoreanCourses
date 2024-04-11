@@ -5,7 +5,6 @@
 #include "./Cyclone/core.h"
 #include "Vec3f.h"
 #include "Viewer.h"
-#include "math.h"
 #include "object.h"
 
 #include <FL/Fl_Double_Window.H>
@@ -40,6 +39,7 @@ private:
 
 	float fieldOfView;
 	Viewer *m_viewer;
+	// cyclone::MyAnchoredSpring anchorSpring;
 
 	std::vector<Mover *> movables;
 

@@ -62,13 +62,18 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 	m_viewer = new Viewer(viewPoint, viewCenter, upVector, 45.0f, aspect);
 
 	//	glutInit(0,0);
-	auto *moverA = new Mover(cyclone::Vector3(0.0f, 20.0f, 0.0f));
-	auto *moverB = new Mover(cyclone::Vector3(0.0f, 20.0f, 5.0f));
+	auto *moverA = new Mover(cyclone::Vector3(10.0f, 20.0f, 0.0f));
+	// auto *moverB = new Mover(cyclone::Vector3(0.0f, 20.0f, 5.0f));
 
 	movables.push_back(moverA);
-	movables.push_back(moverB);
+	// movables.push_back(moverB);
 
-	movableLinks = new MoverConnection(moverA, moverB);
+	// movableLinks = new MoverConnection(moverA, moverB);
+
+	// auto *anchorSpring = new cyclone::MyAnchoredSpring();
+	std::cout << "toto" << std::endl;
+	movableLinks = new MoverConnection(moverA);
+	std::cout << "tata" << std::endl;
 
 	TimingData::init();
 	run = 0;
@@ -184,7 +189,10 @@ void MyGlWindow::draw()
 		mover->draw(0);
 	}
 
-	movableLinks->draw(0);
+	// movableLinks->draw(0);
+	std::cout << "titi" << std::endl;
+	movableLinks->drawAnchor(0, movables[0]);
+	std::cout << "tutu" << std::endl;
 
 	glPopMatrix();
 

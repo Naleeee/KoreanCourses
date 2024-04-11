@@ -8,3 +8,4 @@ unit_tests
 *.html
 lab
 .cache/*
+build/*
