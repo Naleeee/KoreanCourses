@@ -71,9 +71,7 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 	// movableLinks = new MoverConnection(moverA, moverB);
 
 	// auto *anchorSpring = new cyclone::MyAnchoredSpring();
-	std::cout << "toto" << std::endl;
 	movableLinks = new MoverConnection(moverA);
-	std::cout << "tata" << std::endl;
 
 	TimingData::init();
 	run = 0;
@@ -190,9 +188,7 @@ void MyGlWindow::draw()
 	}
 
 	// movableLinks->draw(0);
-	std::cout << "titi" << std::endl;
 	movableLinks->drawAnchor(0, movables[0]);
-	std::cout << "tutu" << std::endl;
 
 	glPopMatrix();
 
@@ -326,11 +322,9 @@ int MyGlWindow::handle(int e)
 			m_lastMouseX = Fl::event_x();
 			m_lastMouseY = Fl::event_y();
 			if (m_pressedMouseButton == 1) {
-				std::cout << "Clicking" << std::endl;
 				doPick();
 				if (selected >= 0) {
 					initialPos = movables[selected]->m_particle->getPosition();
-					std::cout << "picked" << std::endl;
 				}
 				damage(1);
 				return 1;
@@ -344,12 +338,6 @@ int MyGlWindow::handle(int e)
 			if (selected >= 0) {
 				cyclone::Vector3 finalPos = movables[selected]->m_particle->getPosition();
 				cyclone::Vector3 newVelocity = finalPos - initialPos;
-				// std::cout << "Initial Position: X[" << mover.initialPos.x << "] Y["
-				// 		  << mover.initialPos.y << "] Z[" << mover.initialPos.z << "]" << std::endl;
-				// std::cout << "Final Position: X[" << finalPos.x << "] Y[" << finalPos.y << "] Z["
-				// 		  << finalPos.z << "]" << std::endl;
-				// std::cout << "New Velocity: X[" << newVelocity.x << "] Y[" << newVelocity.y
-				// << "] Z[" << newVelocity.z << "]" << std::endl;
 				movables[selected]->m_particle->setVelocity(newVelocity);
 				run = 1;
 				selected = -1;
@@ -364,7 +352,6 @@ int MyGlWindow::handle(int e)
 				static_cast<float>(m_lastMouseY - Fl::event_y()) / static_cast<float>(this->h());
 
 			if (selected >= 0 && m_pressedMouseButton == 1) {
-				std::cout << "Selected" << std::endl;
 				double r1x = NAN, r1y = NAN, r1z = NAN, r2x = NAN, r2y = NAN, r2z = NAN;
 				getMouseLine(r1x, r1y, r1z, r2x, r2y, r2z);
 				double rx = NAN, ry = NAN, rz = NAN;
@@ -374,8 +361,6 @@ int MyGlWindow::handle(int e)
 							static_cast<double>(movables[selected]->m_particle->getPosition().z),
 							rx, ry, rz, (Fl::event_state() & FL_CTRL) != 0);
 				movables[selected]->m_particle->setPosition(rx, ry, rz);
-				// std::cout << "Current Position: X[" << rx << "] Y[" << ry << "] Z[" << rz << "]"
-				// << std::endl;
 				damage(1);
 			} else if (m_pressedMouseButton == 1) {
 				m_viewer->rotate(fractionChangeX, fractionChangeY);

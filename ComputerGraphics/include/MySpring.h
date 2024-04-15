@@ -1,5 +1,5 @@
-#include "particle.h"
-#include "pfgen.h"
+#include "Cyclone/particle.h"
+#include "Cyclone/pfgen.h"
 
 namespace cyclone {
 	class MySpring : public ParticleForceGenerator //Generic Force generating class

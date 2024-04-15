@@ -1,4 +1,4 @@
-#include "pfgen.h"
+#include "Cyclone/pfgen.h"
 
 #include <iostream>
 namespace cyclone {
@@ -17,18 +17,13 @@ namespace cyclone {
 		MyAnchoredSpring &operator=(MyAnchoredSpring &&) = delete;
 		MyAnchoredSpring(cyclone::Vector3 *newAnchor, double springConstant, double restLength)
 		{
-			// std::cout << "To be set anchor " << newAnchor->x << std::endl;
 			this->anchor = newAnchor;
-			std::cout << "this.anchor: " << this->anchor->x << "/" << this->anchor->y << "/"
-					  << this->anchor->z << std::endl;
 			this->springConstant = springConstant;
 			this->restLength = restLength;
 		}
 
-		const Vector3 *getAnchor() const
+		[[nodiscard]] const Vector3 *getAnchor() const
 		{
-			std::cout << "get this.anchor: " << this->anchor->x << "/" << this->anchor->y << "/"
-					  << this->anchor->z << std::endl;
 			return anchor;
 		} //return anchor position
 
