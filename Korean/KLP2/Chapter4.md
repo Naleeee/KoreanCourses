@@ -38,4 +38,4 @@ It can also be used with other words, like objects. The form is **지 않고**.
 ### Example
 
 - 이 케이크 맛이 어때요 ? (Does this cake taste good ?)
-- 아니요, 달지않고 맛있어요. (No, I don't taste good.)
+- 아니요, 달지않고 맛있어요. (No, it don't taste good.)
