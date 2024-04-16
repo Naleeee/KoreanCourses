@@ -46,9 +46,10 @@ set(PROJECT_SOURCES
     src/3DUtils.cpp
     src/DrawUtils.cpp
     src/MMatrix.cpp
+		src/Mover.cpp
+		src/MoverConnection.cpp
     src/MyGlWindow.cpp
 		src/MySpring.cpp
-    src/object.cpp
     src/stdafx.cpp
     src/timing.cpp
     src/Viewer.cpp
