@@ -62,16 +62,32 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 	m_viewer = new Viewer(viewPoint, viewCenter, upVector, 45.0f, aspect);
 
 	//	glutInit(0,0);
-	auto *moverA = new Mover(cyclone::Vector3(10.0f, 20.0f, 0.0f));
+	// auto *moverA = new Mover(cyclone::Vector3(10.0f, 20.0f, 0.0f));
 	// auto *moverB = new Mover(cyclone::Vector3(0.0f, 20.0f, 5.0f));
 
-	movables.push_back(moverA);
+	// movables.push_back(moverA);
 	// movables.push_back(moverB);
 
 	// movableLinks = new MoverConnection(moverA, moverB);
 
 	// auto *anchorSpring = new cyclone::MyAnchoredSpring();
-	movableLinks = new MoverConnection(moverA);
+	// movableLinks = new MoverConnection(moverA);
+
+	std::cout << "Initializing fires" << std::endl;
+	auto *fire1 = new Fire(0);
+	auto *fire2 = new Fire(0);
+	auto *fire3 = new Fire(0);
+	auto *fire4 = new Fire(0);
+	auto *fire5 = new Fire(0);
+	std::cout << "Fires initialized" << std::endl;
+
+	std::cout << "Filling fires" << std::endl;
+	fireworks.push_back(fire1);
+	fireworks.push_back(fire2);
+	fireworks.push_back(fire3);
+	fireworks.push_back(fire4);
+	fireworks.push_back(fire5);
+	std::cout << "Fireworks filled" << std::endl;
 
 	TimingData::init();
 	run = 0;
@@ -171,8 +187,12 @@ void MyGlWindow::draw()
 	setupShadows();
 	glColor3f(0.1f, 0.1f, 0.1f);
 
-	for (Mover *mover : movables) {
-		mover->draw(1);
+	// for (Mover *mover : movables) {
+	// 	mover->draw(1);
+	// }
+
+	for (Fire *fire : fireworks) {
+		fire->draw(1);
 	}
 
 	unsetupShadows();
@@ -183,12 +203,12 @@ void MyGlWindow::draw()
 	glPushMatrix();
 	glColor3f(1, 0, 0);
 
-	for (Mover *mover : movables) {
-		mover->draw(0);
-	}
+	// for (Mover *mover : movables) {
+	// 	mover->draw(0);
+	// }
 
 	// movableLinks->draw(0);
-	movableLinks->drawAnchor(0, movables[0]);
+	// movableLinks->drawAnchor(0, movables[0]);
 
 	glPopMatrix();
 
@@ -203,9 +223,9 @@ void MyGlWindow::draw()
 
 void MyGlWindow::test()
 {
-	for (Mover *mover : movables) {
-		mover->resetParameters(cyclone::Vector3(0.0f, 20.0f, 0.0f));
-	}
+	// for (Mover *mover : movables) {
+	// 	mover->resetParameters(cyclone::Vector3(0.0f, 20.0f, 0.0f));
+	// }
 }
 
 void MyGlWindow::update()
@@ -217,8 +237,12 @@ void MyGlWindow::update()
 
 	float duration = (float)TimingData::get().lastFrameDuration * 0.003f;
 
-	for (Mover *mover : movables) {
-		mover->update(duration);
+	// for (Mover *mover : movables) {
+	// 	mover->update(duration);
+	// }
+
+	for (Fire *fire : fireworks) {
+		fire->update(duration);
 	}
 }
 
@@ -248,11 +272,11 @@ void MyGlWindow::doPick()
 	glInitNames();
 	glPushName(0);
 
-	for (int i = 0; i < movables.size(); i++) {
-		glLoadName(i + 1);
-
-		movables[i]->draw(0);
-	}
+	// for (int i = 0; i < movables.size(); i++) {
+	// 	glLoadName(i + 1);
+	//
+	// 	movables[i]->draw(0);
+	// }
 
 	// for (int i = 0; i < mover->size; i++) {
 	// 	glLoadName(i + 1);
@@ -323,9 +347,9 @@ int MyGlWindow::handle(int e)
 			m_lastMouseY = Fl::event_y();
 			if (m_pressedMouseButton == 1) {
 				doPick();
-				if (selected >= 0) {
-					initialPos = movables[selected]->m_particle->getPosition();
-				}
+				// if (selected >= 0) {
+				// 	initialPos = movables[selected]->m_particle->getPosition();
+				// }
 				damage(1);
 				return 1;
 			};
@@ -335,13 +359,13 @@ int MyGlWindow::handle(int e)
 			return 1;
 		case FL_RELEASE:
 			m_pressedMouseButton = -1;
-			if (selected >= 0) {
-				cyclone::Vector3 finalPos = movables[selected]->m_particle->getPosition();
-				cyclone::Vector3 newVelocity = finalPos - initialPos;
-				movables[selected]->m_particle->setVelocity(newVelocity);
-				run = 1;
-				selected = -1;
-			}
+			// if (selected >= 0) {
+			// 	cyclone::Vector3 finalPos = movables[selected]->m_particle->getPosition();
+			// 	cyclone::Vector3 newVelocity = finalPos - initialPos;
+			// 	movables[selected]->m_particle->setVelocity(newVelocity);
+			// 	run = 1;
+			// 	selected = -1;
+			// }
 			damage(1);
 			return 1;
 		case FL_DRAG: // if the user drags the mouse
@@ -355,12 +379,12 @@ int MyGlWindow::handle(int e)
 				double r1x = NAN, r1y = NAN, r1z = NAN, r2x = NAN, r2y = NAN, r2z = NAN;
 				getMouseLine(r1x, r1y, r1z, r2x, r2y, r2z);
 				double rx = NAN, ry = NAN, rz = NAN;
-				mousePoleGo(r1x, r1y, r1z, r2x, r2y, r2z,
-							static_cast<double>(movables[selected]->m_particle->getPosition().x),
-							static_cast<double>(movables[selected]->m_particle->getPosition().y),
-							static_cast<double>(movables[selected]->m_particle->getPosition().z),
-							rx, ry, rz, (Fl::event_state() & FL_CTRL) != 0);
-				movables[selected]->m_particle->setPosition(rx, ry, rz);
+				// mousePoleGo(r1x, r1y, r1z, r2x, r2y, r2z,
+				// 			static_cast<double>(movables[selected]->m_particle->getPosition().x),
+				// 			static_cast<double>(movables[selected]->m_particle->getPosition().y),
+				// 			static_cast<double>(movables[selected]->m_particle->getPosition().z),
+				// 			rx, ry, rz, (Fl::event_state() & FL_CTRL) != 0);
+				// movables[selected]->m_particle->setPosition(rx, ry, rz);
 				damage(1);
 			} else if (m_pressedMouseButton == 1) {
 				m_viewer->rotate(fractionChangeX, fractionChangeY);
