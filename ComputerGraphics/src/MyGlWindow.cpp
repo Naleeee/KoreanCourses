@@ -1,7 +1,6 @@
 #include "MyGlWindow.h"
 
 #include "3DUtils.h"
-#include "DrawUtils.h"
 #include "timing.h"
 
 #include <cmath>
@@ -51,7 +50,7 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 {
 	mode(FL_RGB | FL_ALPHA | FL_DOUBLE | FL_STENCIL);
 
-	fieldOfView = 90;
+	fieldOfView = 150;
 
 	glm::vec3 viewPoint(DEFAULT_VIEW_POINT[0], DEFAULT_VIEW_POINT[1], DEFAULT_VIEW_POINT[2]);
 	glm::vec3 viewCenter(DEFAULT_VIEW_CENTER[0], DEFAULT_VIEW_CENTER[1], DEFAULT_VIEW_CENTER[2]);
@@ -63,7 +62,7 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 	//	glutInit(0,0);
 
 	// Create entities
-	auto *moverA = new Mover(cyclone::Vector3(3.0f, 100.0f, 0.0f));
+	// auto *moverA = new Mover(cyclone::Vector3(3.0f, 10.0f, 0.0f));
 	// auto *moverB = new Mover(cyclone::Vector3(0.0f, 20.0f, 5.0f));
 
 	// movables.push_back(moverA);
@@ -75,23 +74,23 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 	// Create a ball linked to a fixed point
 	// auto *anchorSpring = new cyclone::MyAnchoredSpring();
 	// movableLinks = new MoverConnection(moverA);
+	// std::cout << "Initializing fires" << std::endl;
+	// auto *fire1 = new Fire(0);
+	// auto *fire2 = new Fire(0);
+	// auto *fire3 = new Fire(0);
+	// auto *fire4 = new Fire(0);
+	// auto *fire5 = new Fire(0);
+	// std::cout << "Fires initialized" << std::endl;
 
-	std::cout << "Initializing fires" << std::endl;
-	auto *fire1 = new Fire(0);
-	auto *fire2 = new Fire(0);
-	auto *fire3 = new Fire(0);
-	auto *fire4 = new Fire(0);
-	auto *fire5 = new Fire(0);
-	std::cout << "Fires initialized" << std::endl;
+	// std::cout << "Filling fires" << std::endl;
+	// listFireworks.push_back(fire1);
+	// listFireworks.push_back(fire2);
+	// listFireworks.push_back(fire3);
+	// listFireworks.push_back(fire4);
+	// listFireworks.push_back(fire5);
+	// std::cout << "Fireworks filled" << std::endl;
 
-	std::cout << "Filling fires" << std::endl;
-	fireworks.push_back(fire1);
-	fireworks.push_back(fire2);
-	fireworks.push_back(fire3);
-	fireworks.push_back(fire4);
-	fireworks.push_back(fire5);
-	std::cout << "Fireworks filled" << std::endl;
-
+	fireworks = new Fireworks();
 	TimingData::init();
 	run = 0;
 }
@@ -139,7 +138,7 @@ void MyGlWindow::drawStuff()
 {
 	glColor4f(1, 1, 0, 0.5); //color
 	// polygonf(4, 20.0f, 0.0f, -25.0f, 20.0f, 0.0f, 25.0f, -20.0f, 30.0f, 25.0f, -20.0f, 30.0f,
-			 // -25.0f);
+	// -25.0f);
 }
 
 //==========================================================================
@@ -196,9 +195,8 @@ void MyGlWindow::draw()
 	// 	mover->draw(1);
 	// }
 
-	for (Fire *fire : fireworks) {
-		fire->draw(1);
-	}
+	glLoadName(1);
+	fireworks->draw(0);
 
 	unsetupShadows();
 
@@ -217,6 +215,7 @@ void MyGlWindow::draw()
 	for (Mover *mover : movables) {
 		mover->draw(0);
 	}
+	fireworks->draw(0);
 
 	// Draw link between 2 entities
 	// movableLinks->draw(0);
@@ -237,6 +236,19 @@ void MyGlWindow::draw()
 
 void MyGlWindow::test()
 {
+	fireworks = new Fireworks();
+	std::cout << "Filling fires" << std::endl;
+	std::cout << "NUMBER 1" << std::endl;
+	fireworks->create();
+	std::cout << "NUMBER 2" << std::endl;
+	fireworks->create();
+	std::cout << "NUMBER 3" << std::endl;
+	fireworks->create();
+	std::cout << "NUMBER 4" << std::endl;
+	fireworks->create();
+	std::cout << "NUMBER 5" << std::endl;
+	fireworks->create();
+	std::cout << "Fireworks filled" << std::endl;
 	// for (Mover *mover : movables) {
 	// 	mover->resetParameters(cyclone::Vector3(0.0f, 20.0f, 0.0f));
 	// }
@@ -251,17 +263,12 @@ void MyGlWindow::update()
 
 	float duration = (float)TimingData::get().lastFrameDuration * 0.003f;
 
+	// Update entities
 	// for (Mover *mover : movables) {
 	// 	mover->update(duration);
 	// }
 
-	for (Fire *fire : fireworks) {
-		fire->update(duration);
-  }
-	// Update entities
-	for (Mover *mover : movables) {
-		mover->update(duration);
-	}
+	fireworks->update(duration);
 }
 
 void MyGlWindow::doPick()

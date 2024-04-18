@@ -2,7 +2,7 @@
 #include "MoverConnection.hpp"
 
 // Fireworks
-#include "Fire.hpp"
+#include "Fireworks.hpp"
 
 #include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
@@ -48,7 +48,8 @@ private:
 
 	MoverConnection *movableLinks;
 
-	std::vector<Fire *> fireworks;
+	std::vector<Fire *> listFireworks;
+	Fireworks *fireworks;
 
 	void setProjection(int clearProjection = 1);
 	void getMouseNDC(float &x, float &y);
