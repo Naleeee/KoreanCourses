@@ -1,9 +1,8 @@
-#include "../include/MyGlWindow.h"
+#include "MyGlWindow.h"
 
-#include "../include/3DUtils.h"
-#include "../include/DrawUtils.h"
-#include "../include/timing.h"
-#include "object.h"
+#include "3DUtils.h"
+#include "DrawUtils.h"
+#include "timing.h"
 
 #include <cmath>
 #include <iostream>
@@ -62,14 +61,18 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 	m_viewer = new Viewer(viewPoint, viewCenter, upVector, 45.0f, aspect);
 
 	//	glutInit(0,0);
-	// auto *moverA = new Mover(cyclone::Vector3(10.0f, 20.0f, 0.0f));
+
+	// Create entities
+	auto *moverA = new Mover(cyclone::Vector3(3.0f, 100.0f, 0.0f));
 	// auto *moverB = new Mover(cyclone::Vector3(0.0f, 20.0f, 5.0f));
 
 	// movables.push_back(moverA);
 	// movables.push_back(moverB);
 
+	// Create a link between two balls
 	// movableLinks = new MoverConnection(moverA, moverB);
 
+	// Create a ball linked to a fixed point
 	// auto *anchorSpring = new cyclone::MyAnchoredSpring();
 	// movableLinks = new MoverConnection(moverA);
 
@@ -134,7 +137,9 @@ void MyGlWindow::setupLight(float x, float y, float z)
 
 void MyGlWindow::drawStuff()
 {
-	polygonf(4, 20., 0., -25., 20., 0., 25., 20., 30., 25., 20., 30., -25.);
+	glColor4f(1, 1, 0, 0.5); //color
+	// polygonf(4, 20.0f, 0.0f, -25.0f, 20.0f, 0.0f, 25.0f, -20.0f, 30.0f, 25.0f, -20.0f, 30.0f,
+			 // -25.0f);
 }
 
 //==========================================================================
@@ -198,16 +203,25 @@ void MyGlWindow::draw()
 	unsetupShadows();
 
 	glEnable(GL_LIGHTING);
+	glEnable(GL_BLEND);
+	drawStuff();
 
 	// draw objects
 	glPushMatrix();
 	glColor3f(1, 0, 0);
 
+	// Draw entities
 	// for (Mover *mover : movables) {
 	// 	mover->draw(0);
 	// }
+	for (Mover *mover : movables) {
+		mover->draw(0);
+	}
 
+	// Draw link between 2 entities
 	// movableLinks->draw(0);
+
+	// Draw link between an entity and a fixed point
 	// movableLinks->drawAnchor(0, movables[0]);
 
 	glPopMatrix();
@@ -243,6 +257,10 @@ void MyGlWindow::update()
 
 	for (Fire *fire : fireworks) {
 		fire->update(duration);
+  }
+	// Update entities
+	for (Mover *mover : movables) {
+		mover->update(duration);
 	}
 }
 
@@ -278,12 +296,6 @@ void MyGlWindow::doPick()
 	// 	movables[i]->draw(0);
 	// }
 
-	// for (int i = 0; i < mover->size; i++) {
-	// 	glLoadName(i + 1);
-	//
-	// 	moverB[i].draw(0);
-	// }
-
 	// draw the cubes, loading the names as we go
 	// for (size_t i = 0; i < world->points.size(); ++i) {
 	//	glLoadName((GLuint)(i + 1));
@@ -306,7 +318,6 @@ void MyGlWindow::doPick()
 }
 
 void MyGlWindow::setProjection(int clearProjection)
-//==========================================================================
 {
 	glMatrixMode(GL_PROJECTION);
 	glViewport(0, 0, w(), h());

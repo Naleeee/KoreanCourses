@@ -1,6 +1,5 @@
-#include "Cyclone/pfgen.h"
+#include <pfgen.h>
 
-#include <iostream>
 namespace cyclone {
 
 	class MyAnchoredSpring : public ParticleForceGenerator {

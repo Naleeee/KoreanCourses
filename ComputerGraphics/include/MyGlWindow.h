@@ -1,20 +1,20 @@
-#include <FL/Fl.H>
-#include <FL/Fl_Gl_Window.H>
-#include <FL/Fl_Value_Slider.H>
-// #include <windows.h>
-#include "./Cyclone/core.h"
-#include "Vec3f.h"
-#include "Viewer.h"
-#include "object.h"
+#include "Mover.hpp"
+#include "MoverConnection.hpp"
 
 // Fireworks
 #include "Fire.hpp"
 
+#include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
+#include <FL/Fl_Gl_Window.H>
 #include <FL/Fl_Light_Button.H>
+#include <FL/Fl_Value_Slider.H>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
+#include <Vec3f.h>
+#include <Viewer.h>
+#include <core.h>
 #include <vector>
 
 class MyGlWindow : public Fl_Gl_Window {
