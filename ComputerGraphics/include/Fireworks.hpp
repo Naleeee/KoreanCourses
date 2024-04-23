@@ -1,8 +1,6 @@
 #include "./Fire.hpp"
 #include "FireworksRule.hpp"
 
-#include <array>
-#include <cstddef>
 #include <vector>
 
 class Fireworks {
@@ -14,8 +12,7 @@ public:
 	Fireworks &operator=(Fireworks &&) = delete;
 	~Fireworks();
 
-	// FireworksRule m_rule[3];	   //rules
-	std::array<FireworksRule, std::size_t(3)> m_rule;
+	std::vector<FireworksRule *> m_rules;
 	std::vector<Fire *> fireworks; //contains Fires
 
 	void update(float duration); //Fire create/update

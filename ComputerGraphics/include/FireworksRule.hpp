@@ -8,18 +8,7 @@ public:
 	FireworksRule(FireworksRule &&) = delete;
 	FireworksRule &operator=(const FireworksRule &) = default;
 	FireworksRule &operator=(FireworksRule &&) = delete;
-	FireworksRule(unsigned int type, cyclone::real minAge, cyclone::real maxAge,
-				  cyclone::Vector3 minVelocity, cyclone::Vector3 maxVelocity, cyclone::real damping,
-				  unsigned int payloadCount)
-		: type(type)
-		, minAge(minAge)
-		, maxAge(maxAge)
-		, minVelocity(minVelocity)
-		, maxVelocity(maxVelocity)
-		, damping(damping)
-		, payloadCount(payloadCount)
-	{
-	}
+
 	~FireworksRule() = default;
 
 	unsigned type {};			  //Fire type

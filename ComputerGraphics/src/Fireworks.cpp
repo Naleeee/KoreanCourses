@@ -1,31 +1,27 @@
 #include "Fireworks.hpp"
 
-#include <iostream>
+#include <vector>
 
 Fireworks::Fireworks()
 {
-	fireworks = {};
+	auto rule1 = new FireworksRule();
+	rule1->setParameters(0, 1.5, 2.5, cyclone::Vector3(-5, 10, -5), cyclone::Vector3(5, 30, 5),
+						 0.99, 5);
+	m_rules.push_back(rule1);
 }
 
 void Fireworks::update(float duration)
 {
-	for (auto it = fireworks.begin(); it != fireworks.end();) {
-		Fire *fire = *it;
-		fire->update(duration);
-		auto pos = fire->m_particle->getPosition();
-		if (pos.y < 0) {
-			delete fire;			  // Delete the Fire object
-			it = fireworks.erase(it); // Erase the element from the vector
-		} else if (fire->m_age < 0) {
-			create(fire);
-			create(fire);
-			create(fire);
-			create(fire);
-			create(fire);
-			delete fire;			  // Delete the Fire object
-			it = fireworks.erase(it); // Erase the element from the vector
-		} else {
-			++it;
+	for (int i = fireworks.size() - 1; i >= 0; i--) {
+		Fire *fire = fireworks[i];
+
+		fire->putHistory();
+
+		if (fire->update(duration)) {
+			if (fire->m_type == 0) {
+				create(fire);
+			}
+			fireworks.erase(fireworks.begin() + i);
 		}
 	}
 }
@@ -33,22 +29,24 @@ void Fireworks::update(float duration)
 void Fireworks::create()
 {
 	Fire *fire = new Fire(0);
+	fire->setRule(m_rules.front());
 	fireworks.push_back(fire);
-
-	std::cout << "END OF CREATE" << std::endl;
 }
 
 void Fireworks::create(Fire *parent)
 {
-	Fire *fire = new Fire(1);
-	fireworks.push_back(fire);
+	for (int i = 0; i < parent->m_rule->payloadCount; i++) {
+		Fire *fire = new Fire(1);
+		fire->setRule(parent->m_rule);
+		fire->m_particle->setPosition(parent->m_particle->getPosition());
 
-	std::cout << "END OF CHILD CREATE" << std::endl;
+		fireworks.push_back(fire);
+	}
 }
 
 void Fireworks::draw(int shadow)
 {
 	for (Fire *fire : fireworks) {
-		fire->draw(1);
+		fire->draw(shadow);
 	}
 }

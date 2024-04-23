@@ -196,7 +196,7 @@ void MyGlWindow::draw()
 	// }
 
 	glLoadName(1);
-	fireworks->draw(0);
+	fireworks->draw(1);
 
 	unsetupShadows();
 
@@ -212,9 +212,6 @@ void MyGlWindow::draw()
 	// for (Mover *mover : movables) {
 	// 	mover->draw(0);
 	// }
-	for (Mover *mover : movables) {
-		mover->draw(0);
-	}
 	fireworks->draw(0);
 
 	// Draw link between 2 entities
@@ -237,18 +234,9 @@ void MyGlWindow::draw()
 void MyGlWindow::test()
 {
 	fireworks = new Fireworks();
-	std::cout << "Filling fires" << std::endl;
-	std::cout << "NUMBER 1" << std::endl;
-	fireworks->create();
-	std::cout << "NUMBER 2" << std::endl;
-	fireworks->create();
-	std::cout << "NUMBER 3" << std::endl;
-	fireworks->create();
-	std::cout << "NUMBER 4" << std::endl;
-	fireworks->create();
-	std::cout << "NUMBER 5" << std::endl;
-	fireworks->create();
-	std::cout << "Fireworks filled" << std::endl;
+	for (int i = 0; i < 13; i++) {
+		fireworks->create();
+	}
 	// for (Mover *mover : movables) {
 	// 	mover->resetParameters(cyclone::Vector3(0.0f, 20.0f, 0.0f));
 	// }
