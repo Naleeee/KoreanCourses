@@ -32,11 +32,10 @@ void Fire::draw(int shadow)
 	cyclone::Vector3 position;
 	m_particle->getPosition(&position);
 
-	drawHistory();
-
 	if (shadow) {
 		glColor3f(0.1f, 0.1f, 0.1f);
 	} else {
+		drawHistory();
 		glColor3f(m_color.x, m_color.y, m_color.z);
 	}
 
@@ -63,12 +62,12 @@ void Fire::drawHistory()
 
 void Fire::setRule(FireworksRule *r)
 {
-	auto *pos = new cyclone::Vector3(cyclone::Random().randomReal(10.0f, 20.0f), 10.0f,
-									 cyclone::Random().randomReal(10.0f, 20.0f));
+	auto *pos = new cyclone::Vector3(cyclone::Random().randomReal(r->xMin, r->xMax),
+									 cyclone::Random().randomReal(r->yMin, r->yMax),
+									 cyclone::Random().randomReal(r->zMin, r->zMax));
 	auto *vel =
 		new cyclone::Vector3(cyclone::Random().randomVector(r->minVelocity, r->maxVelocity));
-	auto *color = new cyclone::Vector3(
-		cyclone::Random().randomVector(cyclone::Vector3(0, 0, 0), cyclone::Vector3(1, 1, 1)));
+	auto *color = new cyclone::Vector3(cyclone::Random().randomVector(r->minColor, r->maxColor));
 
 	m_age = cyclone::Random().randomReal(r->minAge, r->maxAge);
 	m_rule = r;

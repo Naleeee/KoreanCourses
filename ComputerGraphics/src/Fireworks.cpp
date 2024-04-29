@@ -4,10 +4,60 @@
 
 Fireworks::Fireworks()
 {
-	auto rule1 = new FireworksRule();
-	rule1->setParameters(0, 1.5, 2.5, cyclone::Vector3(-5, 10, -5), cyclone::Vector3(5, 30, 5),
+	auto plRed = new FireworksRule();
+	plRed->setParameters(0, 3.0, 3.5, cyclone::Vector3(-3, 20, -3), cyclone::Vector3(3, 30, 3), 10,
+						 20, 0, 10, -2, 2, cyclone::Vector3(0.8, 0, 0), cyclone::Vector3(1, 0, 0),
 						 0.99, 5);
-	m_rules.push_back(rule1);
+	auto plYellow = new FireworksRule();
+	plYellow->setParameters(0, 3.0, 3.5, cyclone::Vector3(-6, 20, -6), cyclone::Vector3(6, 25, 6),
+							10, 20, 0, 10, -2, 2, cyclone::Vector3(0.5, 0.5, 0),
+							cyclone::Vector3(0.7, 0.7, 0), 0.99, 5);
+	auto srGreen = new FireworksRule();
+	srGreen->setParameters(0, 1.3, 1.9, cyclone::Vector3(-3, 10, -5), cyclone::Vector3(3, 20, -15),
+						   10, 20, 0, 10, -2, 2, cyclone::Vector3(0, 0.6, 0),
+						   cyclone::Vector3(0, 1, 0), 0.99, 10);
+	auto srBlue = new FireworksRule();
+	srBlue->setParameters(0, 1.0, 1.6, cyclone::Vector3(-3, 5, -5), cyclone::Vector3(3, 15, -15),
+						  10, 20, 0, 10, -2, 2, cyclone::Vector3(0, 0, 0.6),
+						  cyclone::Vector3(0, 0, 1), 0.99, 10);
+	auto slGreen = new FireworksRule();
+	slGreen->setParameters(0, 1.3, 1.9, cyclone::Vector3(-3, 10, 5), cyclone::Vector3(3, 20, 15),
+						   10, 20, 0, 10, -2, 2, cyclone::Vector3(0, 0.6, 0),
+						   cyclone::Vector3(0, 1, 0), 0.99, 10);
+	auto slBlue = new FireworksRule();
+	slBlue->setParameters(0, 1.0, 1.6, cyclone::Vector3(-3, 5, 5), cyclone::Vector3(3, 15, 15), 10,
+						  20, 0, 10, -2, 2, cyclone::Vector3(0, 0, 0.6), cyclone::Vector3(0, 0, 1),
+						  0.99, 10);
+	m_rules.push_back(plRed);
+	m_rules.push_back(plRed);
+	m_rules.push_back(plRed);
+	m_rules.push_back(plRed);
+	m_rules.push_back(plRed);
+	m_rules.push_back(plYellow);
+	m_rules.push_back(plYellow);
+	m_rules.push_back(plYellow);
+	m_rules.push_back(plYellow);
+	m_rules.push_back(plYellow);
+	m_rules.push_back(srGreen);
+	m_rules.push_back(srGreen);
+	m_rules.push_back(srGreen);
+	m_rules.push_back(srGreen);
+	m_rules.push_back(srGreen);
+	m_rules.push_back(srBlue);
+	m_rules.push_back(srBlue);
+	m_rules.push_back(srBlue);
+	m_rules.push_back(srBlue);
+	m_rules.push_back(srBlue);
+	m_rules.push_back(slGreen);
+	m_rules.push_back(slGreen);
+	m_rules.push_back(slGreen);
+	m_rules.push_back(slGreen);
+	m_rules.push_back(slGreen);
+	m_rules.push_back(slBlue);
+	m_rules.push_back(slBlue);
+	m_rules.push_back(slBlue);
+	m_rules.push_back(slBlue);
+	m_rules.push_back(slBlue);
 }
 
 void Fireworks::update(float duration)
@@ -29,7 +79,8 @@ void Fireworks::update(float duration)
 void Fireworks::create()
 {
 	Fire *fire = new Fire(0);
-	fire->setRule(m_rules.front());
+	fire->setRule(m_rules.back());
+	m_rules.pop_back();
 	fireworks.push_back(fire);
 }
 

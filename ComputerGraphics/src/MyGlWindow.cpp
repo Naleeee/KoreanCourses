@@ -7,7 +7,7 @@
 #include <iostream>
 #include <ostream>
 
-static double DEFAULT_VIEW_POINT[3] = {30, 30, 30};
+static double DEFAULT_VIEW_POINT[3] = {180, 20, 0};
 static double DEFAULT_VIEW_CENTER[3] = {0, 0, 0};
 static double DEFAULT_UP_VECTOR[3] = {0, 1, 0};
 
@@ -50,7 +50,7 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 {
 	mode(FL_RGB | FL_ALPHA | FL_DOUBLE | FL_STENCIL);
 
-	fieldOfView = 150;
+	fieldOfView = 100;
 
 	glm::vec3 viewPoint(DEFAULT_VIEW_POINT[0], DEFAULT_VIEW_POINT[1], DEFAULT_VIEW_POINT[2]);
 	glm::vec3 viewCenter(DEFAULT_VIEW_CENTER[0], DEFAULT_VIEW_CENTER[1], DEFAULT_VIEW_CENTER[2]);
@@ -74,22 +74,6 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 	// Create a ball linked to a fixed point
 	// auto *anchorSpring = new cyclone::MyAnchoredSpring();
 	// movableLinks = new MoverConnection(moverA);
-	// std::cout << "Initializing fires" << std::endl;
-	// auto *fire1 = new Fire(0);
-	// auto *fire2 = new Fire(0);
-	// auto *fire3 = new Fire(0);
-	// auto *fire4 = new Fire(0);
-	// auto *fire5 = new Fire(0);
-	// std::cout << "Fires initialized" << std::endl;
-
-	// std::cout << "Filling fires" << std::endl;
-	// listFireworks.push_back(fire1);
-	// listFireworks.push_back(fire2);
-	// listFireworks.push_back(fire3);
-	// listFireworks.push_back(fire4);
-	// listFireworks.push_back(fire5);
-	// std::cout << "Fireworks filled" << std::endl;
-
 	fireworks = new Fireworks();
 	TimingData::init();
 	run = 0;
@@ -234,7 +218,7 @@ void MyGlWindow::draw()
 void MyGlWindow::test()
 {
 	fireworks = new Fireworks();
-	for (int i = 0; i < 13; i++) {
+	for (int i = 0; i < 30; i++) {
 		fireworks->create();
 	}
 	// for (Mover *mover : movables) {
