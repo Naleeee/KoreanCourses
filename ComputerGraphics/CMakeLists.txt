@@ -62,11 +62,11 @@ add_executable(${PROJECT_NAME}
     )
 
 target_include_directories(
-		${PROJECT_NAME}
-		PRIVATE
+    ${PROJECT_NAME}
+    PRIVATE
     include/
-		include/Cyclone
-		include/FL
-		include/GL
-		include/glm
+    include/Cyclone
+    include/FL
+    include/GL
+    include/glm
 )
