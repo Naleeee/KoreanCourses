@@ -45,6 +45,9 @@ set(PROJECT_SOURCES
     src/Cyclone/world.cpp
     src/3DUtils.cpp
     src/DrawUtils.cpp
+		src/Fire.cpp
+		src/Fireworks.cpp
+		src/FireworksRule.cpp
     src/MMatrix.cpp
 		src/Mover.cpp
 		src/MoverConnection.cpp

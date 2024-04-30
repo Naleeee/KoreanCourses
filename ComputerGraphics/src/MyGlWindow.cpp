@@ -1,14 +1,13 @@
 #include "MyGlWindow.h"
 
 #include "3DUtils.h"
-#include "DrawUtils.h"
 #include "timing.h"
 
 #include <cmath>
 #include <iostream>
 #include <ostream>
 
-static double DEFAULT_VIEW_POINT[3] = {30, 30, 30};
+static double DEFAULT_VIEW_POINT[3] = {180, 20, 0};
 static double DEFAULT_VIEW_CENTER[3] = {0, 0, 0};
 static double DEFAULT_UP_VECTOR[3] = {0, 1, 0};
 
@@ -51,7 +50,7 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 {
 	mode(FL_RGB | FL_ALPHA | FL_DOUBLE | FL_STENCIL);
 
-	fieldOfView = 90;
+	fieldOfView = 100;
 
 	glm::vec3 viewPoint(DEFAULT_VIEW_POINT[0], DEFAULT_VIEW_POINT[1], DEFAULT_VIEW_POINT[2]);
 	glm::vec3 viewCenter(DEFAULT_VIEW_CENTER[0], DEFAULT_VIEW_CENTER[1], DEFAULT_VIEW_CENTER[2]);
@@ -63,10 +62,10 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 	//	glutInit(0,0);
 
 	// Create entities
-	auto *moverA = new Mover(cyclone::Vector3(3.0f, 100.0f, 0.0f));
+	// auto *moverA = new Mover(cyclone::Vector3(3.0f, 10.0f, 0.0f));
 	// auto *moverB = new Mover(cyclone::Vector3(0.0f, 20.0f, 5.0f));
 
-	movables.push_back(moverA);
+	// movables.push_back(moverA);
 	// movables.push_back(moverB);
 
 	// Create a link between two balls
@@ -75,7 +74,7 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 	// Create a ball linked to a fixed point
 	// auto *anchorSpring = new cyclone::MyAnchoredSpring();
 	// movableLinks = new MoverConnection(moverA);
-
+	fireworks = new Fireworks();
 	TimingData::init();
 	run = 0;
 }
@@ -122,8 +121,8 @@ void MyGlWindow::setupLight(float x, float y, float z)
 void MyGlWindow::drawStuff()
 {
 	glColor4f(1, 1, 0, 0.5); //color
-	polygonf(4, 20.0f, 0.0f, -25.0f, 20.0f, 0.0f, 25.0f, -20.0f, 30.0f, 25.0f, -20.0f, 30.0f,
-			 -25.0f);
+	// polygonf(4, 20.0f, 0.0f, -25.0f, 20.0f, 0.0f, 25.0f, -20.0f, 30.0f, 25.0f, -20.0f, 30.0f,
+	// -25.0f);
 }
 
 //==========================================================================
@@ -180,6 +179,9 @@ void MyGlWindow::draw()
 	// 	mover->draw(1);
 	// }
 
+	glLoadName(1);
+	fireworks->draw(1);
+
 	unsetupShadows();
 
 	glEnable(GL_LIGHTING);
@@ -191,9 +193,10 @@ void MyGlWindow::draw()
 	glColor3f(1, 0, 0);
 
 	// Draw entities
-	for (Mover *mover : movables) {
-		mover->draw(0);
-	}
+	// for (Mover *mover : movables) {
+	// 	mover->draw(0);
+	// }
+	fireworks->draw(0);
 
 	// Draw link between 2 entities
 	// movableLinks->draw(0);
@@ -214,9 +217,13 @@ void MyGlWindow::draw()
 
 void MyGlWindow::test()
 {
-	for (Mover *mover : movables) {
-		mover->resetParameters(cyclone::Vector3(3.0f, 50.0f, 0.0f));
+	fireworks = new Fireworks();
+	for (int i = 0; i < 30; i++) {
+		fireworks->create();
 	}
+	// for (Mover *mover : movables) {
+	// 	mover->resetParameters(cyclone::Vector3(0.0f, 20.0f, 0.0f));
+	// }
 }
 
 void MyGlWindow::update()
@@ -229,9 +236,11 @@ void MyGlWindow::update()
 	float duration = (float)TimingData::get().lastFrameDuration * 0.003f;
 
 	// Update entities
-	for (Mover *mover : movables) {
-		mover->update(duration);
-	}
+	// for (Mover *mover : movables) {
+	// 	mover->update(duration);
+	// }
+
+	fireworks->update(duration);
 }
 
 void MyGlWindow::doPick()
@@ -260,11 +269,11 @@ void MyGlWindow::doPick()
 	glInitNames();
 	glPushName(0);
 
-	for (int i = 0; i < movables.size(); i++) {
-		glLoadName(i + 1);
-
-		movables[i]->draw(0);
-	}
+	// for (int i = 0; i < movables.size(); i++) {
+	// 	glLoadName(i + 1);
+	//
+	// 	movables[i]->draw(0);
+	// }
 
 	// draw the cubes, loading the names as we go
 	// for (size_t i = 0; i < world->points.size(); ++i) {
@@ -288,7 +297,6 @@ void MyGlWindow::doPick()
 }
 
 void MyGlWindow::setProjection(int clearProjection)
-//==========================================================================
 {
 	glMatrixMode(GL_PROJECTION);
 	glViewport(0, 0, w(), h());
@@ -329,9 +337,9 @@ int MyGlWindow::handle(int e)
 			m_lastMouseY = Fl::event_y();
 			if (m_pressedMouseButton == 1) {
 				doPick();
-				if (selected >= 0) {
-					initialPos = movables[selected]->m_particle->getPosition();
-				}
+				// if (selected >= 0) {
+				// 	initialPos = movables[selected]->m_particle->getPosition();
+				// }
 				damage(1);
 				return 1;
 			};
@@ -341,13 +349,13 @@ int MyGlWindow::handle(int e)
 			return 1;
 		case FL_RELEASE:
 			m_pressedMouseButton = -1;
-			if (selected >= 0) {
-				cyclone::Vector3 finalPos = movables[selected]->m_particle->getPosition();
-				cyclone::Vector3 newVelocity = finalPos - initialPos;
-				movables[selected]->m_particle->setVelocity(newVelocity);
-				run = 1;
-				selected = -1;
-			}
+			// if (selected >= 0) {
+			// 	cyclone::Vector3 finalPos = movables[selected]->m_particle->getPosition();
+			// 	cyclone::Vector3 newVelocity = finalPos - initialPos;
+			// 	movables[selected]->m_particle->setVelocity(newVelocity);
+			// 	run = 1;
+			// 	selected = -1;
+			// }
 			damage(1);
 			return 1;
 		case FL_DRAG: // if the user drags the mouse
@@ -361,12 +369,12 @@ int MyGlWindow::handle(int e)
 				double r1x = NAN, r1y = NAN, r1z = NAN, r2x = NAN, r2y = NAN, r2z = NAN;
 				getMouseLine(r1x, r1y, r1z, r2x, r2y, r2z);
 				double rx = NAN, ry = NAN, rz = NAN;
-				mousePoleGo(r1x, r1y, r1z, r2x, r2y, r2z,
-							static_cast<double>(movables[selected]->m_particle->getPosition().x),
-							static_cast<double>(movables[selected]->m_particle->getPosition().y),
-							static_cast<double>(movables[selected]->m_particle->getPosition().z),
-							rx, ry, rz, (Fl::event_state() & FL_CTRL) != 0);
-				movables[selected]->m_particle->setPosition(rx, ry, rz);
+				// mousePoleGo(r1x, r1y, r1z, r2x, r2y, r2z,
+				// 			static_cast<double>(movables[selected]->m_particle->getPosition().x),
+				// 			static_cast<double>(movables[selected]->m_particle->getPosition().y),
+				// 			static_cast<double>(movables[selected]->m_particle->getPosition().z),
+				// 			rx, ry, rz, (Fl::event_state() & FL_CTRL) != 0);
+				// movables[selected]->m_particle->setPosition(rx, ry, rz);
 				damage(1);
 			} else if (m_pressedMouseButton == 1) {
 				m_viewer->rotate(fractionChangeX, fractionChangeY);
