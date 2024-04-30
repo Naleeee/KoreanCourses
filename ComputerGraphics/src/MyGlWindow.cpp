@@ -1,14 +1,13 @@
 #include "MyGlWindow.h"
 
 #include "3DUtils.h"
-#include "DrawUtils.h"
 #include "timing.h"
 
 #include <cmath>
 #include <iostream>
 #include <ostream>
 
-static double DEFAULT_VIEW_POINT[3] = {30, 30, 30};
+static double DEFAULT_VIEW_POINT[3] = {90, 90, 30};
 static double DEFAULT_VIEW_CENTER[3] = {0, 0, 0};
 static double DEFAULT_UP_VECTOR[3] = {0, 1, 0};
 
@@ -63,7 +62,7 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 	//	glutInit(0,0);
 
 	// Create entities
-	auto *moverA = new Mover(cyclone::Vector3(3.0f, 100.0f, 0.0f));
+	auto *moverA = new Mover(cyclone::Vector3(5.0f, 5.0f, 5.0f), 3.0f);
 	// auto *moverB = new Mover(cyclone::Vector3(0.0f, 20.0f, 5.0f));
 
 	movables.push_back(moverA);
@@ -121,9 +120,10 @@ void MyGlWindow::setupLight(float x, float y, float z)
 
 void MyGlWindow::drawStuff()
 {
-	glColor4f(1, 1, 0, 0.5); //color
-	polygonf(4, 20.0f, 0.0f, -25.0f, 20.0f, 0.0f, 25.0f, -20.0f, 30.0f, 25.0f, -20.0f, 30.0f,
-			 -25.0f);
+	// Draw yellow plane
+	// glColor4f(1, 1, 0, 0.5); //color
+	// polygonf(4, 20.0f, 0.0f, -25.0f, 20.0f, 0.0f, 25.0f, -20.0f, 30.0f, 25.0f, -20.0f, 30.0f,
+	// -25.0f);
 }
 
 //==========================================================================
@@ -142,12 +142,11 @@ void MyGlWindow::draw()
 	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 
 	// now draw the ground plane
-	setProjection();
-	setupFloor();
-
-	glPushMatrix();
-	drawFloor(200, 20);
-	glPopMatrix();
+	// setProjection();
+	// setupFloor();
+	// glPushMatrix();
+	// drawFloor(200, 20);
+	// glPopMatrix();
 
 	setupLight(m_viewer->getViewPoint().x, m_viewer->getViewPoint().y, m_viewer->getViewPoint().z);
 
@@ -195,6 +194,16 @@ void MyGlWindow::draw()
 		mover->draw(0);
 	}
 
+	// Draw blue rectangle
+	glDisable(GL_LIGHTING);
+	glEnable(GL_BLEND);
+	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+	glPushMatrix();
+	glColor4f(0, 0, 1, 0.2f);
+	glTranslatef(0, 5.0, 0);
+	drawCube(100, 10, 100);
+	glPopMatrix();
+
 	// Draw link between 2 entities
 	// movableLinks->draw(0);
 
@@ -215,7 +224,7 @@ void MyGlWindow::draw()
 void MyGlWindow::test()
 {
 	for (Mover *mover : movables) {
-		mover->resetParameters(cyclone::Vector3(3.0f, 50.0f, 0.0f));
+		mover->resetParameters(cyclone::Vector3(3.0f, 20.0f, 0.0f));
 	}
 }
 
