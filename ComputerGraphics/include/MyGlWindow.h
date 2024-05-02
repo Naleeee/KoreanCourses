@@ -1,5 +1,7 @@
 #include "Mover.hpp"
 #include "MoverConnection.hpp"
+#include "MyContact.hpp"
+#include "pcontacts.h"
 
 #include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
@@ -33,6 +35,9 @@ public:
 	cyclone::Vector3 initialPos;
 
 private:
+	cyclone::ParticleContact m_contact[2];
+	std::vector<cyclone::ParticleContactGenerator *> m_contactGenerators;
+	cyclone::ParticleContactResolver *m_resolver;
 	void draw() override; // standard FlTk
 
 	int handle(int) override; // standard FlTk
@@ -42,6 +47,7 @@ private:
 	// cyclone::MyAnchoredSpring anchorSpring;
 
 	std::vector<Mover *> movables;
+	cyclone::MyGroundContact *groundContact;
 
 	MoverConnection *movableLinks;
 

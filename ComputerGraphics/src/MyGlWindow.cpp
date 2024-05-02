@@ -1,13 +1,14 @@
 #include "MyGlWindow.h"
 
 #include "3DUtils.h"
+#include "pcontacts.h"
 #include "timing.h"
 
 #include <cmath>
 #include <iostream>
 #include <ostream>
 
-static double DEFAULT_VIEW_POINT[3] = {90, 90, 30};
+static double DEFAULT_VIEW_POINT[3] = {30, 30, 30};
 static double DEFAULT_VIEW_CENTER[3] = {0, 0, 0};
 static double DEFAULT_UP_VECTOR[3] = {0, 1, 0};
 
@@ -62,7 +63,7 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 	//	glutInit(0,0);
 
 	// Create entities
-	auto *moverA = new Mover(cyclone::Vector3(5.0f, 5.0f, 5.0f), 3.0f);
+	auto *moverA = new Mover(cyclone::Vector3(5.0f, 20.0f, 5.0f), 2.0f);
 	// auto *moverB = new Mover(cyclone::Vector3(0.0f, 20.0f, 5.0f));
 
 	movables.push_back(moverA);
@@ -75,6 +76,10 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 	// auto *anchorSpring = new cyclone::MyAnchoredSpring();
 	// movableLinks = new MoverConnection(moverA);
 
+	groundContact = new cyclone::MyGroundContact();
+	groundContact->init(moverA->m_particle, 2.0f);
+	m_contactGenerators.push_back(groundContact);
+	m_resolver = new cyclone::ParticleContactResolver(1);
 	TimingData::init();
 	run = 0;
 }
@@ -142,11 +147,11 @@ void MyGlWindow::draw()
 	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 
 	// now draw the ground plane
-	// setProjection();
-	// setupFloor();
-	// glPushMatrix();
-	// drawFloor(200, 20);
-	// glPopMatrix();
+	setProjection();
+	setupFloor();
+	glPushMatrix();
+	drawFloor(200, 20);
+	glPopMatrix();
 
 	setupLight(m_viewer->getViewPoint().x, m_viewer->getViewPoint().y, m_viewer->getViewPoint().z);
 
@@ -195,14 +200,14 @@ void MyGlWindow::draw()
 	}
 
 	// Draw blue rectangle
-	glDisable(GL_LIGHTING);
-	glEnable(GL_BLEND);
-	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-	glPushMatrix();
-	glColor4f(0, 0, 1, 0.2f);
-	glTranslatef(0, 5.0, 0);
-	drawCube(100, 10, 100);
-	glPopMatrix();
+	// glDisable(GL_LIGHTING);
+	// glEnable(GL_BLEND);
+	// glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+	// glPushMatrix();
+	// glColor4f(0, 0, 1, 0.2f);
+	// glTranslatef(0, 5.0, 0);
+	// drawCube(100, 10, 100);
+	// glPopMatrix();
 
 	// Draw link between 2 entities
 	// movableLinks->draw(0);
@@ -236,6 +241,24 @@ void MyGlWindow::update()
 		return;
 
 	float duration = (float)TimingData::get().lastFrameDuration * 0.003f;
+
+	int maxPossibleContact = 1;
+	unsigned limit = maxPossibleContact;
+	cyclone::ParticleContact *nextContact = m_contact;
+	for (cyclone::ParticleContactGenerator *pcg : m_contactGenerators) {
+		unsigned used = pcg->addContact(nextContact, limit);
+		limit -= used;		 //subtract limit by used
+		nextContact += used; //move the pointer
+		if (limit <= 0)
+			break; //if nothing left, then return
+	}
+
+	int num = maxPossibleContact - limit; //how many collision are solved?
+
+	if (num > 0) {
+		m_resolver->setIterations(num * 2);
+		m_resolver->resolveContacts(m_contact, num, duration);
+	}
 
 	// Update entities
 	for (Mover *mover : movables) {

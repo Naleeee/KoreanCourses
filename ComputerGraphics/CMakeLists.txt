@@ -48,6 +48,7 @@ set(PROJECT_SOURCES
     src/MMatrix.cpp
     src/Mover.cpp
     src/MoverConnection.cpp
+    src/MyGroundContact.cpp
     src/MyGlWindow.cpp
     src/MySpring.cpp
     src/MyParticleBuoyancy.cpp
