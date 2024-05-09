@@ -53,6 +53,7 @@ set(PROJECT_SOURCES
     src/MySpring.cpp
     src/MyParticleBuoyancy.cpp
     src/MyPlaneContact.cpp
+    src/ParticleCollision.cpp
     src/stdafx.cpp
     src/timing.cpp
     src/Viewer.cpp

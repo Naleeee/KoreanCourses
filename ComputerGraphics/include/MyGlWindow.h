@@ -2,6 +2,7 @@
 #include "MoverConnection.hpp"
 #include "MyContact.hpp"
 #include "MyPlaneContact.hpp"
+#include "ParticleCollision.hpp"
 #include "pcontacts.h"
 
 #include <FL/Fl.H>
@@ -36,7 +37,7 @@ public:
 	cyclone::Vector3 initialPos;
 
 private:
-	cyclone::ParticleContact m_contact[2];
+	cyclone::ParticleContact m_contact[99];
 	std::vector<cyclone::ParticleContactGenerator *> m_contactGenerators;
 	cyclone::ParticleContactResolver *m_resolver;
 	void draw() override; // standard FlTk

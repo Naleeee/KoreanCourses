@@ -35,6 +35,7 @@ public:
 		m_forces->add(m_particle, m_gravity);
 		m_forces->add(m_particle, m_drag);
 
+		m_spring = new cyclone::MySpring(m_particle, 20, 1);
 		// m_anchorSpring = new cyclone::MyAnchoredSpring(new cyclone::Vector3(5, 15, 5), 5, 3);
 
 		// m_particleBuoyancy = new cyclone::MyParticleBuoyancy(1, 1, 10, 2);
@@ -42,7 +43,7 @@ public:
 		m_particle->setPosition(pos);
 		m_particle->setVelocity(0.0f, 0.0f, 0.0f);
 		m_particle->setMass(5.0f);					   // mass
-		m_particle->setDamping(0.9f);				   // damping
+		m_particle->setDamping(0.7f);				   // damping
 		m_particle->setAcceleration(0.0f, 0.0f, 0.0f); // initial acc
 	};
 	Mover(const Mover &) = default;

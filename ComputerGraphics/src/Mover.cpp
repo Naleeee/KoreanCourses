@@ -4,7 +4,7 @@ void Mover::update(float duration)
 {
 	m_forces->updateForces(duration);
 	m_particle->integrate(duration);
-	// m_spring->updateForce(m_particle, duration);
+	m_spring->updateForce(m_particle, duration);
 	// m_anchorSpring->updateForce(m_particle, duration);
 	// checkCollide();
 	// m_particleBuoyancy->updateForce(m_particle, duration);
