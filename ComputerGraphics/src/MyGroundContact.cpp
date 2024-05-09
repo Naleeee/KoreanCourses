@@ -1,5 +1,9 @@
 #include "MyContact.hpp"
+
+#include <iostream>
+
 using namespace cyclone;
+
 MyGroundContact::MyGroundContact() { }
 MyGroundContact::~MyGroundContact() { }
 void MyGroundContact::init(cyclone::Particle *p, double size)
@@ -17,6 +21,7 @@ unsigned MyGroundContact::addContact(cyclone::ParticleContact *contact, unsigned
 		cyclone::real x = p->getPosition().x;
 		cyclone::real y = p->getPosition().y;
 		if (y < size) {
+			std::cout << "Collide on GROUND" << std::endl;
 			contact->contactNormal = cyclone::Vector3(0, 1, 0);
 			contact->particle[0] = p;
 			contact->particle[1] = NULL;

@@ -8,7 +8,7 @@ void Mover::update(float duration)
 	// m_anchorSpring->updateForce(m_particle, duration);
 	// checkCollide();
 	// m_particleBuoyancy->updateForce(m_particle, duration);
-	// checkEdges();
+	checkEdges();
 }
 
 void Mover::draw(int shadow)
@@ -47,10 +47,10 @@ void Mover::checkEdges()
 		pos.x = -100 + size / 2;
 		vel.x *= -1;
 	}
-	if (pos.y <= size / 2) {
-		pos.y = size / 2;
-		vel.y *= -1;
-	}
+	// if (pos.y <= size / 2) {
+	// 	pos.y = size / 2;
+	// 	vel.y *= -1;
+	// }
 	if (pos.z >= 100 - size / 2) {
 		pos.z = 100 - size / 2;
 		vel.z *= -1;

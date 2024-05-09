@@ -52,6 +52,7 @@ set(PROJECT_SOURCES
     src/MyGlWindow.cpp
     src/MySpring.cpp
     src/MyParticleBuoyancy.cpp
+    src/MyPlaneContact.cpp
     src/stdafx.cpp
     src/timing.cpp
     src/Viewer.cpp

@@ -1,6 +1,7 @@
 #include "MyGlWindow.h"
 
 #include "3DUtils.h"
+#include "DrawUtils.h"
 #include "pcontacts.h"
 #include "timing.h"
 
@@ -63,7 +64,7 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 	//	glutInit(0,0);
 
 	// Create entities
-	auto *moverA = new Mover(cyclone::Vector3(5.0f, 20.0f, 5.0f), 2.0f);
+	auto *moverA = new Mover(cyclone::Vector3(5.0f, 40.0f, 5.0f), 2.0f);
 	// auto *moverB = new Mover(cyclone::Vector3(0.0f, 20.0f, 5.0f));
 
 	movables.push_back(moverA);
@@ -80,6 +81,20 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 	groundContact->init(moverA->m_particle, 2.0f);
 	m_contactGenerators.push_back(groundContact);
 	m_resolver = new cyclone::ParticleContactResolver(1);
+
+	// Define vertices of yellow plane
+	cyclone::Vector3 p1(20., 0., 25);
+	cyclone::Vector3 p2(20., 0., -25);
+	cyclone::Vector3 p3(-20., 30., 25);
+	cyclone::Vector3 p4(-20., 30., -25);
+	std::vector<cyclone::Vector3> v;
+	v.push_back(p1);
+	v.push_back(p2);
+	v.push_back(p3);
+	v.push_back(p4);
+	planeContact = new cyclone::MyPlaneContact(v);
+	planeContact->init(moverA->m_particle, 2.0f);
+	m_contactGenerators.push_back(planeContact);
 	TimingData::init();
 	run = 0;
 }
@@ -126,9 +141,9 @@ void MyGlWindow::setupLight(float x, float y, float z)
 void MyGlWindow::drawStuff()
 {
 	// Draw yellow plane
-	// glColor4f(1, 1, 0, 0.5); //color
-	// polygonf(4, 20.0f, 0.0f, -25.0f, 20.0f, 0.0f, 25.0f, -20.0f, 30.0f, 25.0f, -20.0f, 30.0f,
-	// -25.0f);
+	glColor4f(1, 1, 0, 0.5); //color
+	polygonf(4, 20.0f, 0.0f, -25.0f, 20.0f, 0.0f, 25.0f, -20.0f, 30.0f, 25.0f, -20.0f, 30.0f,
+			 -25.0f);
 }
 
 //==========================================================================
@@ -229,7 +244,7 @@ void MyGlWindow::draw()
 void MyGlWindow::test()
 {
 	for (Mover *mover : movables) {
-		mover->resetParameters(cyclone::Vector3(3.0f, 20.0f, 0.0f));
+		mover->resetParameters(cyclone::Vector3(3.0f, 30.0f, 0.0f));
 	}
 }
 
@@ -242,7 +257,7 @@ void MyGlWindow::update()
 
 	float duration = (float)TimingData::get().lastFrameDuration * 0.003f;
 
-	int maxPossibleContact = 1;
+	int maxPossibleContact = 30;
 	unsigned limit = maxPossibleContact;
 	cyclone::ParticleContact *nextContact = m_contact;
 	for (cyclone::ParticleContactGenerator *pcg : m_contactGenerators) {

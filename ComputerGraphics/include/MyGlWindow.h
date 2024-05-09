@@ -1,6 +1,7 @@
 #include "Mover.hpp"
 #include "MoverConnection.hpp"
 #include "MyContact.hpp"
+#include "MyPlaneContact.hpp"
 #include "pcontacts.h"
 
 #include <FL/Fl.H>
@@ -48,6 +49,7 @@ private:
 
 	std::vector<Mover *> movables;
 	cyclone::MyGroundContact *groundContact;
+	cyclone::MyPlaneContact *planeContact;
 
 	MoverConnection *movableLinks;
 
