@@ -44,6 +44,7 @@ set(PROJECT_SOURCES
     src/Cyclone/random.cpp
     src/Cyclone/world.cpp
     src/3DUtils.cpp
+    src/Bridge.cpp
     src/DrawUtils.cpp
     src/MMatrix.cpp
     src/Mover.cpp

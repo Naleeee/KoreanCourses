@@ -1,7 +1,6 @@
 #include "MyGlWindow.h"
 
 #include "3DUtils.h"
-#include "DrawUtils.h"
 #include "pcontacts.h"
 #include "timing.h"
 
@@ -9,7 +8,7 @@
 #include <iostream>
 #include <ostream>
 
-static double DEFAULT_VIEW_POINT[3] = {30, 30, 30};
+static double DEFAULT_VIEW_POINT[3] = {20, 20, 20};
 static double DEFAULT_VIEW_CENTER[3] = {0, 0, 0};
 static double DEFAULT_UP_VECTOR[3] = {0, 1, 0};
 
@@ -52,7 +51,7 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 {
 	mode(FL_RGB | FL_ALPHA | FL_DOUBLE | FL_STENCIL);
 
-	fieldOfView = 90;
+	fieldOfView = 60;
 
 	glm::vec3 viewPoint(DEFAULT_VIEW_POINT[0], DEFAULT_VIEW_POINT[1], DEFAULT_VIEW_POINT[2]);
 	glm::vec3 viewCenter(DEFAULT_VIEW_CENTER[0], DEFAULT_VIEW_CENTER[1], DEFAULT_VIEW_CENTER[2]);
@@ -63,32 +62,37 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 
 	//	glutInit(0,0);
 
-	// Create entities
-	auto *moverA = new Mover(cyclone::Vector3(20.0f, 1.0f, 20.0f), 2.0f);
-	auto *moverB = new Mover(cyclone::Vector3(10.0f, 1.0f, 20.0f), 2.0f);
+	groundContact = new cyclone::MyGroundContact();
 
-	movables.push_back(moverA);
-	movables.push_back(moverB);
+	// Create entities
+	// auto *moverA = new Mover(cyclone::Vector3(10.0f, 1.0f, 10.0f), 0.5f);
+	// auto *moverB = new Mover(cyclone::Vector3(10.0f, 1.0f, 14.0f), 0.5f);
+	// auto *moverB = new Mover(cyclone::Vector3(10.0f, 1.0f, 20.0f), 2.0f);
+	//
+	// movables.push_back(moverA);
+	// movables.push_back(moverB);
 
 	// Create a link between two balls
-	movableLinks = new MoverConnection(moverA, moverB);
+	// movableLinks = new MoverConnection(moverA, moverB);
 
 	// Create a ball linked to a fixed point
 	// auto *anchorSpring = new cyclone::MyAnchoredSpring();
 	// movableLinks = new MoverConnection(moverA);
 
-	groundContact = new cyclone::MyGroundContact();
+	// Create a bridge
+	bridge = new Bridge();
+	// m_contactGenerators.addContact(bridge);
 
-	for (Mover *mover : movables) {
-		groundContact->init(mover->m_particle, 2.0f);
-	}
-	m_contactGenerators.push_back(groundContact);
-	m_resolver = new cyclone::ParticleContactResolver(5);
+	// for (Mover *mover : movables) {
+	// 	groundContact->init(mover->m_particle, 2.0f);
+	// }
+	// m_contactGenerators.push_back(groundContact);
+	// m_resolver = new cyclone::ParticleContactResolver(1);
 
-	cyclone::ParticleCollision *MyTest = new cyclone::ParticleCollision(2.0f);
-	MyTest->particle[0] = moverA->m_particle;
-	MyTest->particle[1] = moverB->m_particle;
-	m_contactGenerators.push_back(MyTest);
+	// cyclone::ParticleCollision *MyTest = new cyclone::ParticleCollision(2.0f);
+	// MyTest->particle[0] = moverA->m_particle;
+	// MyTest->particle[1] = moverB->m_particle;
+	// m_contactGenerators.push_back(MyTest);
 	// cyclone::ParticleCollision *myTest = new cyclone::ParticleCollision(2.0f);
 
 	// Define vertices of yellow plane
@@ -205,9 +209,11 @@ void MyGlWindow::draw()
 	setupShadows();
 	glColor3f(0.1f, 0.1f, 0.1f);
 
-	// for (Mover *mover : movables) {
-	// 	mover->draw(1);
-	// }
+	for (Mover *mover : movables) {
+		mover->draw(1);
+	}
+
+	bridge->draw(1);
 
 	unsetupShadows();
 
@@ -224,6 +230,8 @@ void MyGlWindow::draw()
 		mover->draw(0);
 	}
 
+	bridge->draw(0);
+
 	// Draw blue rectangle
 	// glDisable(GL_LIGHTING);
 	// glEnable(GL_BLEND);
@@ -235,7 +243,7 @@ void MyGlWindow::draw()
 	// glPopMatrix();
 
 	// Draw link between 2 entities
-	movableLinks->draw(0);
+	// movableLinks->draw(0);
 
 	// Draw link between an entity and a fixed point
 	// movableLinks->drawAnchor(0, movables[0]);
@@ -267,28 +275,29 @@ void MyGlWindow::update()
 
 	float duration = (float)TimingData::get().lastFrameDuration * 0.003f;
 
-	int maxPossibleContact = 30;
-	unsigned limit = maxPossibleContact;
-	cyclone::ParticleContact *nextContact = m_contact;
-	for (cyclone::ParticleContactGenerator *pcg : m_contactGenerators) {
-		unsigned used = pcg->addContact(nextContact, limit);
-		limit -= used;		 //subtract limit by used
-		nextContact += used; //move the pointer
-		if (limit <= 0)
-			break; //if nothing left, then return
-	}
-
-	int num = maxPossibleContact - limit; //how many collision are solved?
-
-	if (num > 0) {
-		m_resolver->setIterations(num * 2);
-		m_resolver->resolveContacts(m_contact, num, duration);
-	}
+	// int maxPossibleContact = 30;
+	// unsigned limit = maxPossibleContact;
+	// cyclone::ParticleContact *nextContact = m_contact;
+	// for (cyclone::ParticleContactGenerator *pcg : m_contactGenerators) {
+	// 	unsigned used = pcg->addContact(nextContact, limit);
+	// 	limit -= used;		 //subtract limit by used
+	// 	nextContact += used; //move the pointer
+	// 	if (limit <= 0)
+	// 		break; //if nothing left, then return
+	// }
+	//
+	// int num = maxPossibleContact - limit; //how many collision are solved?
+	//
+	// if (num > 0) {
+	// 	m_resolver->setIterations(num * 2);
+	// 	m_resolver->resolveContacts(m_contact, num, duration);
+	// }
 
 	// Update entities
-	for (Mover *mover : movables) {
-		mover->update(duration);
-	}
+	// for (Mover *mover : movables) {
+	// 	mover->update(duration);
+	// }
+	bridge->update(duration);
 }
 
 void MyGlWindow::doPick()
@@ -317,11 +326,13 @@ void MyGlWindow::doPick()
 	glInitNames();
 	glPushName(0);
 
-	for (int i = 0; i < movables.size(); i++) {
-		glLoadName(i + 1);
+	// for (int i = 0; i < movables.size(); i++) {
+	// 	glLoadName(i + 1);
+	//
+	// 	movables[i]->draw(0);
+	// }
 
-		movables[i]->draw(0);
-	}
+	bridge->draw(0);
 
 	// draw the cubes, loading the names as we go
 	// for (size_t i = 0; i < world->points.size(); ++i) {
@@ -387,7 +398,8 @@ int MyGlWindow::handle(int e)
 			if (m_pressedMouseButton == 1) {
 				doPick();
 				if (selected >= 0) {
-					initialPos = movables[selected]->m_particle->getPosition();
+					// initialPos = movables[selected]->m_particle->getPosition();
+					initialPos = bridge->m_particleArray[selected]->getPosition();
 				}
 				damage(1);
 				return 1;
@@ -399,10 +411,13 @@ int MyGlWindow::handle(int e)
 		case FL_RELEASE:
 			m_pressedMouseButton = -1;
 			if (selected >= 0) {
-				cyclone::Vector3 finalPos = movables[selected]->m_particle->getPosition();
-				cyclone::Vector3 newVelocity = finalPos - initialPos;
-				movables[selected]->m_particle->setVelocity(newVelocity);
-				run = 1;
+				// cyclone::Vector3 finalPos = movables[selected]->m_particle->getPosition();
+				// cyclone::Vector3 newVelocity = finalPos - initialPos;
+				// movables[selected]->m_particle->setVelocity(newVelocity);
+				// run = 1;
+				// selected = -1;
+
+				initialPos.x = initialPos.y = initialPos.z = 0;
 				selected = -1;
 			}
 			damage(1);
@@ -419,11 +434,17 @@ int MyGlWindow::handle(int e)
 				getMouseLine(r1x, r1y, r1z, r2x, r2y, r2z);
 				double rx = NAN, ry = NAN, rz = NAN;
 				mousePoleGo(r1x, r1y, r1z, r2x, r2y, r2z,
-							static_cast<double>(movables[selected]->m_particle->getPosition().x),
-							static_cast<double>(movables[selected]->m_particle->getPosition().y),
-							static_cast<double>(movables[selected]->m_particle->getPosition().z),
+							static_cast<double>(bridge->m_particleArray[selected]->getPosition().x),
+							static_cast<double>(bridge->m_particleArray[selected]->getPosition().y),
+							static_cast<double>(bridge->m_particleArray[selected]->getPosition().z),
 							rx, ry, rz, (Fl::event_state() & FL_CTRL) != 0);
-				movables[selected]->m_particle->setPosition(rx, ry, rz);
+
+				cyclone::Vector3 v(rx, ry, rz);
+				if (initialPos.magnitude() > 0)
+					bridge->m_particleArray[selected]->setVelocity((v - initialPos) * 40.0);
+				initialPos.x = v.x;
+				initialPos.y = v.y;
+				initialPos.z = v.z;
 				damage(1);
 			} else if (m_pressedMouseButton == 1) {
 				m_viewer->rotate(fractionChangeX, fractionChangeY);

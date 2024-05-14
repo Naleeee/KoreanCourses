@@ -1,3 +1,4 @@
+#include "Bridge.hpp"
 #include "Mover.hpp"
 #include "MoverConnection.hpp"
 #include "MyContact.hpp"
@@ -50,9 +51,10 @@ private:
 
 	std::vector<Mover *> movables;
 	cyclone::MyGroundContact *groundContact;
-	cyclone::MyPlaneContact *planeContact;
-
-	MoverConnection *movableLinks;
+	// cyclone::MyPlaneContact *planeContact;
+	//
+	// MoverConnection *movableLinks;
+	Bridge *bridge;
 
 	void setProjection(int clearProjection = 1);
 	void getMouseNDC(float &x, float &y);
