@@ -64,29 +64,27 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 
 	groundContact = new cyclone::MyGroundContact();
 
+	int particleCount = 2;
+	m_particleWorld = new cyclone::ParticleWorld(particleCount * 10);
+
 	// Create entities
-	// auto *moverA = new Mover(cyclone::Vector3(10.0f, 1.0f, 10.0f), 0.5f);
+	auto *moverA = new Mover(cyclone::Vector3(10.0f, 1.0f, 10.0f), 1.5f);
 	// auto *moverB = new Mover(cyclone::Vector3(10.0f, 1.0f, 14.0f), 0.5f);
 	// auto *moverB = new Mover(cyclone::Vector3(10.0f, 1.0f, 20.0f), 2.0f);
 	//
-	// movables.push_back(moverA);
+	movables.push_back(moverA);
+	m_particleWorld->getParticles().push_back(moverA->m_particle);
 	// movables.push_back(moverB);
 
-	// Create a link between two balls
-	// movableLinks = new MoverConnection(moverA, moverB);
-
-	// Create a ball linked to a fixed point
-	// auto *anchorSpring = new cyclone::MyAnchoredSpring();
-	// movableLinks = new MoverConnection(moverA);
-
 	// Create a bridge
-	bridge = new Bridge();
+	// bridge = new Bridge();
 	// m_contactGenerators.addContact(bridge);
 
-	// for (Mover *mover : movables) {
-	// 	groundContact->init(mover->m_particle, 2.0f);
-	// }
-	// m_contactGenerators.push_back(groundContact);
+	for (Mover *mover : movables) {
+		groundContact->init(mover->m_particle, 1.0f);
+	}
+	m_particleWorld->getContactGenerators().push_back(groundContact);
+
 	// m_resolver = new cyclone::ParticleContactResolver(1);
 
 	// cyclone::ParticleCollision *MyTest = new cyclone::ParticleCollision(2.0f);
@@ -213,7 +211,7 @@ void MyGlWindow::draw()
 		mover->draw(1);
 	}
 
-	bridge->draw(1);
+	// bridge->draw(1);
 
 	unsetupShadows();
 
@@ -230,7 +228,7 @@ void MyGlWindow::draw()
 		mover->draw(0);
 	}
 
-	bridge->draw(0);
+	// bridge->draw(0);
 
 	// Draw blue rectangle
 	// glDisable(GL_LIGHTING);
@@ -294,10 +292,12 @@ void MyGlWindow::update()
 	// }
 
 	// Update entities
-	// for (Mover *mover : movables) {
-	// 	mover->update(duration);
-	// }
-	bridge->update(duration);
+	for (Mover *mover : movables) {
+		mover->update(duration);
+	}
+	// bridge->update(duration);
+
+	m_particleWorld->runPhysics(duration);
 }
 
 void MyGlWindow::doPick()
@@ -326,13 +326,13 @@ void MyGlWindow::doPick()
 	glInitNames();
 	glPushName(0);
 
-	// for (int i = 0; i < movables.size(); i++) {
-	// 	glLoadName(i + 1);
-	//
-	// 	movables[i]->draw(0);
-	// }
+	for (int i = 0; i < movables.size(); i++) {
+		glLoadName(i + 1);
 
-	bridge->draw(0);
+		movables[i]->draw(0);
+	}
+
+	// bridge->draw(0);
 
 	// draw the cubes, loading the names as we go
 	// for (size_t i = 0; i < world->points.size(); ++i) {
@@ -398,8 +398,8 @@ int MyGlWindow::handle(int e)
 			if (m_pressedMouseButton == 1) {
 				doPick();
 				if (selected >= 0) {
-					// initialPos = movables[selected]->m_particle->getPosition();
-					initialPos = bridge->m_particleArray[selected]->getPosition();
+					initialPos = movables[selected]->m_particle->getPosition();
+					// initialPos = bridge->m_particleArray[selected]->getPosition();
 				}
 				damage(1);
 				return 1;
@@ -411,13 +411,10 @@ int MyGlWindow::handle(int e)
 		case FL_RELEASE:
 			m_pressedMouseButton = -1;
 			if (selected >= 0) {
-				// cyclone::Vector3 finalPos = movables[selected]->m_particle->getPosition();
-				// cyclone::Vector3 newVelocity = finalPos - initialPos;
-				// movables[selected]->m_particle->setVelocity(newVelocity);
-				// run = 1;
-				// selected = -1;
-
-				initialPos.x = initialPos.y = initialPos.z = 0;
+				cyclone::Vector3 finalPos = movables[selected]->m_particle->getPosition();
+				cyclone::Vector3 newVelocity = finalPos - initialPos;
+				movables[selected]->m_particle->setVelocity(newVelocity);
+				run = 1;
 				selected = -1;
 			}
 			damage(1);
@@ -434,17 +431,11 @@ int MyGlWindow::handle(int e)
 				getMouseLine(r1x, r1y, r1z, r2x, r2y, r2z);
 				double rx = NAN, ry = NAN, rz = NAN;
 				mousePoleGo(r1x, r1y, r1z, r2x, r2y, r2z,
-							static_cast<double>(bridge->m_particleArray[selected]->getPosition().x),
-							static_cast<double>(bridge->m_particleArray[selected]->getPosition().y),
-							static_cast<double>(bridge->m_particleArray[selected]->getPosition().z),
+							static_cast<double>(movables[selected]->m_particle->getPosition().x),
+							static_cast<double>(movables[selected]->m_particle->getPosition().y),
+							static_cast<double>(movables[selected]->m_particle->getPosition().z),
 							rx, ry, rz, (Fl::event_state() & FL_CTRL) != 0);
-
-				cyclone::Vector3 v(rx, ry, rz);
-				if (initialPos.magnitude() > 0)
-					bridge->m_particleArray[selected]->setVelocity((v - initialPos) * 40.0);
-				initialPos.x = v.x;
-				initialPos.y = v.y;
-				initialPos.z = v.z;
+				movables[selected]->m_particle->setPosition(rx, ry, rz);
 				damage(1);
 			} else if (m_pressedMouseButton == 1) {
 				m_viewer->rotate(fractionChangeX, fractionChangeY);

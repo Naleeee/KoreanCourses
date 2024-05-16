@@ -5,6 +5,7 @@
 #include "MyPlaneContact.hpp"
 #include "ParticleCollision.hpp"
 #include "pcontacts.h"
+#include "world.h"
 
 #include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
@@ -55,6 +56,7 @@ private:
 	//
 	// MoverConnection *movableLinks;
 	Bridge *bridge;
+	cyclone::ParticleWorld *m_particleWorld;
 
 	void setProjection(int clearProjection = 1);
 	void getMouseNDC(float &x, float &y);
