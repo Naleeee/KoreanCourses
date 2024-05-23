@@ -21,6 +21,8 @@ public:
 	cyclone::MySpring *m_spring {};
 	cyclone::MyAnchoredSpring *m_anchorSpring {};
 	cyclone::MyParticleBuoyancy *m_particleBuoyancy {};
+	cyclone::Quaternion orientation;
+	cyclone::Matrix4 transformMatrix;
 
 	Mover(cyclone::Vector3 pos, float size)
 	{
@@ -35,7 +37,7 @@ public:
 		m_forces->add(m_particle, m_gravity);
 		m_forces->add(m_particle, m_drag);
 
-		m_spring = new cyclone::MySpring(m_particle, 20, 1);
+		// m_spring = new cyclone::MySpring(m_particle, 20, 1);
 		// m_anchorSpring = new cyclone::MyAnchoredSpring(new cyclone::Vector3(5, 15, 5), 5, 3);
 
 		// m_particleBuoyancy = new cyclone::MyParticleBuoyancy(1, 1, 10, 2);
@@ -61,4 +63,5 @@ public:
 	void checkCollide();
 	void stop() { }
 	void setConnection(Mover *a);
+	void getGLTransform(float *matrix);
 };

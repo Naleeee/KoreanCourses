@@ -4,35 +4,35 @@ void Mover::update(float duration)
 {
 	m_forces->updateForces(duration);
 	m_particle->integrate(duration);
-	m_spring->updateForce(m_particle, duration);
+	// m_spring->updateForce(m_particle, duration);
 	// m_anchorSpring->updateForce(m_particle, duration);
 	// checkCollide();
 	// m_particleBuoyancy->updateForce(m_particle, duration);
 	checkEdges();
 }
 
-void Mover::draw(int shadow)
-{
-	cyclone::Vector3 position;
-	m_particle->getPosition(&position);
-	if (shadow)
-		glColor3f(0.1f, 0.1f, 0.1f);
-	else
-		glColor3f(1.0, 0, 0);
-
-	glPushMatrix();
-	glTranslatef(position.x, position.y, position.z);
-	glutSolidSphere(size, 30, 30);
-	glPopMatrix();
-}
+// void Mover::draw(int shadow)
+// {
+// 	cyclone::Vector3 position;
+// 	m_particle->getPosition(&position);
+// 	if (shadow)
+// 		glColor3f(0.1f, 0.1f, 0.1f);
+// 	else
+// 		glColor3f(1.0, 0, 0);
+//
+// 	glPushMatrix();
+// 	glTranslatef(position.x, position.y, position.z);
+// 	glutSolidSphere(size, 30, 30);
+// 	glPopMatrix();
+// }
 
 void Mover::resetParameters(cyclone::Vector3 pos)
 {
 	m_particle->setPosition(pos); // initial posx
 	m_particle->setVelocity(0.0f, 0.0f, 0.0f);
-	m_particle->setDamping(0.9f);
+	// m_particle->setDamping(0.9f);
 	m_particle->setAcceleration(0.0f, 0.0f, 0.0f); // initial acc
-	m_particle->setMass(10.0f);					   // 1.0kg-mostly blast damage
+	// m_particle->setMass(10.0f);					   // 1.0kg-mostly blast damage
 }
 
 void Mover::checkEdges()
@@ -94,4 +94,58 @@ void Mover::checkCollide()
 void Mover::setConnection(Mover *a)
 {
 	m_spring = new cyclone::MySpring(a->m_particle, 20.0f, 3);
+}
+
+void Mover::getGLTransform(float matrix[16])
+{
+	matrix[0] = (float)transformMatrix.data[0];
+	matrix[1] = (float)transformMatrix.data[4];
+	matrix[2] = (float)transformMatrix.data[8];
+	matrix[3] = 0;
+	matrix[4] = (float)transformMatrix.data[1];
+	matrix[5] = (float)transformMatrix.data[5];
+	matrix[6] = (float)transformMatrix.data[9];
+	matrix[7] = 0;
+	matrix[8] = (float)transformMatrix.data[2];
+	matrix[9] = (float)transformMatrix.data[6];
+	matrix[10] = (float)transformMatrix.data[10];
+	matrix[11] = 0;
+	matrix[12] = (float)transformMatrix.data[3];
+	matrix[13] = (float)transformMatrix.data[7];
+	matrix[14] = (float)transformMatrix.data[11];
+	matrix[15] = 1;
+}
+
+void Mover::draw(int shadow)
+{
+	// Get the OpenGL transformation
+	GLfloat mat[16];
+	getGLTransform(mat);
+	if (!shadow) {
+		glPushMatrix();
+		glMultMatrixf(mat);
+		glLineWidth(3.0f);
+		glBegin(GL_LINES);
+		glColor3f(1, 0, 0);
+		glVertex3f(0, 0.1, 0);
+		glVertex3f(0, 10, 0);
+		glColor3f(0, 1, 0);
+		glVertex3f(0, 0.1, 0);
+		glVertex3f(10, 0.1, 0);
+		glColor3f(0, 0, 1);
+		glVertex3f(0, 0.1, 0);
+		glVertex3f(0, 0.1, 10);
+		glEnd();
+		glPopMatrix();
+		glLineWidth(1.0f);
+	}
+	if (shadow) {
+		glColor3f(0.2f, 0.2f, 0.2f);
+	} else {
+		glColor3f(1, 0., 0);
+	}
+	glPushMatrix();
+	glMultMatrixf(mat);
+	glutSolidCube(size * 2);
+	glPopMatrix();
 }

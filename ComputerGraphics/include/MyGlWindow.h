@@ -54,7 +54,9 @@ private:
 	// cyclone::MyPlaneContact *planeContact;
 	//
 	// MoverConnection *movableLinks;
-	Bridge *bridge;
+	// Bridge *bridge;
+
+	cyclone::ParticleWorld *m_particleWorld;
 
 	void setProjection(int clearProjection = 1);
 	void getMouseNDC(float &x, float &y);
