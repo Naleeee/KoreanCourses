@@ -4,7 +4,7 @@ void Mover::update(float duration)
 {
 	m_forces->updateForces(duration);
 	m_particle->integrate(duration);
-	m_spring->updateForce(m_particle, duration);
+	// m_spring->updateForce(m_particle, duration);
 	// m_anchorSpring->updateForce(m_particle, duration);
 	// checkCollide();
 	// m_particleBuoyancy->updateForce(m_particle, duration);
@@ -30,9 +30,9 @@ void Mover::resetParameters(cyclone::Vector3 pos)
 {
 	m_particle->setPosition(pos); // initial posx
 	m_particle->setVelocity(0.0f, 0.0f, 0.0f);
-	m_particle->setDamping(0.9f);
+	// m_particle->setDamping(0.9f);
 	m_particle->setAcceleration(0.0f, 0.0f, 0.0f); // initial acc
-	m_particle->setMass(10.0f);					   // 1.0kg-mostly blast damage
+	// m_particle->setMass(10.0f);					   // 1.0kg-mostly blast damage
 }
 
 void Mover::checkEdges()
@@ -40,11 +40,11 @@ void Mover::checkEdges()
 	cyclone::Vector3 pos = m_particle->getPosition();
 	cyclone::Vector3 vel = m_particle->getVelocity();
 
-	if (pos.x >= 100 - size / 2) {
-		pos.x = 100 - size / 2;
+	if (pos.x >= 30 - size / 2) {
+		pos.x = 30 - size / 2;
 		vel.x *= -1;
-	} else if (pos.x <= -100 + size / 2) {
-		pos.x = -100 + size / 2;
+	} else if (pos.x <= -30 + size / 2) {
+		pos.x = -30 + size / 2;
 		vel.x *= -1;
 	}
 	// if (pos.y <= size / 2) {

@@ -52,8 +52,7 @@ private:
 
 	std::vector<Mover *> movables;
 	cyclone::MyGroundContact *groundContact;
-	// cyclone::MyPlaneContact *planeContact;
-	//
+
 	// MoverConnection *movableLinks;
 	Bridge *bridge;
 	cyclone::ParticleWorld *m_particleWorld;

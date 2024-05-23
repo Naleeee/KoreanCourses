@@ -1,6 +1,8 @@
 #include "MyGlWindow.h"
 
 #include "3DUtils.h"
+#include "DrawUtils.h"
+#include "particle.h"
 #include "pcontacts.h"
 #include "timing.h"
 
@@ -8,8 +10,8 @@
 #include <iostream>
 #include <ostream>
 
-static double DEFAULT_VIEW_POINT[3] = {20, 20, 20};
-static double DEFAULT_VIEW_CENTER[3] = {0, 0, 0};
+static double DEFAULT_VIEW_POINT[3] = {0, 50, -95};
+static double DEFAULT_VIEW_CENTER[3] = {0, 1, -50};
 static double DEFAULT_UP_VECTOR[3] = {0, 1, 0};
 
 void drawStrokeText(char *string, int x, int y, int z)
@@ -51,7 +53,7 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 {
 	mode(FL_RGB | FL_ALPHA | FL_DOUBLE | FL_STENCIL);
 
-	fieldOfView = 60;
+	fieldOfView = 80;
 
 	glm::vec3 viewPoint(DEFAULT_VIEW_POINT[0], DEFAULT_VIEW_POINT[1], DEFAULT_VIEW_POINT[2]);
 	glm::vec3 viewCenter(DEFAULT_VIEW_CENTER[0], DEFAULT_VIEW_CENTER[1], DEFAULT_VIEW_CENTER[2]);
@@ -59,53 +61,24 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 
 	float aspect = (w / (float)h);
 	m_viewer = new Viewer(viewPoint, viewCenter, upVector, 45.0f, aspect);
+	// glutInit(0, 0);
 
-	//	glutInit(0,0);
-
+	// Setup elements
 	groundContact = new cyclone::MyGroundContact();
 
 	int particleCount = 2;
 	m_particleWorld = new cyclone::ParticleWorld(particleCount * 10);
 
 	// Create entities
-	auto *moverA = new Mover(cyclone::Vector3(10.0f, 1.0f, 10.0f), 1.5f);
-	// auto *moverB = new Mover(cyclone::Vector3(10.0f, 1.0f, 14.0f), 0.5f);
-	// auto *moverB = new Mover(cyclone::Vector3(10.0f, 1.0f, 20.0f), 2.0f);
-	//
+	auto *moverA = new Mover(cyclone::Vector3(0.0f, 6.0f, -80.0f), 4.0f);
 	movables.push_back(moverA);
 	m_particleWorld->getParticles().push_back(moverA->m_particle);
-	// movables.push_back(moverB);
 
-	// Create a bridge
-	// bridge = new Bridge();
-	// m_contactGenerators.addContact(bridge);
-
+	// Define ground collision
 	for (Mover *mover : movables) {
-		groundContact->init(mover->m_particle, 1.0f);
+		groundContact->init(mover->m_particle, 4.0f);
 	}
 	m_particleWorld->getContactGenerators().push_back(groundContact);
-
-	// m_resolver = new cyclone::ParticleContactResolver(1);
-
-	// cyclone::ParticleCollision *MyTest = new cyclone::ParticleCollision(2.0f);
-	// MyTest->particle[0] = moverA->m_particle;
-	// MyTest->particle[1] = moverB->m_particle;
-	// m_contactGenerators.push_back(MyTest);
-	// cyclone::ParticleCollision *myTest = new cyclone::ParticleCollision(2.0f);
-
-	// Define vertices of yellow plane
-	// cyclone::Vector3 p1(20., 0., 25);
-	// cyclone::Vector3 p2(20., 0., -25);
-	// cyclone::Vector3 p3(-20., 30., 25);
-	// cyclone::Vector3 p4(-20., 30., -25);
-	// std::vector<cyclone::Vector3> v;
-	// v.push_back(p1);
-	// v.push_back(p2);
-	// v.push_back(p3);
-	// v.push_back(p4);
-	// planeContact = new cyclone::MyPlaneContact(v);
-	// planeContact->init(moverA->m_particle, 2.0f);
-	// m_contactGenerators.push_back(planeContact);
 
 	TimingData::init();
 	run = 0;
@@ -152,10 +125,20 @@ void MyGlWindow::setupLight(float x, float y, float z)
 
 void MyGlWindow::drawStuff()
 {
-	// Draw yellow plane
-	// glColor4f(1, 1, 0, 0.5); //color
-	// polygonf(4, 20.0f, 0.0f, -25.0f, 20.0f, 0.0f, 25.0f, -20.0f, 30.0f, 25.0f, -20.0f, 30.0f,
-	// 		 -25.0f);
+	// Draw board game in yellow
+	glColor4f(1, 1, 0, 0.5); // yellow
+							 // Left pane
+	polygonf(4, 30.0f, 0.0f, 100.0f, 30.0f, 10.0f, 100.0f, 30.0f, 10.0f, -100.0f, 30.0f, 0.0f,
+			 -100.0f);
+	// Right pane
+	polygonf(4, -30.0f, 0.0f, 100.0f, -30.0f, 10.0f, 100.0f, -30.0f, 10.0f, -100.0f, -30.0f, 0.0f,
+			 -100.0f);
+	// Front pane
+	polygonf(4, 30.0f, 0.0f, 100.0f, 30.0f, 10.0f, 100.0f, -30.0f, 10.0f, 100.0f, -30.0f, 0.0f,
+			 100.0f);
+	// Back pane
+	polygonf(4, 30.0f, 0.0f, -100.0f, 30.0f, 10.0f, -100.0f, -30.0f, 10.0f, -100.0f, -30.0f, 0.0f,
+			 -100.0f);
 }
 
 //==========================================================================
@@ -217,7 +200,6 @@ void MyGlWindow::draw()
 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_BLEND);
-	drawStuff();
 
 	// draw objects
 	glPushMatrix();
@@ -246,6 +228,8 @@ void MyGlWindow::draw()
 	// Draw link between an entity and a fixed point
 	// movableLinks->drawAnchor(0, movables[0]);
 
+	drawStuff();
+
 	glPopMatrix();
 
 	////////////////////
@@ -260,7 +244,7 @@ void MyGlWindow::draw()
 void MyGlWindow::test()
 {
 	for (Mover *mover : movables) {
-		mover->resetParameters(cyclone::Vector3(3.0f, 30.0f, 0.0f));
+		mover->resetParameters(cyclone::Vector3(0.0f, 1.0f, -80.0f));
 	}
 }
 
@@ -295,8 +279,9 @@ void MyGlWindow::update()
 	for (Mover *mover : movables) {
 		mover->update(duration);
 	}
-	// bridge->update(duration);
 
+	// m_particleWorld->generateContacts();
+	// m_particleWorld->integrate(duration);
 	m_particleWorld->runPhysics(duration);
 }
 
