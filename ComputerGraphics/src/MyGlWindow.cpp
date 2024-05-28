@@ -1,6 +1,8 @@
 #include "MyGlWindow.h"
 
 #include "3DUtils.h"
+#include "Vec3f.h"
+#include "particle.h"
 #include "timing.h"
 
 #include <cmath>
@@ -68,9 +70,15 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 	m_particleWorld = new cyclone::ParticleWorld(particleCount * 10);
 
 	// Create entities
-	auto *moverA = new Mover(cyclone::Vector3(3.0f, 6.0f, 3.0f), 1.0f);
+	auto *moverA = new Mover(cyclone::Vector3(0.0f, 1.5f, 0.0f), 1.0f);
+	auto *moverB = new Mover(cyclone::Vector3(0.0f, 1.5f, 0.0f), 1.0f);
+	auto *moverC = new Mover(cyclone::Vector3(0.0f, 10.5f, 0.0f), 1.0f);
 	movables.push_back(moverA);
+	movables.push_back(moverB);
+	movables.push_back(moverC);
 	m_particleWorld->getParticles().push_back(moverA->m_particle);
+	m_particleWorld->getParticles().push_back(moverB->m_particle);
+	m_particleWorld->getParticles().push_back(moverC->m_particle);
 
 	// Define ground collision
 	for (Mover *mover : movables) {
@@ -78,27 +86,26 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 	}
 	m_particleWorld->getContactGenerators().push_back(groundContact);
 
-	cyclone::Quaternion q;
-	const float degrees2Radians = 3.141592f / 180;
-	//Must input a 1/2 angle that you want to rotate
-	q.r = cos(degrees2Radians * 45.0f * 0.5);
-	cyclone::Vector3 v = cyclone::Vector3(0, 1, 0) * sin(degrees2Radians * 45.0f * 0.5);
-	q.i = v.x;
-	q.j = v.y;
-	q.k = v.z;
-	q.normalise();
-	moverA->transformMatrix.setOrientationAndPos(q, cyclone::Vector3(0, 6, 0));
-
-	q.r = cos(degrees2Radians * 90.0f * 0.5);
-	v = cyclone::Vector3(1, 0, 0) * sin(degrees2Radians * 90.0f * 0.5);
-	q.i = v.x;
-	q.j = v.y;
-	q.k = v.z;
-	q.normalise();
-	moverA->transformMatrix.setOrientationAndPos(q, cyclone::Vector3(0, 6, 0));
+	initQuaternion(a, moverA, -45.0f, cyclone::Vector3(1, 0, 0), cyclone::Vector3(0, 1.5, 0));
+	initQuaternion(b, moverB, -45.0f, cyclone::Vector3(1, 0, 0), cyclone::Vector3(0, 1.5, 0));
+	initQuaternion(c, moverC, 45.0f, cyclone::Vector3(1, 1, 0), cyclone::Vector3(0, 10.5, 0));
 
 	TimingData::init();
 	run = 0;
+}
+
+void MyGlWindow::initQuaternion(cyclone::Quaternion &q, Mover *mover, float angle,
+								cyclone::Vector3 axisVector, cyclone::Vector3 pos)
+{
+	const float degrees2Radians = 3.141592f / 180;
+
+	q.r = cos(degrees2Radians * angle * 0.5);
+	cyclone::Vector3 v = axisVector * sin(degrees2Radians * angle * 0.5);
+	q.i = v.x;
+	q.j = v.y;
+	q.k = v.z;
+	q.normalise();
+	mover->transformMatrix.setOrientationAndPos(q, pos);
 }
 
 void MyGlWindow::setupLight(float x, float y, float z)
@@ -252,6 +259,19 @@ void MyGlWindow::test()
 	for (Mover *mover : movables) {
 		mover->resetParameters(cyclone::Vector3(3.0f, 30.0f, 0.0f));
 	}
+}
+
+cyclone::Vector3 lerp(const float t, const cyclone::Vector3 &p0, const cyclone::Vector3 &p1)
+{
+	return (p0 + (p1 - p0) * t);
+}
+
+void MyGlWindow::testValue(float t)
+{
+	cyclone::Quaternion b2 = cyclone::Quaternion::slerp(a, c, t);
+	cyclone::Vector3 pos;
+	pos = lerp(t, movables[0]->m_particle->getPosition(), movables[2]->m_particle->getPosition());
+	movables[1]->transformMatrix.setOrientationAndPos(b2, pos);
 }
 
 void MyGlWindow::update()

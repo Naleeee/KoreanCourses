@@ -599,23 +599,19 @@ namespace cyclone {
 			Quaternion result;
 			float dotProd = q1.r * q2.r + q1.i * q2.i + q1.j * q2.j + q1.k * q2.k;
 			float theta;
-
 			if (dotProd < 0) {
 				theta = acos(-dotProd);
 			} else {
 				theta = acos(dotProd);
 			}
-
 			float sinTheta = sin(theta);
 
 			if (fabs(sinTheta) < TRIG_ANGLE_TOL) {
 				result = q1;
 				return (result);
 			}
-
 			float coeff1 = sin((1.0 - u) * theta) / sinTheta;
 			float coeff2 = sin(u * theta) / sinTheta;
-
 			if (dotProd < 0) {
 				result.r = -coeff1 * q1.r + coeff2 * q2.r;
 				result.i = -coeff1 * q1.i + coeff2 * q2.i;

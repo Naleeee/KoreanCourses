@@ -33,15 +33,20 @@ public:
 	void drawStuff();
 	void doPick();
 	void test();
+	void testValue(float t);
 
 	int selected = -1;
 	cyclone::Vector3 initialPos;
+	cyclone::Quaternion a;
+	cyclone::Quaternion b;
+	cyclone::Quaternion c;
 
 private:
 	cyclone::ParticleContact m_contact[99];
 	std::vector<cyclone::ParticleContactGenerator *> m_contactGenerators;
 	cyclone::ParticleContactResolver *m_resolver;
 	void draw() override; // standard FlTk
+	void initQuaternion(cyclone::Quaternion &, Mover *, float, cyclone::Vector3, cyclone::Vector3);
 
 	int handle(int) override; // standard FlTk
 
