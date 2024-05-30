@@ -71,14 +71,14 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 
 	// Create entities
 	auto *moverA = new Mover(cyclone::Vector3(0.0f, 1.5f, 0.0f), 1.0f);
-	auto *moverB = new Mover(cyclone::Vector3(0.0f, 1.5f, 0.0f), 1.0f);
-	auto *moverC = new Mover(cyclone::Vector3(0.0f, 10.5f, 0.0f), 1.0f);
+	// auto *moverB = new Mover(cyclone::Vector3(0.0f, 1.5f, 0.0f), 1.0f);
+	// auto *moverC = new Mover(cyclone::Vector3(0.0f, 10.5f, 0.0f), 1.0f);
 	movables.push_back(moverA);
-	movables.push_back(moverB);
-	movables.push_back(moverC);
+	// movables.push_back(moverB);
+	// movables.push_back(moverC);
 	m_particleWorld->getParticles().push_back(moverA->m_particle);
-	m_particleWorld->getParticles().push_back(moverB->m_particle);
-	m_particleWorld->getParticles().push_back(moverC->m_particle);
+	// m_particleWorld->getParticles().push_back(moverB->m_particle);
+	// m_particleWorld->getParticles().push_back(moverC->m_particle);
 
 	// Define ground collision
 	for (Mover *mover : movables) {
@@ -86,16 +86,22 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 	}
 	m_particleWorld->getContactGenerators().push_back(groundContact);
 
-	initQuaternion(a, moverA, -45.0f, cyclone::Vector3(1, 0, 0), cyclone::Vector3(0, 1.5, 0));
-	initQuaternion(b, moverB, -45.0f, cyclone::Vector3(1, 0, 0), cyclone::Vector3(0, 1.5, 0));
-	initQuaternion(c, moverC, 45.0f, cyclone::Vector3(1, 1, 0), cyclone::Vector3(0, 10.5, 0));
+	cyclone::Quaternion rotatedQ =
+		initQuaternion(a, moverA, 45.0f, cyclone::Vector3(0, 1, 0), cyclone::Vector3(0, 1.5, 0));
+	// cyclone::Quaternion rotated2Q =
+	// 	initQuaternion(a, moverA, 90.0f, cyclone::Vector3(1, 0, 0), cyclone::Vector3(0, 1.5, 0));
+	// initQuaternion(b, moverB, -45.0f, cyclone::Vector3(1, 0, 0), cyclone::Vector3(0, 1.5, 0));
+	// initQuaternion(c, moverC, 45.0f, cyclone::Vector3(1, 1, 0), cyclone::Vector3(0, 10.5, 0));
 
+	// rotated2Q *= rotatedQ;
+
+	moverA->transformMatrix.setOrientationAndPos(a, cyclone::Vector3(0, 10.5, 0));
 	TimingData::init();
 	run = 0;
 }
 
-void MyGlWindow::initQuaternion(cyclone::Quaternion &q, Mover *mover, float angle,
-								cyclone::Vector3 axisVector, cyclone::Vector3 pos)
+cyclone::Quaternion MyGlWindow::initQuaternion(cyclone::Quaternion &q, Mover *mover, float angle,
+											   cyclone::Vector3 axisVector, cyclone::Vector3 pos)
 {
 	const float degrees2Radians = 3.141592f / 180;
 
@@ -105,7 +111,7 @@ void MyGlWindow::initQuaternion(cyclone::Quaternion &q, Mover *mover, float angl
 	q.j = v.y;
 	q.k = v.z;
 	q.normalise();
-	mover->transformMatrix.setOrientationAndPos(q, pos);
+	return q;
 }
 
 void MyGlWindow::setupLight(float x, float y, float z)

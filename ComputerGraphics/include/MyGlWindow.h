@@ -46,7 +46,8 @@ private:
 	std::vector<cyclone::ParticleContactGenerator *> m_contactGenerators;
 	cyclone::ParticleContactResolver *m_resolver;
 	void draw() override; // standard FlTk
-	void initQuaternion(cyclone::Quaternion &, Mover *, float, cyclone::Vector3, cyclone::Vector3);
+	cyclone::Quaternion initQuaternion(cyclone::Quaternion &, Mover *, float, cyclone::Vector3,
+									   cyclone::Vector3);
 
 	int handle(int) override; // standard FlTk
 

@@ -23,6 +23,10 @@ public:
 	cyclone::MyParticleBuoyancy *m_particleBuoyancy {};
 	cyclone::Quaternion orientation;
 	cyclone::Matrix4 transformMatrix;
+	cyclone::Vector3 rotation;			   //Angular velocity
+	cyclone::Matrix3 inverseInertiaMatrix; //Inverse of local Inertia matrix
+	cyclone::Vector3 torqueAccum;		   //Torque
+	cyclone::Matrix3 inverseInertiaTensorWorld;
 
 	Mover(cyclone::Vector3 pos, float size)
 	{
@@ -64,4 +68,5 @@ public:
 	void stop() { }
 	void setConnection(Mover *a);
 	void getGLTransform(float *matrix);
+	void addTorque(cyclone::Vector3 force, cyclone::Vector3 point); //Apply Force on Point
 };

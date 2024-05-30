@@ -2,6 +2,14 @@
 
 void Mover::update(float duration)
 {
+	cyclone::Vector3 angularAcceleration(0, 0.1, 0);
+	rotation.addScaledVector(angularAcceleration, duration);
+	double angularDamping = 0.9;
+	rotation *= real_pow(angularDamping, duration); //𝛚=𝛚∙𝒅𝒂𝒎𝒑𝒊𝒏𝒈 (Multiply damping)
+	orientation.addScaledVector(rotation, duration);
+	orientation.normalise(); // normalize quaternion
+	transformMatrix.setOrientationAndPos(orientation, cyclone::Vector3(0, 6, 0));
+
 	m_forces->updateForces(duration);
 	m_particle->integrate(duration);
 	// m_spring->updateForce(m_particle, duration);
@@ -148,4 +156,17 @@ void Mover::draw(int shadow)
 	glMultMatrixf(mat);
 	glutSolidCube(size * 2);
 	glPopMatrix();
+}
+
+void Mover::addTorque(cyclone::Vector3 force, cyclone::Vector3)
+{
+	//Inverse of Local Inertia Matrix
+	// inverseInertiaMatrix = inverse(local Inertia matrix); //get from setBlockInertiaTensor()
+	//Convert to 3x3 matrix from mover’s quaternion : use setOrientation()
+	cyclone::Matrix3 orientationMatrix;
+	orientationMatrix.setOrientation(orientation); //Quaternion->matrix
+	cyclone::Matrix3 TransposeOrintationMatrix =
+		orientationMatrix.transpose(); //transpose of orintationMatrix
+	inverseInertiaTensorWorld =
+		orientationMatrix * inverseInertiaMatrix * TransposeOrintationMatrix;
 }
