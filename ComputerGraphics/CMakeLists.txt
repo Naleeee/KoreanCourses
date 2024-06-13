@@ -45,6 +45,7 @@ set(PROJECT_SOURCES
     src/Cyclone/world.cpp
     src/3DUtils.cpp
     src/Bridge.cpp
+    src/Box.cpp
     src/DrawUtils.cpp
     src/MMatrix.cpp
     src/Mover.cpp
@@ -55,6 +56,8 @@ set(PROJECT_SOURCES
     src/MyParticleBuoyancy.cpp
     src/MyPlaneContact.cpp
     src/ParticleCollision.cpp
+    src/Sphere.cpp
+    src/SimplePhysics.cpp
     src/stdafx.cpp
     src/timing.cpp
     src/Viewer.cpp

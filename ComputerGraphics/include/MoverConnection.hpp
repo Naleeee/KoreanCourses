@@ -23,10 +23,10 @@ public:
 	{
 		m_forces = new cyclone::ParticleForceRegistry();
 
-		m_forces->add(MoverA->m_particle, m_gravity);
-		m_forces->add(MoverB->m_particle, m_gravity);
-		m_forces->add(MoverA->m_particle, MoverA->m_spring);
-		m_forces->add(MoverB->m_particle, MoverB->m_spring);
+		// m_forces->add(MoverA->m_particle, m_gravity);
+		// m_forces->add(MoverB->m_particle, m_gravity);
+		// m_forces->add(MoverA->m_particle, MoverA->m_spring);
+		// m_forces->add(MoverB->m_particle, MoverB->m_spring);
 
 		MoverA->setConnection(MoverB);
 		MoverB->setConnection(MoverA);
@@ -41,8 +41,8 @@ public:
 		m_gravity = new cyclone::ParticleGravity(cyclone::Vector3(0, -9.81, 0));
 		mover->m_anchorSpring = new cyclone::MyAnchoredSpring(new cyclone::Vector3(5, 15, 5), 5, 3);
 
-		m_forces->add(mover->m_particle, m_gravity);
-		m_forces->add(mover->m_particle, mover->m_anchorSpring);
+		// m_forces->add(mover->m_particle, m_gravity);
+		// m_forces->add(mover->m_particle, mover->m_anchorSpring);
 	}
 
 	~MoverConnection();

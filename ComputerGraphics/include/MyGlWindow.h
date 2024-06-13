@@ -1,23 +1,9 @@
-#include "Bridge.hpp"
-#include "Mover.hpp"
-#include "MoverConnection.hpp"
-#include "MyContact.hpp"
-#include "MyPlaneContact.hpp"
-#include "ParticleCollision.hpp"
-#include "pcontacts.h"
+#include "SimplePhysics.hpp"
 
-#include <FL/Fl.H>
-#include <FL/Fl_Double_Window.H>
-#include <FL/Fl_Gl_Window.H>
 #include <FL/Fl_Light_Button.H>
 #include <FL/Fl_Value_Slider.H>
-#include <GL/gl.h>
-#include <GL/glu.h>
-#include <GL/glut.h>
 #include <Vec3f.h>
 #include <Viewer.h>
-#include <core.h>
-#include <vector>
 
 class MyGlWindow : public Fl_Gl_Window {
 public:
@@ -37,33 +23,17 @@ public:
 
 	int selected = -1;
 	cyclone::Vector3 initialPos;
-	cyclone::Quaternion a;
-	cyclone::Quaternion b;
-	cyclone::Quaternion c;
 
 private:
-	cyclone::ParticleContact m_contact[99];
-	std::vector<cyclone::ParticleContactGenerator *> m_contactGenerators;
-	cyclone::ParticleContactResolver *m_resolver;
-	void draw() override; // standard FlTk
-	cyclone::Quaternion initQuaternion(cyclone::Quaternion &, Mover *, float, cyclone::Vector3,
-									   cyclone::Vector3);
-
-	int handle(int) override; // standard FlTk
-
+	// Original members variables
 	float fieldOfView;
 	Viewer *m_viewer;
-	// cyclone::MyAnchoredSpring anchorSpring;
 
-	std::vector<Mover *> movables;
-	cyclone::MyGroundContact *groundContact;
-	// cyclone::MyPlaneContact *planeContact;
-	//
-	// MoverConnection *movableLinks;
-	// Bridge *bridge;
+	// Added members variables
+	SimplePhysics *simplePhysics;
 
-	cyclone::ParticleWorld *m_particleWorld;
-
+	void draw() override;	  // standard FlTk
+	int handle(int) override; // standard FlTk
 	void setProjection(int clearProjection = 1);
 	void getMouseNDC(float &x, float &y);
 	void setupLight(float x, float y, float z);
