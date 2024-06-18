@@ -12,6 +12,7 @@ public:
 
 	void putText(char *string, int x, int y, float r, float g, float b);
 	std::vector<Vec3f *> history;
+	int score = 0;
 
 	Fl_Slider *time;
 	int run;

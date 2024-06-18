@@ -39,6 +39,6 @@ void Box::setState(const cyclone::Vector3 &position, const cyclone::Quaternion &
 	body->clearAccumulators();
 	body->setAcceleration(0, -10.0f, 0); //Set the gravity
 	body->setAwake();
-	body->setCanSleep(true);
+	// body->setCanSleep(true);
 	body->calculateDerivedData();
 }

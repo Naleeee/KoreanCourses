@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Box.hpp"
+#include "Sphere.hpp"
 #include "body.h"
 #include "collide_fine.h"
 #include "contacts.h"
@@ -12,16 +13,30 @@ public:
 	cyclone::Contact *contacts;
 	cyclone::CollisionData *cData;
 	cyclone::ContactResolver *resolver;
-	std::vector<Box *> boxData; // a set of boxes
+	std::vector<Box *> boxData;		  // a set of boxes
+	std::vector<Sphere *> sphereData; // a set of boxes
 	int maxContacts = 100;
 
 	SimplePhysics()
 	{
-		std::cout << "Init simple physics" << std::endl;
-		boxData.push_back(new Box(cyclone::Vector3(10, 10, 10), cyclone::Vector3(3, 5, 4)));
-		boxData.push_back(new Box(cyclone::Vector3(2, 40, -2), cyclone::Vector3(5, 4, 8)));
-		boxData.push_back(new Box(cyclone::Vector3(0, 5, 0), cyclone::Vector3(4, 4, 4)));
-		boxData.push_back(new Box(cyclone::Vector3(0, 15, 5), cyclone::Vector3(10, 3, 5)));
+		std::cout << "[KNEELS] Init" << std::endl;
+		// Row 1
+		boxData.push_back(new Box(cyclone::Vector3(0, 7, 50), cyclone::Vector3(5, 15, 5)));
+		// Row 2
+		boxData.push_back(new Box(cyclone::Vector3(4, 7, 58), cyclone::Vector3(5, 15, 5)));
+		boxData.push_back(new Box(cyclone::Vector3(-4, 7, 58), cyclone::Vector3(5, 15, 5)));
+		// Row 3
+		boxData.push_back(new Box(cyclone::Vector3(0, 7, 66), cyclone::Vector3(5, 15, 5)));
+		boxData.push_back(new Box(cyclone::Vector3(8, 7, 66), cyclone::Vector3(5, 15, 5)));
+		boxData.push_back(new Box(cyclone::Vector3(-8, 7, 66), cyclone::Vector3(5, 15, 5)));
+		// Row 4
+		boxData.push_back(new Box(cyclone::Vector3(12, 7, 72), cyclone::Vector3(5, 15, 5)));
+		boxData.push_back(new Box(cyclone::Vector3(4, 7, 72), cyclone::Vector3(5, 15, 5)));
+		boxData.push_back(new Box(cyclone::Vector3(-4, 7, 72), cyclone::Vector3(5, 15, 5)));
+		boxData.push_back(new Box(cyclone::Vector3(-12, 7, 72), cyclone::Vector3(5, 15, 5)));
+
+		std::cout << "[BALL] Init" << std::endl;
+		sphereData.push_back(new Sphere(cyclone::Vector3(0, 6, -80), 4));
 		contacts = new cyclone::Contact[maxContacts];
 		cData = new cyclone::CollisionData();
 		//Put contact array into the CollisionData
@@ -36,4 +51,6 @@ public:
 	void generateContacts(); //Check contacts here
 	void update(cyclone::real duration);
 	void render(int shadow);
+	void checkEdgesBox(cyclone::CollisionBox *entity);
+	void checkEdgesSphere(cyclone::CollisionSphere *entity);
 };

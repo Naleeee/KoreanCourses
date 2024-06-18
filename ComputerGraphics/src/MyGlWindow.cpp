@@ -2,6 +2,7 @@
 
 #include "3DUtils.h"
 #include "Box.hpp"
+#include "DrawUtils.h"
 #include "Mover.hpp"
 #include "Vec3f.h"
 #include "particle.h"
@@ -9,11 +10,13 @@
 #include "timing.h"
 
 #include <cmath>
+#include <cstring>
 #include <iostream>
+#include <numeric>
 #include <ostream>
 
-static double DEFAULT_VIEW_POINT[3] = {60, 20, 60};
-static double DEFAULT_VIEW_CENTER[3] = {0, 0, 0};
+static double DEFAULT_VIEW_POINT[3] = {0, 50, -95};
+static double DEFAULT_VIEW_CENTER[3] = {0, 1, -50};
 static double DEFAULT_UP_VECTOR[3] = {0, 1, 0};
 
 void drawStrokeText(char *string, int x, int y, int z)
@@ -55,7 +58,7 @@ MyGlWindow::MyGlWindow(int x, int y, int w, int h)
 {
 	mode(FL_RGB | FL_ALPHA | FL_DOUBLE | FL_STENCIL);
 
-	fieldOfView = 60;
+	fieldOfView = 80;
 
 	glm::vec3 viewPoint(DEFAULT_VIEW_POINT[0], DEFAULT_VIEW_POINT[1], DEFAULT_VIEW_POINT[2]);
 	glm::vec3 viewCenter(DEFAULT_VIEW_CENTER[0], DEFAULT_VIEW_CENTER[1], DEFAULT_VIEW_CENTER[2]);
@@ -114,10 +117,20 @@ void MyGlWindow::setupLight(float x, float y, float z)
 
 void MyGlWindow::drawStuff()
 {
-	// Draw yellow plane
-	// glColor4f(1, 1, 0, 0.5); //color
-	// polygonf(4, 20.0f, 0.0f, -25.0f, 20.0f, 0.0f, 25.0f, -20.0f, 30.0f, 25.0f, -20.0f, 30.0f,
-	// 		 -25.0f);
+	// Draw board game in yellow
+	glColor4f(1, 1, 0, 0.5); // yellow
+							 // Left pane
+	polygonf(4, 30.0f, 0.0f, 100.0f, 30.0f, 10.0f, 100.0f, 30.0f, 10.0f, -100.0f, 30.0f, 0.0f,
+			 -100.0f);
+	// Right pane
+	polygonf(4, -30.0f, 0.0f, 100.0f, -30.0f, 10.0f, 100.0f, -30.0f, 10.0f, -100.0f, -30.0f, 0.0f,
+			 -100.0f);
+	// Front pane
+	polygonf(4, 30.0f, 0.0f, 100.0f, 30.0f, 10.0f, 100.0f, -30.0f, 10.0f, 100.0f, -30.0f, 0.0f,
+			 100.0f);
+	// Back pane
+	polygonf(4, 30.0f, 0.0f, -100.0f, 30.0f, 10.0f, -100.0f, -30.0f, 10.0f, -100.0f, -30.0f, 0.0f,
+			 -100.0f);
 }
 
 //==========================================================================
@@ -146,24 +159,24 @@ void MyGlWindow::draw()
 
 	// Add a sphere to the scene.
 	// Draw axises
-	glLineWidth(3.0f);
-	glBegin(GL_LINES);
-	glColor3f(1, 0, 0);
-
-	glVertex3f(0.0f, 0.1f, 0.0f);
-	glVertex3f(0.0f, 100.0f, 0.0f);
-
-	glColor3f(0.0f, 11.0f, 0.0f);
-
-	glVertex3d(0.0f, 0.1f, 0.0f);
-	glVertex3d(100.0f, 0.1, 0.0f);
-
-	glColor3f(0.0f, 0.0f, 1.0f);
-
-	glVertex3f(0.0f, 0.1f, 0.0f);
-	glVertex3f(0.0f, 0.1f, 100.0f);
-	glEnd();
-	glLineWidth(1.0f);
+	// glLineWidth(3.0f);
+	// glBegin(GL_LINES);
+	// glColor3f(1, 0, 0);
+	//
+	// glVertex3f(0.0f, 0.1f, 0.0f);
+	// glVertex3f(0.0f, 100.0f, 0.0f);
+	//
+	// glColor3f(0.0f, 11.0f, 0.0f);
+	//
+	// glVertex3d(0.0f, 0.1f, 0.0f);
+	// glVertex3d(100.0f, 0.1, 0.0f);
+	//
+	// glColor3f(0.0f, 0.0f, 1.0f);
+	//
+	// glVertex3f(0.0f, 0.1f, 0.0f);
+	// glVertex3f(0.0f, 0.1f, 100.0f);
+	// glEnd();
+	// glLineWidth(1.0f);
 
 	// draw shadow
 	setupShadows();
@@ -187,7 +200,8 @@ void MyGlWindow::draw()
 	glPopMatrix();
 
 	////////////////////
-	const char *name = "Nathan Lemale";
+	const char *name = "Current score: ";
+	// strcat(name, std::iota(jku, ForwardIterator last, Tp value));
 	char *mutableName = const_cast<char *>(name);
 	putText(mutableName, 0, 0, 1, 1, 0); /////
 	glViewport(0, 0, w(), h());
@@ -246,10 +260,10 @@ void MyGlWindow::doPick()
 	glInitNames();
 	glPushName(0);
 
-	for (int i = 0; i < simplePhysics->boxData.size(); i++) {
+	for (int i = 0; i < simplePhysics->sphereData.size(); i++) {
 		glLoadName(i + 1);
 
-		simplePhysics->boxData[i]->render(0);
+		simplePhysics->sphereData[i]->render(0);
 	}
 
 	// go back to drawing mode, and see how picking did
@@ -310,7 +324,7 @@ int MyGlWindow::handle(int e)
 			if (m_pressedMouseButton == 1) {
 				doPick();
 				if (selected >= 0) {
-					initialPos = simplePhysics->boxData[selected]->body->getPosition();
+					initialPos = simplePhysics->sphereData[selected]->body->getPosition();
 				}
 				damage(1);
 				return 1;
@@ -322,8 +336,10 @@ int MyGlWindow::handle(int e)
 		case FL_RELEASE:
 			m_pressedMouseButton = -1;
 			if (selected >= 0) {
-				// cyclone::Vector3 finalPos = simplePhysics->boxData[selected]->body->getPosition();
-				// cyclone::Vector3 newVelocity = finalPos - initialPos;
+				cyclone::Vector3 finalPos =
+					simplePhysics->sphereData[selected]->body->getPosition();
+				cyclone::Vector3 newVelocity = finalPos - initialPos;
+				simplePhysics->sphereData[selected]->body->setVelocity(newVelocity);
 				// simplePhysics->boxData[selected]->body->setVelocity(newVelocity);
 				run = 1;
 				selected = -1;
@@ -345,12 +361,12 @@ int MyGlWindow::handle(int e)
 				double rx = NAN, ry = NAN, rz = NAN;
 				mousePoleGo(
 					r1x, r1y, r1z, r2x, r2y, r2z,
-					static_cast<double>(simplePhysics->boxData[selected]->body->getPosition().x),
-					static_cast<double>(simplePhysics->boxData[selected]->body->getPosition().y),
-					static_cast<double>(simplePhysics->boxData[selected]->body->getPosition().z),
+					static_cast<double>(simplePhysics->sphereData[selected]->body->getPosition().x),
+					static_cast<double>(simplePhysics->sphereData[selected]->body->getPosition().y),
+					static_cast<double>(simplePhysics->sphereData[selected]->body->getPosition().z),
 					rx, ry, rz, (Fl::event_state() & FL_CTRL) != 0);
 
-				simplePhysics->boxData[selected]->body->setPosition(rx, ry, rz);
+				simplePhysics->sphereData[selected]->body->setPosition(rx, ry, rz);
 				damage(1);
 			} else if (m_pressedMouseButton == 1) {
 				m_viewer->rotate(fractionChangeX, fractionChangeY);
