@@ -15,10 +15,6 @@ public:
 	{
 		std::cout << "[BOX] Creation" << std::endl;
 		halfSize = cyclone::Vector3(size.x / 2, size.y / 2, size.z / 2);
-		// std::cout << "[BOX] Size:" << halfSize.x << "|" << halfSize.y << "|" << halfSize.z << "|"
-		// 		  << std::endl;
-		// std::cout << "[BOX] Position:" << position.x << "|" << position.y << "|" << position.z
-		// 		  << "|" << std::endl;
 		body = new cyclone::RigidBody();
 		initPosition = position;
 

@@ -50,21 +50,21 @@ void but_cb(Fl_Widget *o, void *data)
 	win->damage(1);
 }
 
-void but_cb2(Fl_Widget *o, void *data)
+void resetBallMethod(Fl_Widget *o, void *data)
 {
 	auto *b = dynamic_cast<Fl_Button *>(o); // Ä³½ºÆÃÀÌ ¹Ýµå½Ã ÇÊ¿ä
 	auto *win = (MyGlWindow *)data;
-	win->test();
+	win->resetEntities(false, true);
 	win->damage(1);
 }
 
-// void but_cb3(Fl_Widget *o, void *data)
-// {
-// 	Fl_Value_Slider *b = (Fl_Value_Slider *)o; //캐스팅이 반드시 필요
-// 	MyGlWindow *win = (MyGlWindow *)data;
-// 	win->testValue(b->value());
-// 	win->damage(1);
-// }
+void resetAllMethod(Fl_Widget *o, void *data)
+{
+	auto *b = dynamic_cast<Fl_Button *>(o); // Ä³½ºÆÃÀÌ ¹Ýµå½Ã ÇÊ¿ä
+	auto *win = (MyGlWindow *)data;
+	win->resetEntities(true, true);
+	win->damage(1);
+}
 
 int main()
 {
@@ -97,12 +97,15 @@ int main()
 	choice->value(2);
 	choice->callback((Fl_Callback *)changeFrameCB, gl);
 
-	auto *test = new Fl_Light_Button(width - 600, height - 40, 100, 20, "Run");
-	test->callback(but_cb, gl);
-	gl->ui = test;
+	auto *runButton = new Fl_Light_Button(width - 600, height - 40, 100, 20, "Run");
+	runButton->callback(but_cb, gl);
+	gl->ui = runButton;
 
-	auto *test2 = new Fl_Button(width - 400, height - 40, 100, 20, "Reset entities");
-	test2->callback(but_cb2, gl);
+	auto *resetBallButton = new Fl_Button(width - 450, height - 40, 150, 20, "Reset ball");
+	resetBallButton->callback(resetBallMethod, gl);
+
+	auto *resetAllButton = new Fl_Button(width - 250, height - 40, 150, 20, "Reset all entities");
+	resetAllButton->callback(resetAllMethod, gl);
 
 	wind->end();
 

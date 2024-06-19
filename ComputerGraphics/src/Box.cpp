@@ -4,7 +4,6 @@
 
 void Box::render(int shadow)
 {
-	// std::cout << "Box render" << std::endl;
 	GLfloat mat[16];
 	body->getGLTransform(mat);
 	if (shadow)
@@ -15,7 +14,6 @@ void Box::render(int shadow)
 		glColor3f(1.0f, 0.7f, 0.7f);
 	glPushMatrix();
 	glMultMatrixf(mat);
-	// std::cout << halfSize.x << "|" << halfSize.y << "|" << halfSize.z << "|" << std::endl;
 	glScalef(halfSize.x * 2, halfSize.y * 2, halfSize.z * 2);
 	glutSolidCube(1.0f);
 	glPopMatrix();

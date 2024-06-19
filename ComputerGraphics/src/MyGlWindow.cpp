@@ -1,19 +1,16 @@
 #include "MyGlWindow.h"
 
 #include "3DUtils.h"
-#include "Box.hpp"
 #include "DrawUtils.h"
-#include "Mover.hpp"
-#include "Vec3f.h"
-#include "particle.h"
-#include "random.h"
 #include "timing.h"
 
+#include <GL/glu.h>
 #include <cmath>
 #include <cstring>
 #include <iostream>
-#include <numeric>
 #include <ostream>
+#include <stdlib.h>
+#include <string>
 
 static double DEFAULT_VIEW_POINT[3] = {0, 50, -95};
 static double DEFAULT_VIEW_CENTER[3] = {0, 1, -50};
@@ -200,8 +197,11 @@ void MyGlWindow::draw()
 	glPopMatrix();
 
 	////////////////////
-	const char *name = "Current score: ";
-	// strcat(name, std::iota(jku, ForwardIterator last, Tp value));
+	char name[20] = "Current score: ";
+	std::string s = std::to_string(score);
+	char const *pchar = s.c_str();
+
+	strcat(name, pchar);
 	char *mutableName = const_cast<char *>(name);
 	putText(mutableName, 0, 0, 1, 1, 0); /////
 	glViewport(0, 0, w(), h());
@@ -209,11 +209,14 @@ void MyGlWindow::draw()
 	glEnable(GL_COLOR_MATERIAL);
 }
 
-void MyGlWindow::test()
+void MyGlWindow::testValue(float t) { }
+
+void MyGlWindow::resetEntities(bool resetKeels, bool resetBall)
 {
-	cyclone::Vector3 unitVector =
-		cyclone::Random().randomVector(cyclone::Vector3(-1, 2, -1), cyclone::Vector3(1, 2, 1));
-	simplePhysics->reset();
+	if (resetKeels) {
+		score = 0;
+	}
+	simplePhysics->reset(resetKeels, resetBall);
 }
 
 cyclone::Vector3 lerp(const float t, const cyclone::Vector3 &p0, const cyclone::Vector3 &p1)
@@ -231,7 +234,7 @@ void MyGlWindow::update()
 	float duration = (float)TimingData::get().lastFrameDuration * 0.003f;
 
 	// Update entities
-	simplePhysics->update(duration);
+	score += simplePhysics->update(duration);
 }
 
 void MyGlWindow::doPick()

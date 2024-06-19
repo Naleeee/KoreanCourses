@@ -12,14 +12,14 @@ void SimplePhysics::generateContacts()
 	cyclone::CollisionPlane plane;
 	plane.direction = cyclone::Vector3(0, 1, 0); //normal
 	plane.offset = 0;							 //distance from the origin
-	for (Box *box : boxData) {
+	for (auto &[box, isDown] : boxData) {
 		checkEdgesBox(box);
 		// Check for collisions with the ground plane
 		if (!cData->hasMoreContacts())
 			return;
 		cyclone::CollisionDetector::boxAndHalfSpace(*box, plane, cData);
 		// Check for collisions with each other box
-		for (Box *box2 : boxData) {
+		for (auto &[box2, isDown2] : boxData) {
 			if (box2 == box) {
 				continue;
 			}
@@ -36,7 +36,7 @@ void SimplePhysics::generateContacts()
 			return;
 		cyclone::CollisionDetector::sphereAndHalfSpace(*sphere, plane, cData);
 		// Check for collisions with each other box
-		for (Box *box : boxData) {
+		for (auto &[box, isDown] : boxData) {
 			if (!cData->hasMoreContacts())
 				return;
 			cyclone::CollisionDetector::boxAndSphere(*box, *sphere, cData);
@@ -90,15 +90,19 @@ void SimplePhysics::checkEdgesSphere(cyclone::CollisionSphere *entity)
 	entity->body->setVelocity(vel);
 }
 
-void SimplePhysics::update(cyclone::real duration)
+int SimplePhysics::update(cyclone::real duration)
 {
-	// std::cout << "SimplePhysics update" << std::endl;
+	int score = 0;
 	generateContacts();
 	resolver->resolveContacts(cData->contactArray, cData->contactCount, duration);
-	for (Box *box : boxData) {
+	for (auto &[box, isDown] : boxData) {
 		// Run the physics
 		box->body->integrate(duration);
 		box->calculateInternals();
+		if (box->body->getPosition().y <= 6 && isDown == 0) {
+			isDown = true;
+			score++;
+		}
 	}
 
 	for (Sphere *sphere : sphereData) {
@@ -106,30 +110,33 @@ void SimplePhysics::update(cyclone::real duration)
 		sphere->body->integrate(duration);
 		sphere->calculateInternals();
 	}
+
+	return score;
 }
 
 void SimplePhysics::render(int shadow)
 {
-	// std::cout << "SimplePhysics render" << std::endl;
-	for (Box *box : boxData) {
-		// std::cout << "Call render" << std::endl;
+	for (auto &[box, isDown] : boxData) {
 		box->render(shadow);
 	}
 
 	for (Sphere *sphere : sphereData) {
-		// std::cout << "Call render" << std::endl;
 		sphere->render(shadow);
 	}
 }
 
-void SimplePhysics::reset()
+void SimplePhysics::reset(bool resetKeels, bool resetBall)
 {
-	for (Box *box : boxData) {
-		box->setState(box->initPosition, cyclone::Quaternion(0, 0, 0, 0), box->halfSize,
-					  cyclone::Vector3(0.0f, 0.0f, 0.0f));
+	if (resetKeels) {
+		for (auto &[box, isDown] : boxData) {
+			box->setState(box->initPosition, cyclone::Quaternion(0, 0, 0, 0), box->halfSize,
+						  cyclone::Vector3(0.0f, 0.0f, 0.0f));
+		}
 	}
 
-	for (Sphere *sphere : sphereData) {
-		sphere->setState(sphere->initPosition, cyclone::Vector3(0.0f, 0.0f, 0.0f));
+	if (resetBall) {
+		for (Sphere *sphere : sphereData) {
+			sphere->setState(sphere->initPosition, cyclone::Vector3(0.0f, 0.0f, 0.0f));
+		}
 	}
 }

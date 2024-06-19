@@ -19,7 +19,7 @@ public:
 	void update();
 	void drawStuff();
 	void doPick();
-	void test();
+	void resetEntities(bool, bool);
 	void testValue(float t);
 
 	int selected = -1;
